@@ -1,0 +1,87 @@
+
+/* New Arrivals Section Styles */
+.new-arrivals-sec {
+  padding: 80px 0;
+  background-color: #F6F4F2;
+}
+
+.new-arrivals-sec .wishlist-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dc3545;
+  transition: all 0.3s ease;
+}
+
+.new-arrivals-sec .wishlist-btn:hover {
+  background: #dc3545;
+  color: white;
+  transform: scale(1.1);
+}
+
+.new-arrivals-sec .category-name {
+  font-size: 0.875rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+
+
+.new-arrivals-sec .review-rating {
+  font-size: 0.875rem;
+}
+
+.new-arrivals-sec .rating {
+  color: #ffc107;
+}
+
+.new-arrivals-sec .review {
+  color: #6c757d;
+}
+
+.new-arrivals-sec .color-swatch {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.new-arrivals-sec .color-swatch:hover {
+  transform: scale(1.2);
+}
+
+.new-arrivals-sec .badge {
+  font-size: 0.75rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .new-arrivals-sec {
+    padding: 40px 0;
+  }
+
+  /* .new-arrivals-sec .section-title {
+    font-size: 2rem;
+  } */
+
+  .new-arrivals-sec .card-image {
+    height: 180px;
+  }
+}
+
+@media (max-width: 576px) {
+  /* .new-arrivals-sec .section-title {
+    font-size: 1.75rem;
+  } */
+
+  .new-arrivals-sec .card-image {
+    height: 160px;
+  }
+
+  .new-arrivals-sec .wishlist-btn {
+    width: 35px;
+    height: 35px;
+  }
+}

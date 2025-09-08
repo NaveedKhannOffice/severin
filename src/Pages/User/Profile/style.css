@@ -1,0 +1,60 @@
+.profile-card{
+  border-radius: 26px;
+  background: #e7e7e7;
+  box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.10);
+  padding: 50px 50px;
+}
+.profile-card .profile-image {
+  max-width: 215px;
+  position: relative;
+  width: auto;
+  height: auto;
+}
+
+.profile-card .profile-image .upload-btn {
+  font-size: 16px;
+  background: var(--primaryColor);
+  color: #fff;
+  border-radius: 99px;
+  width: 45px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: -22px;
+  right: -15px;
+  cursor: pointer;
+}
+.profile-card .profile-image  .upload-btn svg{
+  width: 25px;
+}
+
+.profile-card .profile-image img {
+  max-width: 215px;
+  width: 215px;
+  height: 215px;
+  border: 0px solid transparent;
+  border-radius: 10px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+}
+.profile-card h5 {
+  font-size: 16px;
+  color: #262626;
+}
+.profile-card p {
+  font-size: 17px;
+  color: var(--bs-black);
+  margin-bottom: 0px;
+}
+.profile-card .btn{
+  font-size: 17px;
+  min-width: 250px;
+}
+@media screen and (max-width:767px) {
+  .profile-card {
+    padding: 40px 30px;
+  } 
+}

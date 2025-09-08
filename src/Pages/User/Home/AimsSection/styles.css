@@ -1,0 +1,76 @@
+.aim-sec{
+  background: #2B2B2B;
+  padding: 50px 0;
+}
+
+.aim-sec h2{
+  color: var(--bs-white);
+  font-size: 60px;
+  line-height: 1.1;
+}
+.aim-sec p{
+  color: #ffffff;
+  line-height:2;
+  font-size: 18px;
+}
+.aim-sec .discription-wrapper{
+  max-width: 500px;
+}
+
+@media screen and (max-width:1666px) {
+  .aim-sec h2 {
+    font-size: 60px;
+  }
+}
+
+@media screen and (max-width:1399px) {
+  .aim-sec h2 {
+    font-size: 53px;
+  }
+  .aim-sec h3{
+    font-size: 28px;
+  }
+}
+@media screen and (max-width:1199px) {
+  .aim-sec h2 {
+    font-size: 48px;
+  }
+  .aim-sec p {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .aim-sec h3{
+    font-size: 28px;
+  }
+}
+@media screen and (max-width:991px) {
+  .aim-sec {
+    padding: 50px 0;
+  }
+  .aim-sec h2 {
+    font-size: 38px;
+  } 
+  .aim-sec p{
+    margin-bottom: 0px;
+  }
+
+}
+@media screen and (max-width:767px) {
+  .aim-sec h3{
+    font-size: 26px;
+  }
+}
+@media screen and (max-width:575px) {
+  .aim-sec {
+    padding: 30px 0;
+  }
+  .aim-sec h2 {
+    font-size: 35px;
+  }
+  .aim-sec h3{
+    font-size: 22px;
+  }
+}
+
+
+

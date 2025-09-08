@@ -1,0 +1,95 @@
+/* Home Service Section */
+.service-card{
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0px 7.172px 71.719px 0px rgba(0, 0, 0, 0.06);
+  padding: 18px;
+  border: none;
+  color: #000;
+}
+.service-card img.card-img-top{
+  border-radius: 15px 15px 0px 0px;
+}
+.service-card .category-name{
+  font-size: 17px;
+  color:#1A8C1A;
+}
+.service-card .card-title{
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--bs-black);
+}
+.service-card .card-title a{
+  text-decoration: none;
+  color: var(--bs-black);
+  transition: all .6s ease 0s;
+}
+.service-card .card-title a:hover{
+  color: #1A8C1A;
+}
+.service-card .review-rating{
+  font-size: 20px;
+}
+.service-card .review-rating svg{
+  font-size: 22px;
+}
+/* .review-rating .review{
+  color: #666666;
+  padding-left: 12px;
+  margin-left: 12px;
+}
+.review-rating .review:before{
+  height: 20px;
+  width: 2px;
+  background-color: #B4B4B4;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  content: "";
+  transform: translateY(-51%);
+} */
+.review-rating svg path{
+  fill: #FDB332;
+}
+.service-card .price{
+  font-size: 23px;
+  font-weight: 600;
+  color: var(--blueColor);
+  line-height: 1.1;
+}
+.service-card .wishlist-btn{
+  line-height: 1;
+}
+.service-card .wishlist-btn svg{
+  font-size: 22px;
+}
+.service-card .wishlist-btn svg path{
+  color: #ff0000;
+}
+
+
+@media screen and (max-width:1399px) {
+  .service-card .card-title {
+    font-size: 18px;
+  }
+  .service-card .price {
+    font-size: 20px;
+  }
+  .service-card .review-rating {
+    font-size: 17px;
+  }
+  
+}
+@media screen and (max-width:1199px) {
+  .service-card .card-title {
+    font-size: 17px;
+  }
+  .service-card .price {
+    font-size: 19px;
+  }
+  .service-card .review-rating {
+    font-size: 16px;
+  }
+  
+}
+

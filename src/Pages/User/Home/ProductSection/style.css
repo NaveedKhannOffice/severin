@@ -1,0 +1,21 @@
+
+/* New Arrivals Section Styles */
+.product-sec {
+  padding: 80px 0;
+  background-color: #F6F4F2;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-sec .card-image {
+    height: 180px;
+  }
+}
+
+@media (max-width: 576px) {
+  .product-sec .card-image {
+    height: 160px;
+  }
+
+}

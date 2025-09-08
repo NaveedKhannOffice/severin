@@ -1,0 +1,46 @@
+/* Home Service Section */
+.shop-card{
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0px 7.172px 71.719px 0px rgba(0, 0, 0, 0.06);
+  padding: 18px;
+  border: none;
+  color: #000;
+}
+.shop-card img.card-img-top{
+  border-radius: 15px 15px 0px 0px;
+}
+.shop-card .category-name{
+  font-size: 16px;
+  color:#666666;
+}
+.shop-card .card-title{
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--bs-black);
+}
+.shop-card .card-title a{
+  text-decoration: none;
+  color: var(--bs-black);
+  transition: all .6s ease 0s;
+}
+.shop-card .card-title a:hover{
+  color: #1A8C1A;
+}
+.shop-card .price{
+  font-size: 23px;
+  font-weight: 600;
+  color: var(--blueColor);
+}
+.shop-card .add-to-cart-btn{
+  font-size: 17px;
+  font-weight: 600;
+  text-decoration: underline;
+  color: #1A8C1A;
+  border: none;
+  transition: all .6s ease 0s;
+}
+.shop-card .add-to-cart-btn:hover{
+  color: #000;
+  text-decoration: none;
+}

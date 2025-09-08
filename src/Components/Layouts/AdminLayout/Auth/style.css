@@ -1,0 +1,143 @@
+.admin-login-wrap {
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  background-size: cover;
+  justify-content: center;
+  /* background-image: url(../../../../Assets/images/authBg.jpg); */
+  background-repeat: no-repeat;
+}
+
+.login-card {
+  border-radius: 20px;
+  border: 2px solid #C5E4F6;
+  background: #F8F8F8;
+  box-shadow: 0px 0px 60px 3.853px rgba(0, 0, 0, 0.10);
+}
+
+.login-card .left img {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  min-height: 100%;
+  object-fit: cover;
+}
+.login-card .left .adminAuthLogo{
+  width: 180px;
+}
+/* .login-card .authLogo {
+  position: absolute;
+} */
+
+
+
+.auth-wrap {}
+
+.auth_title {
+  color: #fff;
+  font-size: 70px;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: -3.75px;
+  text-transform: capitalize;
+}
+
+.admin-login-wrap .authFormWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: #FFF;
+  box-shadow: none;
+  position: relative;
+  border-radius: 26px;
+}
+
+.admin-login-wrap .authForm {
+  border-radius: 20px;
+  padding: 4rem 4rem;
+  width: 100%;
+  background: #F8F8F8;
+}
+
+
+.auth_card_title {
+  font-size: 56px !important;
+  color: #fff !important;
+  line-height: 1.3 !important;
+}
+
+
+
+.authTitle {
+  font-weight: 600;
+  font-size: 40px;
+  text-transform: capitalize;
+  color: var(--lightblackColor);
+}
+
+.auth-sub-title {
+  color: #fff;
+  font-size: 40px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.authPara {
+  font-weight: 400;
+  font-size: 16px;
+  color: #999999 !important;
+  text-transform: capitalize;
+}
+
+@media screen and (max-width: 1366px) {
+  .authTitle {
+    font-size: 43px;
+  }
+
+  .authLogo img {
+    width: 250px;
+  }
+
+  .auth_card_title {
+    font-size: 42px !important;
+  }
+
+  .auth-sub-title {
+    font-size: 35px;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .authForm {
+    padding: 2rem 2rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .authTitle {
+    font-size: 35px;
+  }
+
+  .auth_card_title {
+    font-size: 36px !important;
+  }
+
+  .auth-sub-title {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .authForm {
+    padding: 2rem 1rem;
+  }
+
+  .authLogo img {
+    width: 200px;
+  }
+
+  .auth_card_title {
+    font-size: 25px !important;
+  }
+}

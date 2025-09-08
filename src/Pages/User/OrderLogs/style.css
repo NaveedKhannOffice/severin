@@ -1,0 +1,24 @@
+.order-detail .detail-card h5{
+  font-size: 18px;
+}
+.order-detail .detail-card p{
+  margin-bottom: 0px;
+}
+.rating-modal .modalContent{
+  margin: 0px;
+}
+.rating-modal h4{
+  font-size: 20px;
+  font-weight: 700;
+}
+.rating-star{}
+.rating-modal textarea.mainInput{
+  background-color: #EDE9E9;
+  border: none;
+}
+.rating-modal .btn-user{
+  padding:12px 40px;
+}
+.rating-modal .modal-body{
+  padding-top: 0;
+}

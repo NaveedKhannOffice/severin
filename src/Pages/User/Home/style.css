@@ -1,0 +1,304 @@
+/******** Header Banner START
+**************************/
+
+.hero-banner {
+  background-size: cover;
+  position: relative;
+  background-repeat: no-repeat;
+  line-height: 0;
+}
+.bio-text {
+  font-style: italic;
+  color: #555;
+  font-size: 16px;
+  quotes: '"' '"'; /* define quotes for content if needed */
+}
+.header-banner .slick-slide img {
+  width: 100%;
+}
+.header-slide {
+  position: relative;
+  z-index: 2;
+}
+.header-slide:before {
+  background: transparent;
+  /* background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(1, 1, 121, 0.2805497198879552) 34%, rgba(0, 0, 0, 0) 100%); */
+  background-size: 100% auto;
+  content: "";
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+.slide-content-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  max-width: 1680px;
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.slide-content {
+  max-width: 40%;
+  padding: 5rem 4rem;
+  background-color:#2B2B2B;
+}
+
+.slide-content h2 {
+  font-size: 85px;
+  position: relative;
+  font-weight: 500;
+  line-height: 1.1;
+  text-transform: capitalize;
+}
+.slide-content h3 {
+  font-size: 32px;
+  position: relative;
+  text-transform: capitalize;
+  color: #fff;
+  font-style: italic;
+  font-weight: 300;
+  margin-bottom: 35px;
+}
+.slide-content h4 {
+  font-size: 35px;
+  font-weight: 400;
+  color: #fff;
+  text-transform: uppercase;
+  margin-bottom: 0;
+  font-family: "Epilogue", sans-serif;
+  line-height: 1;
+}
+.slide-content p{
+  font-size: 32px;
+  color: #fff;
+}
+
+.slide-content .btn {
+  border-width: 0px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+/******** Header Banner END
+**************************/
+
+/******** Header Banner END
+**************************/
+
+/* Top Service */
+.services-sec {
+  padding-bottom: 80px;
+}
+
+/* Top Service Provider */
+.service-provider-slider .slick-track {
+  display: flex;
+}
+.service-provider-slider .slick-slide {
+  display: flex;
+}
+.service-provider-slider .slick-slide > div {
+  display: flex;
+  padding: 30px 10px;
+  flex-grow: 1;
+}
+
+.service-provider-slider .slick-list {
+  display: flex;
+}
+.service-provider-slider .slide {
+  padding: 5px 15px;
+}
+.top-service-card {
+  padding: 25px 20px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0px 4.488px 44.878px 0px rgba(0, 0, 0, 0.06);
+  color: #000;
+
+}
+.top-service-card img {
+  min-height: 74px;
+  max-height: 74px;
+  max-width: 72px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 6px;
+}
+.top-service-card h5 {
+  font-size: 22px;
+}
+.top-service-card p {
+  color: #666666;
+  font-size: 17px;
+}
+.top-service-card .wish-btn {
+  width: 42px;
+  height: 42px;
+  background-color: #e3e3e3;
+  border: none;
+  border-radius: 6px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.top-service-card .wish-btn svg {
+  font-size: 22px;
+}
+.top-service-card .wish-btn svg path {
+  fill: #ff0000;
+}
+.top-service-card .sep-bar {
+  height: 1px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin: 15px 0;
+}
+.top-service-card .btn-blue {
+  border-radius: 2px;
+  font-size: 13px;
+  padding: 7px 20px;
+  font-weight: 500;
+}
+.top-service-card .review-rating {
+  font-size: 17px;
+}
+.booking-card {
+  background-color: #edf6ed;
+  border-radius: 12px;
+  padding: 15px 20px;
+}
+.booking-card .inline-card h5 {
+  flex-basis: 160px;
+  min-width: 160px;
+}
+
+@media screen and (max-width: 1666px) {
+  .slide-content h2 {
+    font-size: 63px;
+    line-height: 80px;
+  }
+  .slide-content h5 {
+    line-height: 1.5;
+  }
+}
+@media screen and (max-width: 1399px) {
+  .slide-content h2 {
+    font-size: 50px;
+    line-height: 65px;
+  }
+  .slide-content h5 {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+}
+@media screen and (max-width: 1199px) {
+  .slide-content {
+    max-width: 70%;
+  }
+  .slide-content h2 {
+    font-size: 43px;
+    line-height: 55px;
+  }
+  .slide-content h5 {
+    font-size: 17px;
+    font-weight: 400;
+  }
+  .services-sec {
+    padding-bottom: 50px;
+  }
+}
+@media screen and (max-width: 991px) {
+  .slide-content {
+    max-width: 100%;
+  }
+  .top-service-card {
+    padding: 15px 15px;
+  }
+  .top-service-card h5 {
+    font-size: 20px;
+  }
+  .top-service-card p {
+    color: #666666;
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .slide-content h2 {
+    font-size: 35px;
+    line-height: 1.2;
+  }
+  .slide-content h5 {
+    font-size: 15px;
+  }
+  .services-sec {
+    padding-top: 20px;
+    padding-bottom: 50px;
+  }
+  .top-service-card h5 {
+    font-size: 18px;
+  }
+  .top-service-card .review-rating {
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 575px) {
+  .slide-content {
+    padding: 20px 0;
+  }
+  .slide-content h2 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+  .slide-content h5 {
+    font-size: 13px;
+  }
+  .slide-content .btn {
+    padding: 12px 30px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .slide-content h2 {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+  .slide-content h5 {
+    font-size: 12px;
+  }
+  .slide-content .btn {
+    padding: 10px 25px;
+  }
+  .slide-content .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .slide-content h2 {
+    margin-bottom: 0px !important;
+  }
+  .slide-content h5 {
+    display: none;
+  }
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+.hero-banner {
+  position: relative;
+  overflow: hidden;
+}
