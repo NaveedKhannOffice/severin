@@ -2,8 +2,8 @@ import React from "react";
 import { Formik } from "formik";
 import { Col, Container, Row } from "react-bootstrap";
 import { changePassword } from "../../Config/Validations";
-import CustomInput from "../CustomInput";
-import CustomButton from "../CustomButton";
+import CustomInput from "../Common/CustomInput";
+import CustomButton from "../Common/CustomButton";
 
 const ChangePasswordForm = ({
   onSubmit,

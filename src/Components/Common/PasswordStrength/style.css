@@ -1,0 +1,75 @@
+.password-strength {
+  margin-top: 8px;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.strength-bar {
+  width: 100%;
+  height: 4px;
+  background-color: #e9ecef;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.strength-fill {
+  height: 100%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.strength-label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.password-requirements {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.requirement {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+}
+
+.requirement-icon {
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.requirement.met .requirement-icon {
+  color: #00C851;
+}
+
+.requirement.unmet .requirement-icon {
+  color: #6c757d;
+}
+
+.requirement.met .requirement-text {
+  color: #00C851;
+}
+
+.requirement.unmet .requirement-text {
+  color: #6c757d;
+}
+
+@media (max-width: 768px) {
+  .password-strength {
+    padding: 8px;
+  }
+
+  .password-requirements {
+    gap: 2px;
+  }
+
+  .requirement {
+    font-size: 10px;
+  }
+}

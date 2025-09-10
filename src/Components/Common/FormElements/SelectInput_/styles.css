@@ -1,0 +1,82 @@
+/*****  Select Box With Arrow *****/
+/* .select-wrapper {
+    position: relative;
+    display: inline-block;
+}
+.select-wrapper select.form-select{
+    -moz-appearance: none; 
+    -webkit-appearance: none;
+}
+.select-wrapper:after {
+  content: "";
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  margin-top: -6px;
+  pointer-events: none;
+  width: 10px;
+  height: 10px;
+  border: 3px solid #878888;
+  border-left: 0;
+  border-top: 0;
+  transform: rotate(45deg);  
+} */
+
+select,
+.form-select {
+  --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23cbcbcb' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+
+
+  font-size:15px;
+  background: transparent;
+  color: #333333;
+  font-weight: 400;
+  transition: all 0.6s ease 0s;
+  padding: 15px 30px 15px 20px;
+  line-height:1.1;
+  width:100%;
+  outline:none;
+  box-shadow:0px 0px 5px rgba(0,0,0,0.05);
+  height: 55px;
+  border: 1px solid #cbcbcb;
+  border-radius: 50px;
+  background-image: var(--bs-form-select-bg-img), var(--bs-form-select-bg-icon, none);
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 19px 15px;
+}
+.form-select option,
+select option{
+  color: var(--bs-black);
+  padding: 10px 5px;
+  background-color: transparent;
+}
+
+.form-select:focus{
+  outline-offset: -2px;
+  -webkit-appearance: none;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
+  outline: none;
+  border: 1px solid var(--primaryColor);
+  color: var(--bs-black);
+  background-color: transparent;
+}
+.form-select:focus,
+select:focus{
+  color: var(--bs-black)
+}
+
+/* .form-control:disabled{
+  opacity: 1;
+  background: transparent;
+  border: transparent;
+  color:var(--lightGray);
+  box-shadow: none;
+}
+.form-control[readonly] {
+  opacity: 1;
+  background: transparent;
+  border: transparent;
+  color:var(--bs-white);
+  box-shadow: none;
+} */

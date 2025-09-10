@@ -1,32 +1,25 @@
-import { Formik } from "formik";
-import PhoneInput from "react-phone-number-input";
+import { Formik, Form } from "formik";
+
 import "react-phone-number-input/style.css";
-import { useNavigate } from "react-router-dom";
-import { images } from "../../../Assets";
-import CustomButton from "../../../Components/CustomButton/index.jsx";
-import CustomInput from "../../../Components/CustomInput/index.jsx";
+import { Link, useNavigate } from "react-router-dom";
+
 import { UserAuthLayout } from "../../../Components/Layouts/UserLayout/AuthLayout/index.jsx";
-import { Select } from "../../../Components/Select/index.jsx";
+
 import { showToast } from "../../../Components/Toast/index.jsx";
-import { language, relationOptions } from "../../../Config/TableStatus.jsx";
 import { signupUserValidationSchema } from "../../../Config/Validations.jsx";
 import { useFormStatus } from "../../../Hooks/useFormStatus.jsx";
 import { post } from "../../../Services/Api";
 import { usePageTitle } from "../../../Utils/helper.jsx";
 import "./style.css";
+import TextInput from "../../../Components/Common/FormElements/TextInput/index.jsx";
+import PhoneInput from "../../../Components/Common/FormElements/PhoneInput/index.jsx";
+import CustomButton from "../../../Components/Common/CustomButton/index.jsx";
+import PasswordStrength from "../../../Components/Common/PasswordStrength/index.jsx";
+import ValidationSummary from "../../../Components/Common/ValidationSummary/index.jsx";
+import { FormCheck } from "react-bootstrap";
+import Feedback from "react-bootstrap/esm/Feedback.js";
 
 // const { isSubmitting, startSubmitting, stopSubmitting } = useFormStatus(); // use your custom hook
-const handleImageChange = (event, setFieldValue, setFieldError) => {
-  const file = event.target.files[0];
-  if (file) {
-    if (!file.type.startsWith("image/")) {
-      setFieldError("profile_image", "Only image files are allowed");
-      return;
-    }
-    console.log(file, "filee");
-    setFieldValue("profile_image", file);
-  }
-};
 
 const UserSignup = () => {
   usePageTitle("Admin Login");
@@ -77,174 +70,126 @@ const UserSignup = () => {
 
   return (
     <>
-      <UserAuthLayout authTitle="Sign up" authMain authPara="Create your account" authLeftText="find support system in a community that understands">
+      <UserAuthLayout authTitle="Sign up" loginUser={true}>
         <Formik
           initialValues={{
-            profile_image: null,
-            first_name: "",
-            last_name: "",
-            language: "",
-            refer_code: "",
-            relation_patient: "",
-            mobile_number: "",
+            user_name: "",
             email: "",
+            mobile_number: "",
             password: "",
             confirm_password: "",
+            agreeTerms: false,
           }}
           validationSchema={signupUserValidationSchema}
           onSubmit={handleSubmit}
         >
-          {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue, setFieldError, setFieldTouched }) => (
-            <form className="mt-3" onSubmit={handleSubmit}>
-              {/* <Toast /> */}
-              <div className="signup-profile-image mx-auto mb-4">
-                <img src={values.profile_image instanceof File ? URL.createObjectURL(values.profile_image) : images.placeholder} alt="User" />
-
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="d-none"
-                  id="profileImage"
-                  onChange={(event) => handleImageChange(event, setFieldValue, setFieldError)}
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            setFieldValue,
+            setFieldError,
+            setFieldTouched,
+          }) => (
+            <Form className="mt-3" onSubmit={handleSubmit}>
+              {/* <ValidationSummary errors={errors} touched={touched} /> */}
+              <div className="mb-4">
+                <TextInput
+                  id="user_name"
+                  name="user_name"
+                  type="text"
+                  required
+                  placeholder="Enter Username"
+                  value={values.user_name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.user_name && errors.user_name}
+                  touched={touched.user_name && errors.user_name}
                 />
-                <label htmlFor="profileImage" className="upload-btn">
-                  <images.CameraIconOutline />
-                </label>
               </div>
-              {errors.profile_image && <div className="errorText red-text text-center">{errors.profile_image}</div>}
-
-              <CustomInput
-                label="First Name"
-                id="first_name"
-                type="text"
-                required
-                placeholder="Enter First Name"
-                labelclass="mainLabel"
-                inputclass="mainInput"
-                value={values.first_name}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={touched.first_name && errors.first_name}
-              />
-              <CustomInput
-                label="Last Name"
-                id="last_name"
-                type="text"
-                required
-                placeholder="Enter Last Name"
-                labelclass="mainLabel"
-                inputclass="mainInput"
-                value={values.last_name}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={touched.last_name && errors.last_name}
-              />
-              <Select
-                className="mainInput selectInput w-100"
-                label="Language"
-                labelclass="mainLabel"
-                required
-                id="language"
-                name="language"
-                wrapperClass="d-block mb-3"
-                mainLabel="Select Language"
-                value={values.language}
-                onChange={(value) => handleChange({ target: { name: "language", value } })} // Adapting to Formik
-                onBlur={handleBlur}
-                error={touched.language && errors.language}
-              >
-                {language}
-              </Select>
-       
-              <div className="inputWrapper position-relative">
-                <label htmlFor="phoneInput" className="mainLabel">
-                  {" "}
-                  Mobile Number<span className="text-danger">*</span>
-                </label>
-                <PhoneInput
-                  defaultCountry="US"
-                  placeholder="Enter phone number"
+              <div className="mb-4">
+                <TextInput
+                  id="email"
+                  type="email"
+                  required
+                  placeholder="Enter Email Address"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.email && errors.email}
+                />
+              </div>
+              <div className="mb-4">
+               <TextInput
+                  id="mobile_number"
+                  type="tel"
+                  required
+                  placeholder="Enter Mobile Number"
                   value={values.mobile_number}
-                  onChange={(mobile_number) => setFieldValue("mobile_number", mobile_number)}
-                  onBlur={() => setFieldTouched("mobile_number", true)}
-                  className="mainInput"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.mobile_number && errors.mobile_number}
                 />
-                {touched.mobile_number && errors.mobile_number ? <div className="text-danger">{errors.mobile_number}</div> : null}
               </div>
-              <CustomInput
-                label="Email"
-                id="email"
-                type="email"
-                required
-                placeholder="Enter your Email"
-                labelclass="mainLabel"
-                inputclass="mainInput"
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={touched.email && errors.email}
-              />
-              
-              <CustomInput
-                label="password"
-                id="password"
-                type="password"
-                required
-                placeholder="Enter password"
-                labelclass="mainLabel"
-                inputclass="mainInput"
-                value={values.password}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={touched.password && errors.password}
-              />
-              <CustomInput
-                label="Confirm Password"
-                id="confirm_password"
-                type="password"
-                required
-                placeholder="Confirm Password"
-                labelclass="mainLabel"
-                inputclass="mainInput"
-                value={values.confirm_password}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={touched.confirm_password && errors.confirm_password}
-              />
-       <CustomInput
-                label="Referral Code (Optional)"
-                id="refer_code"
-                type="text"
-                placeholder="Enter referral code"
-                labelclass="mainLabel"
-                inputclass="mainInput"
-                value={values.refer_code}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              <Select
-                className="mainInput selectInput w-100"
-                label="Relation With Patient (Optional)"
-                labelclass="mainLabel"
-                id="relation_patient"
-                name="relation_patient"
-                wrapperClass="d-block mb-3"
-                value={values.relation_patient}
-                onChange={(value) => handleChange({ target: { name: "relation_patient", value } })} // Adapting to Formik
-              >
-                {relationOptions}
-              </Select>
-              <div className="mt-5 text-center">
+              <div className="mb-4">
+                <TextInput
+                  id="password"
+                  type="password"
+                  required
+                  placeholder="Enter password"
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.password && errors.password}
+                />
+              </div>
+              <div className="mb-4">
+                <TextInput
+                  id="confirm_password"
+                  type="password"
+                  required
+                  placeholder="Confirm Password"
+                  value={values.confirm_password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.confirm_password && errors.confirm_password}
+                />
+              </div>
+              <div className="mb-4">
+                <FormCheck>
+                  <FormCheck.Input
+                    type="checkbox"
+                    id="agreeTerms"
+                    name="agreeTerms"
+                    checked={values.agreeTerms}
+                    onChange={handleChange}
+                    isInvalid={touched.agreeTerms && errors.agreeTerms}
+                  />
+                  <FormCheck.Label for="agreeTerms">
+                    I agree with{" "}
+                    <Link to="/privacy-policy">Privacy Policy</Link> and{" "}
+                    <Link to="/terms-of-use">Terms of Use</Link>
+                  </FormCheck.Label>
+                  {touched.agreeTerms && errors.agreeTerms && (
+                    <Feedback type="invalid">{errors.agreeTerms}</Feedback>
+                  )}
+                </FormCheck>
+              </div>
+              <div className="mb-4">
                 <CustomButton
-                  variant="site-btn primary-btn"
-                  className="px-5 w-100"
-                  text="Sign up"
-                  pendingText="Loading..."
-                  // isPending={isSubmitting}
                   type="submit"
+                  variant="primary"
+                  className="w-100"
+                  text="Sign up"
+                  loadingText="Submitting..."
+                  loading={isSubmitting}
+                  disabled={isSubmitting}
                 />
               </div>
-            </form>
+            </Form>
           )}
         </Formik>
       </UserAuthLayout>

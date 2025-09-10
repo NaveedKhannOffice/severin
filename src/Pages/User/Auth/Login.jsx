@@ -1,28 +1,160 @@
 // import { AuthLayout } from "../../../Components/Layouts/AdminLayout/Auth";
 import { UserAuthLayout } from "../../../Components/Layouts/UserLayout/AuthLayout";
-import LoginForm from "../../../Components/LoginForm";
 import { loginValidationSchema } from "../../../Config/Validations";
 import { usePageTitle } from "../../../Utils/helper";
-import "./style.css";
+import TextInput from "../../../Components/Common/FormElements/TextInput";
+import { FormCheck } from "react-bootstrap";
+import { Formik, Form } from "formik";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useLogin } from "../../../Services/Auth";
+import { useFormStatus } from "../../../Hooks/useFormStatus";
+import CustomButton from "../../../Components/Common/CustomButton";
 
-const UserLogin = () => {
-  usePageTitle("User Login");
+const LogIn = () => {
+  usePageTitle("Login");
+
+  const [load, setLoad] = useState(false);
+  const navigate = useNavigate();
+  const login = useLogin();
+  const { isSubmitting, startSubmitting, stopSubmitting } = useFormStatus(); // use your custom hook
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (values) => {
+    startSubmitting();
+    // let currentUser;
+
+    // currentUser =
+    //   loginCredentials.email == values.email && loginCredentials.password == values.password
+    //     ? (currentUser = loginCredentials)
+    //     : (currentUser = false);
+
+    const currentUser = loginCredentials.find(
+      (user) => user.email === values.email && user.password === values.password
+    );
+
+    // let response = await login(apiEndpoint, values); // open this whn using backend api
+    if (currentUser && currentUser.status) {
+      //remove all redux when using backend APIs
+      dispatch(setToken(currentUser.token));
+      dispatch(setRoles(currentUser.role));
+      dispatch(setData(currentUser));
+      showToast(currentUser.message, "success");
+
+      setTimeout(() => {
+        if (currentUser?.role === "admin") {
+          navigate(`/admin/dashboard`);
+        } else if (currentUser?.role === "provider") {
+          navigate(`/provider`);
+        } else {
+          navigate(`/`); // Default fallback route
+        }
+      }, 1000);
+
+      // setTimeout(() => {
+      //   navigate(currentUser.role === "admin" ? `/admin/dashboard` : `/test`);
+      // }, 1000);
+
+      // setTimeout(() => {
+      //   navigate(`/admin/dashboard`);
+      // }, 1000);
+    } else {
+      showToast(currentUser.message, "error");
+    }
+    stopSubmitting();
+  };
+
   return (
-    <>
-      <UserAuthLayout
-        authTitle="Login Account"
-        authMain
-        authPara="Log In to Your Account"
-        authLeftText="find support system in a community that understands"
+    <UserAuthLayout authTitle="Sign In" authParagraph="" signUpUser={true}>
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        validationSchema={loginValidationSchema}
+        onSubmit={handleSubmit}
       >
-        <LoginForm
-          actor="user"
-          apiEndpoint="/user/login"
-          validationSchema={loginValidationSchema}
-        />
-      </UserAuthLayout>
-    </>
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+        }) => (
+          <Form className="mt-3 login-form" onSubmit={handleSubmit}>
+            <div className="mb-4">
+              {/* {console.log(errors, "errors")} */}
+              <TextInput
+                id="email"
+                name="email"
+                //   label="Email Address"
+                type="text"
+                placeholder="Your usernam or email address"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.email && errors.email}
+                touched={touched.email && errors.email}
+                labelClassName="label-padding-left"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <TextInput
+                id="password"
+                name="password"
+                //   label="Password"
+                type="password"
+                placeholder="Enter Password"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.password && errors.password}
+                labelClassName="label-padding-left"
+                required
+              />
+            </div>
+
+            <div className="d-flex align-items-center justify-content-between mt-1 flex-wrap gap-sm-0 gap-2">
+              <FormCheck
+                type={"checkbox"}
+                name="rememberMe"
+                id="rememberMe"
+                label={`Remember Me`}
+                className="remember-checkbox"
+              />
+              <Link
+                to={"/forget-password"}
+                className="fw-regular text-link forgot-link"
+              >
+                Forgot Password?
+              </Link>
+            </div>
+            <div className="mt-4 mt-lg-5 text-center">
+              <CustomButton
+                type="submit"
+                variant="primary"
+                className="w-100"
+                text="Log In"
+                loadingText="Submitting..."
+                loading={isSubmitting}
+                disabled={isSubmitting}
+              />
+              {/* <CustomButton
+                              type="submit"
+                              loading={isSubmitting || loginMutation.isPending}
+                              disabled={isSubmitting || loginMutation.isPending}
+                              loadingText="Submitting..."
+                              text="Submit"
+                              className="w-100"
+                          /> */}
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </UserAuthLayout>
   );
 };
 
-export default UserLogin;
+export default LogIn;

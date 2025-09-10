@@ -7,6 +7,9 @@ import HeartIcon from "../Assets/images/heartIcon.svg?react";
 import UserIcon from "../Assets/images/userIcon.svg?react";
 import CardIconOutline from "../Assets/images/card-icon-outline.svg?react";
 import CameraIconOutline from "../Assets/images/camera-icon-outline.svg?react";
+import GridIcon from "../Assets/images/svg/grid-icon.svg?react";
+import GridIconV from "../Assets/images/svg/gridV-icon.svg?react";
+
 import placeholder from "../Assets/images/placeholder.jpg";
 import heroBanner from "../Assets/images/hero-banner.png";
 import productImage from "../Assets/images/product-1.png";
@@ -22,6 +25,7 @@ import productImage6 from "../assets/images/product-6.png";
 import productImage7 from "../assets/images/product-7.png";
 import heroBannerbg from "../assets/images/banner-bg.png";
 
+import authLeftImg from "../assets/images/auth-left-img.png";
 
 
 export const images = {
@@ -47,6 +51,9 @@ export const images = {
   productImage6,
   productImage7,
   heroBannerbg,
+  authLeftImg,
+  GridIcon,
+  GridIconV,
 
 
 };

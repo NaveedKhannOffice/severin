@@ -11,8 +11,11 @@ import Home from "../Pages/User/Home";
 // import UserForgetPassword3 from "../Pages/User/Auth/ForgetPassword3";
 
 // import AboutUs from "../Pages/User/AboutUs";
-// import UserLogin from "../Pages/User/Auth/Login";
-// import UserSignup from "../Pages/User/Auth/Signup";
+import PreventUser from "./PreventUser";
+
+import UserLogin from "../Pages/User/Auth/Login";
+import UserSignup from "../Pages/User/Auth/Signup";
+import Shop from "../Pages/User/Shop";
 // import ContactUs from "../Pages/User/ContactUs";
 // import OrderLogs from "../Pages/User/OrderLogs";
 // import OrderLogsDetail from "../Pages/User/OrderLogs/OrderLogsDetail";
@@ -25,7 +28,7 @@ import Home from "../Pages/User/Home";
 // import Wishlist from "../Pages/User/Shop/Wishlist";
 
 
-import ScrollToTop from "../Components/UserComponents/ScrollToTop";
+import ScrollToTop from "../Components/ScrollToTop";
 
 import ErrorPage from "../Pages/User/ErrorPage";
 
@@ -54,25 +57,25 @@ const routes = [
             element: <MainLayout />,
             children: [
               { path: "", element: <Home /> },
-              // { path: "about-us", element: <AboutUs />, },
+              { path: "shop", element: <Shop />, },
               // { path: "contact-us", element: <ContactUs /> },
             ],
           },
-          // {
-          //   element: <MainLayout showFooter={false} />,
-          //   children: [
-          //     {
-          //       element: <PreventUser />, // Wrap provider routes with PreventUser
-          //       children: [
-          //         { path: "signup", element: <UserSignup /> },
-          //         { path: "login", element: <UserLogin /> },
-          //         { path: "/forget-password", element: <UserForgetPassword /> },
-          //         { path: "/forget-password2", element: <UserForgetPassword2 /> },
-          //         { path: "/forget-password3", element: <UserForgetPassword3 /> },
-          //       ],
-          //     },
-          //   ],
-          // },
+          {
+            element: <MainLayout />,
+            children: [
+              {
+                element: <PreventUser />, // Wrap provider routes with PreventUser
+                children: [
+                  { path: "signup", element: <UserSignup /> },
+                  { path: "login", element: <UserLogin /> },
+                  // { path: "/forget-password", element: <UserForgetPassword /> },
+                  // { path: "/forget-password2", element: <UserForgetPassword2 /> },
+                  // { path: "/forget-password3", element: <UserForgetPassword3 /> },
+                ],
+              },
+            ],
+          },
           { path: "*", element: <ErrorPage /> },
         ],
       },

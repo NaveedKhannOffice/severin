@@ -6,6 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
+import Marquee from "react-fast-marquee";
 import {
   Button,
   Container,
@@ -462,10 +463,10 @@ export const Header = () => {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-        <div className="top-bar d-flex justify-content-between align-items-center px-3">
-          <div>SALE: 15% off</div>
-          <div>SHOP | OUR STORY | CUSTOMER CARE</div>
-          <div>SHIPPING WORLDWIDE</div>
+        <div className="top-bar bg-dark text-white py-2">
+          <Marquee speed={50} gradient={false}>
+            SALE: 15% off &nbsp; | &nbsp; SHOP &nbsp; | &nbsp; OUR STORY &nbsp; | &nbsp; CUSTOMER CARE &nbsp; | &nbsp; SHIPPING WORLDWIDE
+          </Marquee>
         </div>
       </header>
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import CustomButton from "../CustomButton";
+import CustomButton from "../Common/CustomButton";
 import { images } from "../../Assets";
 import "./style.css";
 

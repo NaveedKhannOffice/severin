@@ -65,7 +65,7 @@ const ProductSection = ({ data, loading, error }) => {
           </Col>
 
           {products.length > 0 ? (
-            products.map((product, index) => (
+            products.slice(0, 8)?.map((product, index) => (
               <Col
                 key={product.id}
                 xs={12}
@@ -146,7 +146,7 @@ const ProductSection = ({ data, loading, error }) => {
                         to={`/product-detail/${product.id}`}
                         className="btn btn-link"
                       >
-                        See Details
+                        <span>See Details</span>
                       </Link>
                     </div>
                   </Card.Body>

@@ -8,15 +8,15 @@
   justify-content: center;
   background-image: url(../../../../Assets/images/authBg.jpg);
   background-repeat: no-repeat;
-  padding: 45px 0;
-  margin-top: 40px;
+  padding: 0px 0;
+  margin-top: 0px;
 }
 
 .auth-wrap {}
 
 .authFormWrapper {
   /* background: #E9E9E9; */
-  box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.10);
+  max-width: 750px;
 }
 
 .login-social-acount {
@@ -67,7 +67,12 @@
   fill: #090909;
 }
 
-
+.user-login .left img {
+  width: 100%;
+  max-height: 800px;
+  object-fit: cover;
+  height: 100%;
+}
 /* .auth_title {
   color: #fff;
   font-size: 70px;
@@ -93,18 +98,33 @@
 .user-login .authForm {
   padding: 3rem 3rem;
   width: 100%;
-  border-radius: 20px;
   background: #FFF;
-  box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.10);
 }
 
-/* .authTitle {
-  font-weight: 600;
-  font-size: 50px;
+ .authTitle {
+  font-weight: 500;
+  font-size: 60px;
   text-transform: capitalize;
-  color: var(--lightblackColor);
+  color: #000000;
+  line-height: 1.1;
 }
-.auth-sub-title {
+p.new-account-text{
+  font-size: 24px;
+  font-style: italic;
+}
+p.new-account-text a{
+  color: #BD7C66;
+}
+.remember-checkbox .form-check-label{
+  font-weight: 300;
+  margin-bottom: 0px;
+  margin-top:2px ;
+}
+.forgot-link{
+  color: var(--bs-black);
+  font-weight: 500;
+}
+/*.auth-sub-title {
   color: #fff;
   font-size: 40px;
   font-weight: 500;

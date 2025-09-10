@@ -1,0 +1,319 @@
+/************* Input Components Start ***********/
+
+form label,
+label,
+.form-label {
+  font-size: 16px;
+  color: var(--input-label-color);
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.label-padding-left {
+  padding-left: 20px;
+}
+
+/************* Input Components End ***********/
+
+.form-control,
+textarea {
+  font-size: 16px;
+  background-color: var(--input-bg-color);
+  color: var(--input-text-color);
+  font-weight: 400;
+  transition: all 0.6s ease 0s;
+  padding: 15px 10px 15px 0px;
+  line-height: 1.1;
+  width: 100%;
+  outline: none;
+  /* box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05); */
+  height: 51px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  
+  border-bottom: var(--bs-border-width) solid var(--bs-input-border-color);
+  border-radius: 0;
+  
+}
+
+textarea.form-control {
+  height: auto;
+  resize: none;
+  border-radius: 15px;
+  line-height: 1.5;
+}
+
+.form-control:focus,
+textarea:focus,
+.phone-input .react-tel-input .form-control:focus {
+  outline-offset: -2px;
+  -webkit-appearance: none;
+  box-shadow: none;
+  outline: none;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  
+  border-bottom: var(--bs-border-width) solid var(--bs-input-focus-border-color);
+  color: var(--bs-black);
+  background-color: var(--input-bg-color-focus);
+}
+
+.form-control:disabled {
+  opacity: 1;
+  background: transparent;
+  border: transparent;
+  color: var(--lightGray);
+  box-shadow: none;
+}
+
+.form-control[readonly] {
+  opacity: 1;
+  background: transparent;
+  border: transparent;
+  color: var(--bs-black);
+  box-shadow: none;
+}
+
+.passField-wrap,
+.inputField-wrap {
+  position: relative;
+}
+
+.passField-wrap .form-control {
+  padding-right: calc(50px + 0px);
+}
+
+.has-icon-left {
+  padding-left: 2.5rem !important;
+}
+
+.has-icon-right {
+  padding-right: 2.9rem !important;
+}
+
+.input-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 20px;
+}
+
+.icon-left {
+  left: 20px;
+}
+
+.icon-right {
+  right: 22px;
+}
+
+.error-message {
+  font-size: 14px;
+  color: var(--bs-danger);
+  padding-left: 20px;
+}
+
+/***** Password Vissible Button *****/
+form button.view-btn {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  top: 50%;
+  right: 20px;
+  /*margin-top: -8px;*/
+  transform: translateY(-50%);
+  outline: none;
+  line-height: 1;
+}
+
+form button.view-btn svg {
+  position: initial;
+  transition: .3s ease-in-out;
+  color: #878888;
+  font-size: 16px;
+  margin-bottom: 0px;
+}
+
+form button.view-btn:hover svg {
+  color: var(--primaryColor);
+}
+
+form button.view-btn:focus {
+  background: transparent !important;
+}
+
+
+
+/***** React Phont Input *****/
+.phone-input {
+  display: flex;
+}
+
+.phone-input .PhoneInputInput {
+  border: none;
+  background-color: transparent !important;
+  box-shadow: none;
+  outline: none !important;
+
+}
+
+.phone-input .react-tel-input .form-control {
+  font-size: 15px;
+  background-color: transparent;
+  height: 100%;
+  color: #000000;
+  border-radius: 50px !important;
+  width: 100%;
+  padding-left: 75px;
+}
+
+.phone-input .react-tel-input .flag-dropdown {
+  border: none;
+  left: 20px;
+}
+
+.phone-input .react-tel-input .selected-flag {
+  padding: 0 0 0 0px;
+}
+
+.phone-input .react-tel-input .selected-flag .arrow {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #555;
+}
+
+
+/* inline form */
+.inline-form {
+  gap: 10px;
+  /* Add space between label and input */
+}
+
+
+/* Date Time Place Holder */
+/* Date Place Holder - Only apply when there's a placeholder */
+.date-input-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* Only show custom styling when placeholder exists */
+.date-placeholder,
+.time-placeholder {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #959595;
+  pointer-events: none;
+}
+
+.selected-value {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: var(--input-text-color);
+  pointer-events: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Hide the placeholder when the input is focused or has a value */
+.date-input:focus + .date-placeholder,
+.date-input:not(:focus):not(:empty) + .date-placeholder {
+  display: none;
+}
+
+/* Only apply custom focus styling when placeholder exists */
+.date-input:focus {
+  color: #000;
+  text-indent: -100px;
+}
+
+/* Normal date input styling when no placeholder */
+input[type="date"]:not([placeholder]) {
+  color: inherit;
+  text-indent: inherit;
+}
+
+input[type="time"]:not([placeholder]) {
+  color: inherit;
+  text-indent: inherit;
+}
+
+/* Custom calendar picker styling only when placeholder exists */
+input[type="date"][placeholder]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  margin-right: 0px;
+  width: 100%;
+  opacity: 1;
+  background-position: right 0px top;
+}
+
+input[type="time"][placeholder]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  margin-right: 0px;
+  width: 100%;
+  opacity: 1;
+  background-position: right 0px top;
+}
+
+.reset-time-btn {
+  position: absolute;
+  right: 55px;
+  top: 45%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #ff0000;
+  font-size: 25px;
+  cursor: pointer;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.reset-time-btn:hover {
+  /* background-color: #ff0000; */
+  color: #000;
+}
+
+/* Hide default calendar icon when custom icon is present */
+.has-icon-left input[type="date"]::-webkit-calendar-picker-indicator,
+.has-icon-right input[type="date"]::-webkit-calendar-picker-indicator,
+.has-icon-left input[type="time"]::-webkit-calendar-picker-indicator,
+.has-icon-right input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+/* Also hide for Firefox and other browsers */
+.has-icon-left input[type="date"]::-moz-calendar-picker-indicator,
+.has-icon-right input[type="date"]::-moz-calendar-picker-indicator,
+.has-icon-left input[type="time"]::-moz-calendar-picker-indicator,
+.has-icon-right input[type="time"]::-moz-calendar-picker-indicator {
+  display: none;
+}
+
+.has-icon-left input[type="date"]::-ms-clear,
+.has-icon-right input[type="date"]::-ms-clear,
+.has-icon-left input[type="time"]::-ms-clear,
+.has-icon-right input[type="time"]::-ms-clear {
+  display: none;
+}

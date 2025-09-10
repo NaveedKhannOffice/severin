@@ -41,6 +41,7 @@
   }
 }
 
+
 /* Medium devices (md): 768px and up */
 @media (min-width: 768px) {
   .user-layout .container-fluid {
@@ -79,6 +80,6 @@
 
 @media (min-width: 1667px) {
   .user-layout .container-fluid {
-    max-width: 1680px; /* Adjust as per your layout */
+    max-width: 1600px; /* Adjust as per your layout */
   }
 }

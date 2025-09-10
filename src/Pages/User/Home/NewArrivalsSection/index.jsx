@@ -97,7 +97,7 @@ const NewArrivalsSection = ({ data, loading, error }) => {
                       {product.category}
                     </div> */}
                     <div className="d-flex mb-3">
-                      <div className="fle x-grow-1">
+                      <div className="flex-grow-1">
                         <Card.Title className="mb-0">
                           <Link
                             to={`/product-detail/${product.id}`}
@@ -182,7 +182,7 @@ const NewArrivalsSection = ({ data, loading, error }) => {
                         to={`/product-detail/${product.id}`}
                         className="btn btn-link"
                       >
-                        See Details
+                        <span>See Details</span>
                       </Link>
                     </div>
                   </Card.Body>

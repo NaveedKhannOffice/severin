@@ -5,8 +5,8 @@ import { BiLogoInstagramAlt } from "react-icons/bi";
 import { BsTwitterX } from "react-icons/bs";
 import { FaFacebookF } from "react-icons/fa6";
 import "./style.css";
-import CustomInput from "../../../CustomInput";
-import CustomButton from "../../../CustomButton";
+import TextInput from "../../../Common/FormElements/TextInput";
+import CustomButton from "../../../Common/CustomButton";
 
 
 export const Footer = () => {
@@ -86,7 +86,7 @@ export const Footer = () => {
                   Newsletter</h3>
                   <p className="sub-title text-center">Be the first to get exclusive offers and
                   the latest news.</p>
-                  <CustomInput
+                  <TextInput  
                     id="email"
                     type="text"
                     required

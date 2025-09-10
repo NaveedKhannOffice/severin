@@ -4,40 +4,50 @@ import { accountTypeOptions, category } from "./TableStatus";
 const createImageValidation = (errorMessage) =>
   Yup.mixed()
     .required("An image is required.") // Ensure something is provided
-    .test("is-valid-images", errorMessage || "Invalid image file type or no image provided", function (value) {
-      const validImageTypes = ["image/jpeg", "image/jpg", "image/webp", "image/gif", "image/png"];
+    .test(
+      "is-valid-images",
+      errorMessage || "Invalid image file type or no image provided",
+      function (value) {
+        const validImageTypes = [
+          "image/jpeg",
+          "image/jpg",
+          "image/webp",
+          "image/gif",
+          "image/png",
+        ];
 
-      // Handle null or undefined value
-      if (!value) {
-        return false; // No image provided, fail validation
+        // Handle null or undefined value
+        if (!value) {
+          return false; // No image provided, fail validation
+        }
+
+        // Handle the case where value is a string (e.g., URL)
+        if (typeof value === "string") {
+          return true; // If it's a string, assume it's a valid URL
+        }
+
+        // Handle the case where value is a File object
+        if (value instanceof File) {
+          return validImageTypes.includes(value.type); // Check file type
+        }
+
+        // Handle the case where value is an array (if applicable)
+        if (Array.isArray(value)) {
+          return value.some((file) => {
+            if (typeof file === "string") {
+              return true; // Assume valid if it's a string (URL)
+            }
+            if (file instanceof File) {
+              return validImageTypes.includes(file.type); // Check file type
+            }
+            return false;
+          });
+        }
+
+        // If none of the above conditions match, fail validation
+        return false;
       }
-
-      // Handle the case where value is a string (e.g., URL)
-      if (typeof value === "string") {
-        return true; // If it's a string, assume it's a valid URL
-      }
-
-      // Handle the case where value is a File object
-      if (value instanceof File) {
-        return validImageTypes.includes(value.type); // Check file type
-      }
-
-      // Handle the case where value is an array (if applicable)
-      if (Array.isArray(value)) {
-        return value.some((file) => {
-          if (typeof file === "string") {
-            return true; // Assume valid if it's a string (URL)
-          }
-          if (file instanceof File) {
-            return validImageTypes.includes(file.type); // Check file type
-          }
-          return false;
-        });
-      }
-
-      // If none of the above conditions match, fail validation
-      return false;
-    });
+    );
 
 export const pushNotificationSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
@@ -78,7 +88,9 @@ export const branchValidation = Yup.object().shape({
     .min(10, "Must be greater  then 10 digits")
     .max(15, "Must be less then 16 digits")
     .required("Contact Number is required"),
-  email: Yup.string().email("Invalid email address").required("Email is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
   lat: Yup.number().required("Latitude is required"),
   lng: Yup.number().required("Longitude is required"),
   // address: Yup.string().required("Address is required"),
@@ -105,7 +117,9 @@ export const branchEditValidation = Yup.object().shape({
     .min(10, "Must be greater  then 10 digits")
     .max(15, "Must be less then 16 digits")
     .required("Contact Number is required"),
-  email: Yup.string().email("Invalid email address").required("Email is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
   timings: Yup.object()
     .shape({
       monday: timeSchema,
@@ -123,14 +137,24 @@ export const branchEditValidation = Yup.object().shape({
 
 export const loyaltyValidation = Yup.object().shape({
   reward: Yup.string().required("Reward is required"),
-  limit: Yup.number().required("Limit is required").positive("Limit must be a positive number"),
-  number_of_orders: Yup.number().required("No of Orders are required").positive("No of Orders must be a positive number"),
-  discount: Yup.number().required("Discount is required").positive("Discount must be a positive number"),
-  validity: Yup.number().required("Validity is required").positive("Validity must be a positive number"),
+  limit: Yup.number()
+    .required("Limit is required")
+    .positive("Limit must be a positive number"),
+  number_of_orders: Yup.number()
+    .required("No of Orders are required")
+    .positive("No of Orders must be a positive number"),
+  discount: Yup.number()
+    .required("Discount is required")
+    .positive("Discount must be a positive number"),
+  validity: Yup.number()
+    .required("Validity is required")
+    .positive("Validity must be a positive number"),
 });
 
 export const forgotEmail = Yup.object().shape({
-  email: Yup.string().email("Invalid email address").required("Email is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
   // phone: Yup.string().required("Phone number is required"),
 });
 
@@ -169,35 +193,63 @@ export const changePasswordSocial = Yup.object().shape({
 });
 
 export const signupUserValidationSchema = Yup.object().shape({
-  profile_image: Yup.mixed()
-    .nullable()
-    .notRequired()
-    .test(
-      "fileType",
-      "Only image files are allowed",
-      (value) => !value || (value && value.type && value.type.startsWith("image/"))
-    ),
-  first_name: Yup.string().required("First Name is required"),
-  last_name: Yup.string().required("Last Name is required"),
-  language: Yup.string().required("Language is required"),
-  // refer_code: Yup.string()
-  //   .required("Refer Code is required")
-  //   .matches(/^\+?[1-9]\d{1,14}$/, "Refer Code is not valid"),
-  // relation_patient: Yup.string().required("Relation Patient is required"),
+  user_name: Yup.string()
+    .required("User Name is required")
+    .min(2, "User Name must be at least 2 characters")
+    .max(50, "User Name must be less than 50 characters")
+    .matches(/^[a-zA-Z\s]+$/, "User Name can only contain letters and spaces"),
+
   mobile_number: Yup.string()
     .required("Phone number is required")
-    .matches(/^\+?[1-9]\d{1,14}$/, "Phone number is not valid"),
+    .matches(
+      /^(\+?1[-.\s]?)?\(?([0-9]{3})\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{4})$/,
+      "Please enter a valid phone number"
+    )
+    .test("phone-length", "Phone number must be 10 digits", function (value) {
+      const digits = value.replace(/\D/g, "");
+      return digits.length === 10;
+    }),
 
-  email: Yup.string().email("Invalid email address").required("Email is required"),
-  password: Yup.string().required("Password is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required")
+    .test("email-domain", "Please use a valid email domain", function (value) {
+      const validDomains = [
+        "gmail.com",
+        "yahoo.com",
+        "hotmail.com",
+        "outlook.com",
+        "icloud.com",
+      ];
+      const domain = value.split("@")[1];
+      return validDomains.includes(domain?.toLowerCase()) || true; // Allow all domains for now
+    }),
+
+  password: Yup.string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters")
+    .max(128, "Password must be less than 128 characters")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+      "Password must contain at least one uppercase letter, one lowercase letter, and one number"
+    )
+    .matches(
+      /^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/,
+      "Password must contain at least one special character"
+    ),
+
   confirm_password: Yup.string()
     .required("Confirm Password is required")
     .oneOf([Yup.ref("password"), null], "Confirm Password must match Password.")
     .label("Confirm Password"),
+
+  agreeTerms: Yup.boolean()
+    .oneOf([true], "You must agree to the Privacy Policy and Terms of Use")
+    .required("You must agree to the Privacy Policy and Terms of Use"),
 });
 
 export const loginValidationSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email address").required("Email is required"),
+  email: Yup.string().required("User Name or Email is required"),
   password: Yup.string()
     // .min(8, 'Password must be at least 8 characters')
     .required("Password is required"),
@@ -207,7 +259,9 @@ export const contactValidationSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
   subject: Yup.string().required("Subject is required"),
   message: Yup.string().required("Query is required"),
-  email: Yup.string().email("Invalid email address").required("Email is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
   phone: Yup.string()
     .matches(/^[0-9]+$/, "Must be only digits")
     .min(10, "Must be greater  then 10 digits")
@@ -218,7 +272,9 @@ export const contactValidationSchema = Yup.object().shape({
 export const registerValidationSchema = Yup.object().shape({
   first_name: Yup.string().required("First Name is required"),
   last_name: Yup.string().required("Last Name is required"),
-  email: Yup.string().email("Invalid email address").required("Email is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
   password: Yup.string()
     // .min(8, 'Password must be at least 8 characters')
     .required("Password is required"),
@@ -231,7 +287,9 @@ export const registerValidationSchema = Yup.object().shape({
 export const registerValidation = Yup.object().shape({
   name: Yup.string().required("Restaurant Name is required"),
   manager_name: Yup.string().required("Manager Name is required"),
-  email: Yup.string().email("Invalid email address").required("Email is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
   phone: Yup.string()
     .matches(/^[0-9]+$/, "Must be only digits")
     .min(10, "Must be greater  then 10 digits")
@@ -252,13 +310,17 @@ export const promoCodeValidation = Yup.object().shape({
   discount: Yup.number().required("Discount is required"),
   min_amount: Yup.number().required("Min Amount is required"),
   start_date: Yup.date().required("Start Date is required"),
-  end_date: Yup.date().min(Yup.ref("start_date"), "End Date must be after Start Date").required("End Date is required"),
+  end_date: Yup.date()
+    .min(Yup.ref("start_date"), "End Date must be after Start Date")
+    .required("End Date is required"),
   branches: Yup.array().min(1, "Please select at least one branch"),
 });
 
 export const productValidation = Yup.object().shape({
   name: Yup.string().required("Name is required"),
-  price: Yup.number().required("Price is required").min(0, "Price must be a positive number"),
+  price: Yup.number()
+    .required("Price is required")
+    .min(0, "Price must be a positive number"),
   description: Yup.string().required("Description is required"),
   availability: Yup.array().min(1, "Select at least one availability"),
   // image: Yup.mixed()
@@ -276,7 +338,9 @@ export const productValidation = Yup.object().shape({
     })
     .test("fileFormat", "Unsupported Format", (value) => {
       if (typeof value === "string") return true; // If it's a URL, skip this test
-      return value && ["image/jpg", "image/jpeg", "image/png"].includes(value.type);
+      return (
+        value && ["image/jpg", "image/jpeg", "image/png"].includes(value.type)
+      );
     }),
   category: Yup.string().required("Category is required"), // Add this line
 });
@@ -292,13 +356,20 @@ export const paymentValidationSchema = Yup.object().shape({
     .min(3, "CVV Number must be exactly 3 digits")
     .label("CVV Number"),
   month: Yup.string()
-    .test("is-valid-expiration", "Expiration date must be greater than current date", function (value) {
-      if (!value) return false; // if empty, return false
-      const currentYear = new Date().getFullYear();
-      const currentMonth = new Date().getMonth() + 1; // months are zero-based
-      const [inputYear, inputMonth] = value.split("-").map(Number);
-      return inputYear > currentYear || (inputYear === currentYear && inputMonth > currentMonth);
-    })
+    .test(
+      "is-valid-expiration",
+      "Expiration date must be greater than current date",
+      function (value) {
+        if (!value) return false; // if empty, return false
+        const currentYear = new Date().getFullYear();
+        const currentMonth = new Date().getMonth() + 1; // months are zero-based
+        const [inputYear, inputMonth] = value.split("-").map(Number);
+        return (
+          inputYear > currentYear ||
+          (inputYear === currentYear && inputMonth > currentMonth)
+        );
+      }
+    )
     .required()
     .label("Expiration Date"),
   number: Yup.string()
@@ -310,7 +381,10 @@ export const paymentValidationSchema = Yup.object().shape({
 export const bankValidationSchema = Yup.object().shape({
   account_holder_name: Yup.string()
     .required("Account Holder Name is required")
-    .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for Account Holder Name"),
+    .matches(
+      /^[aA-zZ\s]+$/,
+      "Only alphabets are allowed for Account Holder Name"
+    ),
   // account_type: Yup.string()
   //   .required("Account Type is required")
   //   .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for Account Type"),
@@ -353,7 +427,9 @@ export const restaurantProfileValidation = Yup.object().shape({
     .max(15, "Must be less then 16 digits")
     .required("Contact Number is required"),
   account_holder_name: Yup.string().required("Account Holder Name is required"),
-  account_number: Yup.string().matches(/^\d+$/, "Account Number must be only digits").required("Account Number is required"),
+  account_number: Yup.string()
+    .matches(/^\d+$/, "Account Number must be only digits")
+    .required("Account Number is required"),
 });
 
 export const branchProfileValidation = Yup.object().shape({
@@ -371,9 +447,13 @@ export const payoutValidation = (prevRate) =>
       .typeError("Day must be a number")
       .required("Day is Required")
       .min(0, "Day must be a positive number")
-      .test("is-different", "The days have already been taken.", function (value) {
-        return value !== prevRate;
-      }),
+      .test(
+        "is-different",
+        "The days have already been taken.",
+        function (value) {
+          return value !== prevRate;
+        }
+      ),
   });
 
 export const commissionValidation = (prevRate) =>
@@ -382,9 +462,13 @@ export const commissionValidation = (prevRate) =>
       .typeError("Rate must be a number")
       .required("Rate is Required")
       .min(0, "Rate must be a positive number")
-      .test("is-different", "The Rate have already been taken.", function (value) {
-        return value !== prevRate;
-      }),
+      .test(
+        "is-different",
+        "The Rate have already been taken.",
+        function (value) {
+          return value !== prevRate;
+        }
+      ),
   });
 
 export const loyaltyDataValidation = (preValidity, preLimit) =>
@@ -393,16 +477,24 @@ export const loyaltyDataValidation = (preValidity, preLimit) =>
       .typeError("limit must be a number")
       .required("limit is Required")
       .min(0, "limit must be a positive number")
-      .test("is-different", "The limit have already been taken.", function (value) {
-        return value !== preLimit;
-      }),
+      .test(
+        "is-different",
+        "The limit have already been taken.",
+        function (value) {
+          return value !== preLimit;
+        }
+      ),
     validity: Yup.number()
       .typeError("validity must be a number")
       .required("validity is Required")
       .min(0, "validity must be a positive number")
-      .test("is-different", "The validity have already been taken.", function (value) {
-        return value !== preValidity;
-      }),
+      .test(
+        "is-different",
+        "The validity have already been taken.",
+        function (value) {
+          return value !== preValidity;
+        }
+      ),
   });
 export const addFlashcardValidationSchema = Yup.object().shape({
   flashcardTitle: Yup.string().required("Flashcard title is required"),
@@ -417,7 +509,10 @@ export const addQuizValidationSchema = Yup.object().shape({
     .of(
       Yup.object().shape({
         wordOrPhrase: Yup.string().required("Word or phrase is required"),
-        options: Yup.array().of(Yup.string().required("Option is required")).min(4, "Must have at least 4 options").max(4, "Must have at most 4 options"),
+        options: Yup.array()
+          .of(Yup.string().required("Option is required"))
+          .min(4, "Must have at least 4 options")
+          .max(4, "Must have at most 4 options"),
       })
     )
     .min(1, "At least one question is required"),
@@ -438,13 +533,17 @@ export const addChallengeValidationSchema = Yup.object().shape({
     .test("is-time", "End time must be a valid time", (value) => {
       return /^(?:[01]\d|2[0-3]):[0-5]\d$/.test(value); // Simple regex to check HH:mm format
     })
-    .test("is-greater", "End time must be after start time", function (endTime) {
-      const { startTime } = this.parent;
-      if (startTime && endTime) {
-        return startTime < endTime; // Compare the times as strings
+    .test(
+      "is-greater",
+      "End time must be after start time",
+      function (endTime) {
+        const { startTime } = this.parent;
+        if (startTime && endTime) {
+          return startTime < endTime; // Compare the times as strings
+        }
+        return true; // If startTime or endTime is not provided, validation passes for this test
       }
-      return true; // If startTime or endTime is not provided, validation passes for this test
-    }),
+    ),
   // timing: Yup.array()
   //   .of(
   //     Yup.string()
@@ -494,44 +593,56 @@ export const addWordsThroughtCsvSchema = Yup.object().shape({
   status: Yup.string().required("Status is required"),
 });
 export const addProductCategorySchema = Yup.object().shape({
-  category_title: Yup.string().required("Category Title is required").min(3, "Category Title must be at least 3 characters long"),
+  category_title: Yup.string()
+    .required("Category Title is required")
+    .min(3, "Category Title must be at least 3 characters long"),
   // status: Yup.string().required("Status is required"),
 });
 export const addServiceCategorySchema = Yup.object().shape({
-  category_title: Yup.string().required("Category Title is required").min(3, "Category Title must be at least 3 characters long"),
+  category_title: Yup.string()
+    .required("Category Title is required")
+    .min(3, "Category Title must be at least 3 characters long"),
   status: Yup.string().required("Status is required"),
 });
 export const commissionRate = Yup.object().shape({
   rate: Yup.string().required("Commission is required"),
 });
 export const addVideoSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required").min(3, "Title must be at least 3 characters long"),
+  title: Yup.string()
+    .required("Title is required")
+    .min(3, "Title must be at least 3 characters long"),
   status: Yup.string().required("Status is required"),
   description: Yup.string().required("Description is required"),
   category: Yup.string().required("Please select one option"),
   video: Yup.mixed()
     .required("A video is required.") // Ensure something is provided
-    .test("is-valid-videos", "At least one valid video file or URL must be provided.", function (value) {
-      const validVideoTypes = ["video/mp4", "video/webm", "video/ogg"];
+    .test(
+      "is-valid-videos",
+      "At least one valid video file or URL must be provided.",
+      function (value) {
+        const validVideoTypes = ["video/mp4", "video/webm", "video/ogg"];
 
-      // Ensure at least one valid file or URL is present
-      const hasValidFiles =
-        value &&
-        value.some((file) => {
-          if (typeof file === "string") {
-            return true; // If it's a string, assume it's a valid URL
-          }
-          if (file instanceof File) {
-            return validVideoTypes.includes(file.type); // Validate file type
-          }
-          return false;
-        });
+        // Ensure at least one valid file or URL is present
+        const hasValidFiles =
+          value &&
+          value.some((file) => {
+            if (typeof file === "string") {
+              return true; // If it's a string, assume it's a valid URL
+            }
+            if (file instanceof File) {
+              return validVideoTypes.includes(file.type); // Validate file type
+            }
+            return false;
+          });
 
-      return hasValidFiles;
-    }),
+        return hasValidFiles;
+      }
+    ),
 });
 export const updateVideoSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required").min(3, "Title must be at least 3 characters long"),
+  title: Yup.string()
+    .required("Title is required")
+    .min(3, "Title must be at least 3 characters long"),
   status: Yup.string().required("Status is required"),
   description: Yup.string().required("Description is required"),
   category: Yup.string().required("Please select one option"),
@@ -557,62 +668,86 @@ export const updateVideoSchema = Yup.object().shape({
   //   }),
 });
 export const addBlogSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required").min(3, "Title must be at least 3 characters long"),
+  title: Yup.string()
+    .required("Title is required")
+    .min(3, "Title must be at least 3 characters long"),
   category: Yup.string().required("Please select one option"),
   banner: Yup.mixed()
     .required("An image is required.") // Ensure something is provided
-    .test("is-valid-images", "At least one valid image file or URL must be provided.", function (value) {
-      const validImageTypes = ["image/jpeg", "image/jpg", "image/webp", "image/gif", "image/png"];
+    .test(
+      "is-valid-images",
+      "At least one valid image file or URL must be provided.",
+      function (value) {
+        const validImageTypes = [
+          "image/jpeg",
+          "image/jpg",
+          "image/webp",
+          "image/gif",
+          "image/png",
+        ];
 
-      // Ensure at least one valid file or URL is present
-      const hasValidFiles =
-        value &&
-        value.some((file) => {
-          if (typeof file === "string") {
-            return true; // If it's a string, assume it's a valid URL
-          }
-          if (file instanceof File) {
-            return validImageTypes.includes(file.type); // Validate file type
-          }
-          return false;
-        });
+        // Ensure at least one valid file or URL is present
+        const hasValidFiles =
+          value &&
+          value.some((file) => {
+            if (typeof file === "string") {
+              return true; // If it's a string, assume it's a valid URL
+            }
+            if (file instanceof File) {
+              return validImageTypes.includes(file.type); // Validate file type
+            }
+            return false;
+          });
 
-      return hasValidFiles;
-    }),
+        return hasValidFiles;
+      }
+    ),
   file: Yup.mixed()
     .required("A document is required.") // Ensure something is provided
-    .test("is-valid-documents", "At least one valid document file must be provided.", function (value) {
-      const validDocumentTypes = [
-        "application/pdf",
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "text/plain",
-      ];
+    .test(
+      "is-valid-documents",
+      "At least one valid document file must be provided.",
+      function (value) {
+        const validDocumentTypes = [
+          "application/pdf",
+          "application/msword",
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "text/plain",
+        ];
 
-      // Ensure at least one valid file or URL is present
-      const hasValidFiles =
-        value &&
-        value.some((file) => {
-          if (typeof file === "string") {
-            return true; // If it's a string, assume it's a valid URL
-          }
-          if (file instanceof File) {
-            return validDocumentTypes.includes(file.type); // Validate document file type
-          }
-          return false;
-        });
+        // Ensure at least one valid file or URL is present
+        const hasValidFiles =
+          value &&
+          value.some((file) => {
+            if (typeof file === "string") {
+              return true; // If it's a string, assume it's a valid URL
+            }
+            if (file instanceof File) {
+              return validDocumentTypes.includes(file.type); // Validate document file type
+            }
+            return false;
+          });
 
-      return hasValidFiles;
-    }),
+        return hasValidFiles;
+      }
+    ),
 });
 export const editBlogSchema = Yup.object().shape({
   title: Yup.string()
     .required("Title is required") // Title is required
     .min(3, "Title must be at least 3 characters long"), // Ensure it's at least 3 characters
   category: Yup.string().required("Please select one option"), // Category is required
-  banner: Yup.mixed()
-    .test("is-valid-images", "At least one valid image file or URL must be provided.", function (value) {
-      const validImageTypes = ["image/jpeg", "image/jpg", "image/webp", "image/gif", "image/png"];
+  banner: Yup.mixed().test(
+    "is-valid-images",
+    "At least one valid image file or URL must be provided.",
+    function (value) {
+      const validImageTypes = [
+        "image/jpeg",
+        "image/jpg",
+        "image/webp",
+        "image/gif",
+        "image/png",
+      ];
 
       // Only validate if there's a value for banner (i.e., if the user is updating the banner)
       if (!value) return true; // Allow for the case where the banner is not updated (empty or undefined)
@@ -630,10 +765,13 @@ export const editBlogSchema = Yup.object().shape({
         });
 
       return hasValidFiles;
-    }),
+    }
+  ),
 
-  file: Yup.mixed()
-    .test("is-valid-documents", "At least one valid document file must be provided.", function (value) {
+  file: Yup.mixed().test(
+    "is-valid-documents",
+    "At least one valid document file must be provided.",
+    function (value) {
       const validDocumentTypes = [
         "application/pdf",
         "application/msword",
@@ -657,59 +795,78 @@ export const editBlogSchema = Yup.object().shape({
         });
 
       return hasValidFiles;
-    }),
+    }
+  ),
 });
 export const addArticleSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required").min(3, "Title must be at least 3 characters long"),
+  title: Yup.string()
+    .required("Title is required")
+    .min(3, "Title must be at least 3 characters long"),
   category: Yup.string().required("Please select one option"),
   banner: Yup.mixed()
     .required("An image is required.") // Ensure something is provided
-    .test("is-valid-images", "At least one valid image file or URL must be provided.", function (value) {
-      const validImageTypes = ["image/jpeg", "image/jpg", "image/webp", "image/gif", "image/png"];
+    .test(
+      "is-valid-images",
+      "At least one valid image file or URL must be provided.",
+      function (value) {
+        const validImageTypes = [
+          "image/jpeg",
+          "image/jpg",
+          "image/webp",
+          "image/gif",
+          "image/png",
+        ];
 
-      // Ensure at least one valid file or URL is present
-      const hasValidFiles =
-        value &&
-        value.some((file) => {
-          if (typeof file === "string") {
-            return true; // If it's a string, assume it's a valid URL
-          }
-          if (file instanceof File) {
-            return validImageTypes.includes(file.type); // Validate file type
-          }
-          return false;
-        });
+        // Ensure at least one valid file or URL is present
+        const hasValidFiles =
+          value &&
+          value.some((file) => {
+            if (typeof file === "string") {
+              return true; // If it's a string, assume it's a valid URL
+            }
+            if (file instanceof File) {
+              return validImageTypes.includes(file.type); // Validate file type
+            }
+            return false;
+          });
 
-      return hasValidFiles;
-    }),
+        return hasValidFiles;
+      }
+    ),
   file: Yup.mixed()
     .required("A document is required.") // Ensure something is provided
-    .test("is-valid-documents", "At least one valid document file must be provided.", function (value) {
-      const validDocumentTypes = [
-        "application/pdf",
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "text/plain",
-      ];
+    .test(
+      "is-valid-documents",
+      "At least one valid document file must be provided.",
+      function (value) {
+        const validDocumentTypes = [
+          "application/pdf",
+          "application/msword",
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "text/plain",
+        ];
 
-      // Ensure at least one valid file or URL is present
-      const hasValidFiles =
-        value &&
-        value.some((file) => {
-          if (typeof file === "string") {
-            return true; // If it's a string, assume it's a valid URL
-          }
-          if (file instanceof File) {
-            return validDocumentTypes.includes(file.type); // Validate document file type
-          }
-          return false;
-        });
+        // Ensure at least one valid file or URL is present
+        const hasValidFiles =
+          value &&
+          value.some((file) => {
+            if (typeof file === "string") {
+              return true; // If it's a string, assume it's a valid URL
+            }
+            if (file instanceof File) {
+              return validDocumentTypes.includes(file.type); // Validate document file type
+            }
+            return false;
+          });
 
-      return hasValidFiles;
-    }),
+        return hasValidFiles;
+      }
+    ),
 });
 export const updateArticleSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required").min(3, "Title must be at least 3 characters long"),
+  title: Yup.string()
+    .required("Title is required")
+    .min(3, "Title must be at least 3 characters long"),
   category: Yup.string().required("Please select one option"),
   // banner: Yup.mixed()
   //   .required("An image is required.") // Ensure something is provided
@@ -758,58 +915,76 @@ export const updateArticleSchema = Yup.object().shape({
   //   }),
 });
 export const addEBookSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required").min(3, "Title must be at least 3 characters long"),
+  title: Yup.string()
+    .required("Title is required")
+    .min(3, "Title must be at least 3 characters long"),
   status: Yup.string().required("Status is required"),
   description: Yup.string().required("Description is required"),
   category: Yup.string().required("Please select one option"),
   image: Yup.mixed()
     .required("An image is required.") // Ensure something is provided
-    .test("is-valid-images", "At least one valid image file or URL must be provided.", function (value) {
-      const validImageTypes = ["image/jpeg", "image/jpg", "image/webp", "image/gif", "image/png"];
+    .test(
+      "is-valid-images",
+      "At least one valid image file or URL must be provided.",
+      function (value) {
+        const validImageTypes = [
+          "image/jpeg",
+          "image/jpg",
+          "image/webp",
+          "image/gif",
+          "image/png",
+        ];
 
-      // Ensure at least one valid file or URL is present
-      const hasValidFiles =
-        value &&
-        value.some((file) => {
-          if (typeof file === "string") {
-            return true; // If it's a string, assume it's a valid URL
-          }
-          if (file instanceof File) {
-            return validImageTypes.includes(file.type); // Validate file type
-          }
-          return false;
-        });
+        // Ensure at least one valid file or URL is present
+        const hasValidFiles =
+          value &&
+          value.some((file) => {
+            if (typeof file === "string") {
+              return true; // If it's a string, assume it's a valid URL
+            }
+            if (file instanceof File) {
+              return validImageTypes.includes(file.type); // Validate file type
+            }
+            return false;
+          });
 
-      return hasValidFiles;
-    }),
+        return hasValidFiles;
+      }
+    ),
   file: Yup.mixed()
     .required("A document is required.") // Ensure something is provided
-    .test("is-valid-documents", "At least one valid document file must be provided.", function (value) {
-      const validDocumentTypes = [
-        "application/pdf",
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "text/plain",
-      ];
+    .test(
+      "is-valid-documents",
+      "At least one valid document file must be provided.",
+      function (value) {
+        const validDocumentTypes = [
+          "application/pdf",
+          "application/msword",
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "text/plain",
+        ];
 
-      // Ensure at least one valid file or URL is present
-      const hasValidFiles =
-        value &&
-        value.some((file) => {
-          if (typeof file === "string") {
-            return true; // If it's a string, assume it's a valid URL
-          }
-          if (file instanceof File) {
-            return validDocumentTypes.includes(file.type); // Validate document file type
-          }
-          return false;
-        });
+        // Ensure at least one valid file or URL is present
+        const hasValidFiles =
+          value &&
+          value.some((file) => {
+            if (typeof file === "string") {
+              return true; // If it's a string, assume it's a valid URL
+            }
+            if (file instanceof File) {
+              return validDocumentTypes.includes(file.type); // Validate document file type
+            }
+            return false;
+          });
 
-      return hasValidFiles;
-    }),
+        return hasValidFiles;
+      }
+    ),
 });
 export const updateEBookSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required").min(3, "Title must be at least 3 characters long"),
+  title: Yup.string()
+    .required("Title is required")
+    .min(3, "Title must be at least 3 characters long"),
   status: Yup.string().required("Status is required"),
   description: Yup.string().required("Description is required"),
   category: Yup.string().required("Please select one option"),
@@ -860,34 +1035,48 @@ export const updateEBookSchema = Yup.object().shape({
   //   }),
 });
 export const addBannerSchema = Yup.object().shape({
-  name: Yup.string().required("Full Name of Brand is required").min(3, "Full Name of Brand must be at least 3 characters long"),
+  name: Yup.string()
+    .required("Full Name of Brand is required")
+    .min(3, "Full Name of Brand must be at least 3 characters long"),
   email: Yup.string().required("Email Address is required"),
   url: Yup.string().required("URL is required"),
   status: Yup.string().required("Status is required"),
   expiry_date: Yup.string().required("Expiry Date is required"),
   image: Yup.mixed()
     .required("An image is required.") // Ensure something is provided
-    .test("is-valid-images", "At least one valid image file or URL must be provided.", function (value) {
-      const validImageTypes = ["image/jpeg", "image/jpg", "image/webp", "image/gif", "image/png"];
+    .test(
+      "is-valid-images",
+      "At least one valid image file or URL must be provided.",
+      function (value) {
+        const validImageTypes = [
+          "image/jpeg",
+          "image/jpg",
+          "image/webp",
+          "image/gif",
+          "image/png",
+        ];
 
-      // Ensure at least one valid file or URL is present
-      const hasValidFiles =
-        value &&
-        value.some((file) => {
-          if (typeof file === "string") {
-            return true; // If it's a string, assume it's a valid URL
-          }
-          if (file instanceof File) {
-            return validImageTypes.includes(file.type); // Validate file type
-          }
-          return false;
-        });
+        // Ensure at least one valid file or URL is present
+        const hasValidFiles =
+          value &&
+          value.some((file) => {
+            if (typeof file === "string") {
+              return true; // If it's a string, assume it's a valid URL
+            }
+            if (file instanceof File) {
+              return validImageTypes.includes(file.type); // Validate file type
+            }
+            return false;
+          });
 
-      return hasValidFiles;
-    }),
+        return hasValidFiles;
+      }
+    ),
 });
 export const editBannerSchema = Yup.object().shape({
-  name: Yup.string().required("Full Name of Brand is required").min(3, "Full Name of Brand must be at least 3 characters long"),
+  name: Yup.string()
+    .required("Full Name of Brand is required")
+    .min(3, "Full Name of Brand must be at least 3 characters long"),
   email: Yup.string().required("Email Address is required"),
   url: Yup.string().required("URL is required"),
   status: Yup.string().required("Status is required"),
@@ -914,13 +1103,17 @@ export const editBannerSchema = Yup.object().shape({
   //   }),
 });
 export const addNewSubscriptionPlanProviderSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required").min(3, "Title must be at least 3 characters long"),
+  title: Yup.string()
+    .required("Title is required")
+    .min(3, "Title must be at least 3 characters long"),
   duration: Yup.string().required("Duration is required"),
   price: Yup.string().required("Price is required"),
   description: Yup.string().required("Description is required"),
 });
 export const addNewSubscriptionPlanUserScheme = Yup.object().shape({
-  title: Yup.string().required("Title is required").min(3, "Title must be at least 3 characters long"),
+  title: Yup.string()
+    .required("Title is required")
+    .min(3, "Title must be at least 3 characters long"),
   duration: Yup.string().required("Duration is required"),
   price: Yup.string().required("Price is required"),
   description: Yup.string().required("Description is required"),
@@ -937,7 +1130,6 @@ export const disbursementTime = Yup.object().shape({
     .max(30, "Disbursement time must be between 2 to 30"),
 });
 
-
 const accountTypeValues = accountTypeOptions.map((option) => option.value);
 export const addBankDetailSchema = Yup.object().shape({
   accountHolderName: Yup.string()
@@ -947,9 +1139,15 @@ export const addBankDetailSchema = Yup.object().shape({
 
   accountType: Yup.string()
     .required("Account type is required")
-    .oneOf(accountTypeValues, `Account type must be one of: ${accountTypeValues.join(", ")}`),
+    .oneOf(
+      accountTypeValues,
+      `Account type must be one of: ${accountTypeValues.join(", ")}`
+    ),
 
-  bankName: Yup.string().required("Bank name is required").min(2, "Bank name must be at least 2 characters").max(50, "Bank name must be 50 characters or less"),
+  bankName: Yup.string()
+    .required("Bank name is required")
+    .min(2, "Bank name must be at least 2 characters")
+    .max(50, "Bank name must be 50 characters or less"),
 
   routingNumber: Yup.string()
     .required("Routing number is required")
@@ -965,38 +1163,46 @@ export const addOtpSchema = Yup.object({
     .matches(/^[0-9]{6}$/, "OTP must be a 6-digit number"),
 });
 export const addInAppProductSchema = Yup.object().shape({
-  title: Yup.string().required("Product Title is required").min(3, "Title must be at least 3 characters long"),
+  title: Yup.string()
+    .required("Product Title is required")
+    .min(3, "Title must be at least 3 characters long"),
   amount: Yup.string().required("Price is required"),
   description: Yup.string().required("Description is required"),
   file: Yup.mixed()
 
     .required("A document is required.")
-    .test("is-valid-documents", "At least one valid document file must be provided.", function (value) {
-      const validDocumentTypes = [
-        "application/pdf",
-        "application/msword",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "text/plain",
-      ];
+    .test(
+      "is-valid-documents",
+      "At least one valid document file must be provided.",
+      function (value) {
+        const validDocumentTypes = [
+          "application/pdf",
+          "application/msword",
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "text/plain",
+        ];
 
-      // Ensure at least one valid file or URL is present
-      const hasValidFiles =
-        value &&
-        value.some((file) => {
-          if (typeof file === "string") {
-            return true; // If it's a string, assume it's a valid URL
-          }
-          if (file instanceof File) {
-            return validDocumentTypes.includes(file.type); // Validate document file type
-          }
-          return false;
-        });
+        // Ensure at least one valid file or URL is present
+        const hasValidFiles =
+          value &&
+          value.some((file) => {
+            if (typeof file === "string") {
+              return true; // If it's a string, assume it's a valid URL
+            }
+            if (file instanceof File) {
+              return validDocumentTypes.includes(file.type); // Validate document file type
+            }
+            return false;
+          });
 
-      return hasValidFiles;
-    }),
+        return hasValidFiles;
+      }
+    ),
 });
 export const updateInAppProductSchema = Yup.object().shape({
-  title: Yup.string().required("Product Title is required").min(3, "Title must be at least 3 characters long"),
+  title: Yup.string()
+    .required("Product Title is required")
+    .min(3, "Title must be at least 3 characters long"),
   amount: Yup.string().required("Price is required"),
   description: Yup.string().required("Description is required"),
   // file: Yup.mixed()
@@ -1120,12 +1326,18 @@ export const faqSchema = Yup.object().shape({
     .min(5, "Question must be at least 5 characters")
     .max(200, "Question cannot be longer than 200 characters"),
 
-  type: Yup.string().oneOf(["text", "image", "video"], "Invalid answer type").required("Answer type is required"),
+  type: Yup.string()
+    .oneOf(["text", "image", "video"], "Invalid answer type")
+    .required("Answer type is required"),
 
   answer: Yup.string().when("type", {
     is: "text",
     then: (schema) =>
-      schema.trim().required("Answer is required").min(5, "Answer must be at least 5 characters").max(500, "Answer cannot be longer than 500 characters"),
+      schema
+        .trim()
+        .required("Answer is required")
+        .min(5, "Answer must be at least 5 characters")
+        .max(500, "Answer cannot be longer than 500 characters"),
     otherwise: (schema) => schema.notRequired(),
   }),
   image: Yup.mixed().when("type", {
@@ -1133,24 +1345,34 @@ export const faqSchema = Yup.object().shape({
     then: (schema) =>
       schema
         .required("An image is required.") // Ensure something is provided
-        .test("is-valid-images", "At least one valid image file or URL must be provided.", function (value) {
-          const validImageTypes = ["image/jpeg", "image/jpg", "image/webp", "image/gif", "image/png"];
+        .test(
+          "is-valid-images",
+          "At least one valid image file or URL must be provided.",
+          function (value) {
+            const validImageTypes = [
+              "image/jpeg",
+              "image/jpg",
+              "image/webp",
+              "image/gif",
+              "image/png",
+            ];
 
-          // Ensure at least one valid file or URL is present
-          const hasValidFiles =
-            value &&
-            value.some((file) => {
-              if (typeof file === "string") {
-                return true; // If it's a string, assume it's a valid URL
-              }
-              if (file instanceof File) {
-                return validImageTypes.includes(file.type); // Validate file type
-              }
-              return false;
-            });
+            // Ensure at least one valid file or URL is present
+            const hasValidFiles =
+              value &&
+              value.some((file) => {
+                if (typeof file === "string") {
+                  return true; // If it's a string, assume it's a valid URL
+                }
+                if (file instanceof File) {
+                  return validImageTypes.includes(file.type); // Validate file type
+                }
+                return false;
+              });
 
-          return hasValidFiles;
-        }),
+            return hasValidFiles;
+          }
+        ),
     otherwise: (schema) => schema.notRequired(),
   }),
 
@@ -1159,24 +1381,28 @@ export const faqSchema = Yup.object().shape({
     then: (schema) =>
       schema
         .required("A video is required.") // Ensure something is provided
-        .test("is-valid-videos", "At least one valid video file or URL must be provided.", function (value) {
-          const validVideoTypes = ["video/mp4", "video/webm", "video/ogg"];
+        .test(
+          "is-valid-videos",
+          "At least one valid video file or URL must be provided.",
+          function (value) {
+            const validVideoTypes = ["video/mp4", "video/webm", "video/ogg"];
 
-          // Ensure at least one valid file or URL is present
-          const hasValidFiles =
-            value &&
-            value.some((file) => {
-              if (typeof file === "string") {
-                return true; // If it's a string, assume it's a valid URL
-              }
-              if (file instanceof File) {
-                return validVideoTypes.includes(file.type); // Validate file type
-              }
-              return false;
-            });
+            // Ensure at least one valid file or URL is present
+            const hasValidFiles =
+              value &&
+              value.some((file) => {
+                if (typeof file === "string") {
+                  return true; // If it's a string, assume it's a valid URL
+                }
+                if (file instanceof File) {
+                  return validVideoTypes.includes(file.type); // Validate file type
+                }
+                return false;
+              });
 
-          return hasValidFiles;
-        }),
+            return hasValidFiles;
+          }
+        ),
     otherwise: (schema) => schema.notRequired(),
   }),
 });
@@ -1187,12 +1413,18 @@ export const updateFaqSchema = Yup.object().shape({
     .min(5, "Question must be at least 5 characters")
     .max(200, "Question cannot be longer than 200 characters"),
 
-  type: Yup.string().oneOf(["text", "image", "video"], "Invalid answer type").required("Answer type is required"),
+  type: Yup.string()
+    .oneOf(["text", "image", "video"], "Invalid answer type")
+    .required("Answer type is required"),
 
   answer: Yup.string().when("type", {
     is: "text",
     then: (schema) =>
-      schema.trim().required("Answer is required").min(5, "Answer must be at least 5 characters").max(500, "Answer cannot be longer than 500 characters"),
+      schema
+        .trim()
+        .required("Answer is required")
+        .min(5, "Answer must be at least 5 characters")
+        .max(500, "Answer cannot be longer than 500 characters"),
     otherwise: (schema) => schema.notRequired(),
   }),
 });
@@ -1251,7 +1483,9 @@ export const subsPaymentValidationSchema = Yup.object({
 export const checkoutValidationSchema = Yup.object().shape({
   first_name: Yup.string().required("First name is required"),
   last_name: Yup.string().required("Last name is required"),
-  email: Yup.string().email("Invalid email address").required("Email is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
   // phone: Yup.string().required("Phone number is required"),
 
   mobile_number: Yup.string().required("Mobile number is required"),
@@ -1262,7 +1496,9 @@ export const checkoutValidationSchema = Yup.object().shape({
   shipping_address: Yup.string().required("Residential Address is required"),
   shipping_country: Yup.string().required("Country is required"),
   shipping_state: Yup.string().required("State is required"),
-  shipping_zip_code: Yup.string().matches(/^\d+$/, "Zip code must contain only digits").required("Zip code is required"),
+  shipping_zip_code: Yup.string()
+    .matches(/^\d+$/, "Zip code must contain only digits")
+    .required("Zip code is required"),
   shipping_city: Yup.string().required("City is required"),
   sameBillingAddress: Yup.boolean().required("This field is required"),
 
@@ -1272,7 +1508,9 @@ export const checkoutValidationSchema = Yup.object().shape({
   billing_address: Yup.string().required("Residential Address is required"),
   billing_country: Yup.string().required("Country is required"),
   billing_state: Yup.string().required("State is required"),
-  billing_zip_code: Yup.string().matches(/^\d+$/, "Zip code must contain only digits").required("Zip code is required"),
+  billing_zip_code: Yup.string()
+    .matches(/^\d+$/, "Zip code must contain only digits")
+    .required("Zip code is required"),
   billing_city: Yup.string().required("City is required"),
 });
 
@@ -1305,7 +1543,9 @@ export const paymentCardValidationSchema = Yup.object({
 });
 
 export const ratingValidationSchema = Yup.object().shape({
-  review_text: Yup.string().required("Review text is required.").min(10, "Review text must be at least 10 characters long."), // Optional minimum length
+  review_text: Yup.string()
+    .required("Review text is required.")
+    .min(10, "Review text must be at least 10 characters long."), // Optional minimum length
   rating: Yup.number()
     .required("Rating is required.")
     .min(1, "Rating must be at least 1.") // Ensure a rating is selected
@@ -1335,7 +1575,9 @@ export const BookingvalidationSchema = Yup.object({
   mobile_number: Yup.string()
     // .matches(/^[0-9]{10}$/, "Mobile number must be 10 digits")
     .required("Mobile number is required"),
-  email: Yup.string().email("Invalid email format").required("Email is required"),
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
 });
 
 // export const serviceValidationSchema = Yup.object().shape({
@@ -1421,16 +1663,24 @@ export const BookingvalidationSchema = Yup.object({
 // });
 
 export const serviceValidationSchema = Yup.object().shape({
-  service_type: Yup.string().required("Please select a service type").oneOf(["online", "offline", "both"], "Invalid service type"),
+  service_type: Yup.string()
+    .required("Please select a service type")
+    .oneOf(["online", "offline", "both"], "Invalid service type"),
   online_charges: Yup.number().when("service_type", {
     is: (type) => type === "online" || type === "both",
-    then: (schema) => schema.required("Online charges are required").min(0, "Charges cannot be negative"),
+    then: (schema) =>
+      schema
+        .required("Online charges are required")
+        .min(0, "Charges cannot be negative"),
     otherwise: (schema) => schema.notRequired(),
   }),
 
   onsite_charges: Yup.number().when("service_type", {
     is: (type) => type === "offline" || type === "both",
-    then: (schema) => schema.required("Onsite charges are required").min(0, "Charges cannot be negative"),
+    then: (schema) =>
+      schema
+        .required("Onsite charges are required")
+        .min(0, "Charges cannot be negative"),
     otherwise: (schema) => schema.notRequired(),
   }),
 
@@ -1446,23 +1696,33 @@ export const serviceValidationSchema = Yup.object().shape({
 
   banner_images: Yup.mixed()
     .required("An image is required.") // Ensure something is provided
-    .test("is-valid-images", "At least one valid image file or URL must be provided.", function (value) {
-      const validImageTypes = ["image/jpeg", "image/jpg", "image/webp", "image/gif", "image/png"];
-      // Ensure at least one valid file or URL is present
-      const hasValidFiles =
-        value &&
-        value.some((file) => {
-          if (typeof file === "string") {
-            return true; // If it's a string, assume it's a valid URL
-          }
-          if (file instanceof File) {
-            return validImageTypes.includes(file.type); // Validate file type
-          }
-          return false;
-        });
+    .test(
+      "is-valid-images",
+      "At least one valid image file or URL must be provided.",
+      function (value) {
+        const validImageTypes = [
+          "image/jpeg",
+          "image/jpg",
+          "image/webp",
+          "image/gif",
+          "image/png",
+        ];
+        // Ensure at least one valid file or URL is present
+        const hasValidFiles =
+          value &&
+          value.some((file) => {
+            if (typeof file === "string") {
+              return true; // If it's a string, assume it's a valid URL
+            }
+            if (file instanceof File) {
+              return validImageTypes.includes(file.type); // Validate file type
+            }
+            return false;
+          });
 
-      return hasValidFiles;
-    }),
+        return hasValidFiles;
+      }
+    ),
 
   // add_address: Yup.string().required("Please select an address option"),
 
@@ -1475,7 +1735,9 @@ export const serviceValidationSchema = Yup.object().shape({
 });
 
 export const updateServiceValidationSchema = Yup.object().shape({
-  service_type: Yup.string().required("Please select a service type").oneOf(["online", "onsite", "both"], "Invalid service type"),
+  service_type: Yup.string()
+    .required("Please select a service type")
+    .oneOf(["online", "onsite", "both"], "Invalid service type"),
   service_name: Yup.string()
     .required("Service name is required")
     .min(2, "Service name must be at least 2 characters")
@@ -1518,31 +1780,41 @@ export const updateServiceValidationSchema = Yup.object().shape({
   // }),
   banner_images: Yup.mixed()
     .required("An image is required.") // Ensure something is provided
-    .test("is-valid-images", "At least one valid image file or URL must be provided.", function (value) {
-      const validImageTypes = ["image/jpeg", "image/jpg", "image/webp", "image/gif", "image/png"];
+    .test(
+      "is-valid-images",
+      "At least one valid image file or URL must be provided.",
+      function (value) {
+        const validImageTypes = [
+          "image/jpeg",
+          "image/jpg",
+          "image/webp",
+          "image/gif",
+          "image/png",
+        ];
 
-      if (!value) return false;
+        if (!value) return false;
 
-      // If value is a string (URL), consider it valid
-      if (typeof value === "string") {
-        return true;
+        // If value is a string (URL), consider it valid
+        if (typeof value === "string") {
+          return true;
+        }
+
+        // If value is an array, check if at least one valid file exists
+        if (Array.isArray(value)) {
+          return value.some((file) => {
+            if (typeof file === "string") {
+              return true; // Assume URL is valid
+            }
+            if (file instanceof File) {
+              return validImageTypes.includes(file.type); // Validate file type
+            }
+            return false;
+          });
+        }
+
+        return false;
       }
-
-      // If value is an array, check if at least one valid file exists
-      if (Array.isArray(value)) {
-        return value.some((file) => {
-          if (typeof file === "string") {
-            return true; // Assume URL is valid
-          }
-          if (file instanceof File) {
-            return validImageTypes.includes(file.type); // Validate file type
-          }
-          return false;
-        });
-      }
-
-      return false;
-    }),
+    ),
 
   // add_address: Yup.string().required("Please select an address option"),
   // address: Yup.string().when("add_address", (value) => {
@@ -1559,9 +1831,14 @@ export const createShopValidationSchema = Yup.object().shape({
     .min(2, "Shop name must be at least 2 characters")
     .max(100, "Shop name must not exceed 100 characters"),
 
-  delivery_fees: Yup.number().required("Delivery fees are required").min(0, "Charges cannot be negative").typeError("Please enter a valid number"),
+  delivery_fees: Yup.number()
+    .required("Delivery fees are required")
+    .min(0, "Charges cannot be negative")
+    .typeError("Please enter a valid number"),
 
-  banner_images: createImageValidation("At least one valid image file or URL must be provided."),
+  banner_images: createImageValidation(
+    "At least one valid image file or URL must be provided."
+  ),
 
   // banner_images: Yup.mixed()
   //   .required("An image is required.") // Ensure something is provided
@@ -1593,7 +1870,9 @@ export const addProductSchema = Yup.object().shape({
     .max(100, "Product name must not exceed 100 characters"),
   product_category: Yup.string().required("Category is required"),
   deliverey_type: Yup.string().required("Delivery type is required"),
-  status: Yup.string().required("Status is required").oneOf(["0", "1"], "Please select a valid status"),
+  status: Yup.string()
+    .required("Status is required")
+    .oneOf(["0", "1"], "Please select a valid status"),
   product_description: Yup.string()
     .required("Product description is required")
     .min(10, "Description must be at least 10 characters")
@@ -1601,23 +1880,33 @@ export const addProductSchema = Yup.object().shape({
 
   product_images: Yup.mixed()
     .required("An image is required.") // Ensure something is provided
-    .test("is-valid-images", "At least one valid image file or URL must be provided.", function (value) {
-      const validImageTypes = ["image/jpeg", "image/jpg", "image/webp", "image/gif", "image/png"];
-      // Ensure at least one valid file or URL is present
-      const hasValidFiles =
-        value &&
-        value.some((file) => {
-          if (typeof file === "string") {
-            return true; // If it's a string, assume it's a valid URL
-          }
-          if (file instanceof File) {
-            return validImageTypes.includes(file.type); // Validate file type
-          }
-          return false;
-        });
+    .test(
+      "is-valid-images",
+      "At least one valid image file or URL must be provided.",
+      function (value) {
+        const validImageTypes = [
+          "image/jpeg",
+          "image/jpg",
+          "image/webp",
+          "image/gif",
+          "image/png",
+        ];
+        // Ensure at least one valid file or URL is present
+        const hasValidFiles =
+          value &&
+          value.some((file) => {
+            if (typeof file === "string") {
+              return true; // If it's a string, assume it's a valid URL
+            }
+            if (file instanceof File) {
+              return validImageTypes.includes(file.type); // Validate file type
+            }
+            return false;
+          });
 
-      return hasValidFiles;
-    }),
+        return hasValidFiles;
+      }
+    ),
 
   price: Yup.number()
     .required("Price is required")
@@ -1652,15 +1941,17 @@ export const editProviderValidation = Yup.object().shape({
   phone: Yup.string()
     .required("Phone number is required")
     .matches(/^\+?[1-9]\d{1,14}$/, "Phone number is not valid"),
-  state: Yup.string().required('State is required'),
-  city: Yup.string().required('Country is required'),
+  state: Yup.string().required("State is required"),
+  city: Yup.string().required("Country is required"),
   bio: Yup.string().required("Bio is required"),
   language: Yup.string().required("Language is required"),
   certifications: Yup.array().of(
     Yup.object().shape({
-      certificate_title: Yup.string().required("Tell us about you, what you do and any certifications we should know about is required"),
+      certificate_title: Yup.string().required(
+        "Tell us about you, what you do and any certifications we should know about is required"
+      ),
       institute_name: Yup.string().required("Institution Name is required"),
-      certificate_img: createImageValidation("Certificate Image required.")
+      certificate_img: createImageValidation("Certificate Image required."),
     })
   ),
 });
@@ -1672,7 +1963,9 @@ export const editProductSchema = Yup.object().shape({
     .max(100, "Product name must not exceed 100 characters"),
   product_category: Yup.string().required("Category is required"),
   deliverey_type: Yup.string().required("Delivery type is required"),
-  status: Yup.string().required("Status is required").oneOf(["0", "1"], "Please select a valid status"),
+  status: Yup.string()
+    .required("Status is required")
+    .oneOf(["0", "1"], "Please select a valid status"),
   product_description: Yup.string()
     .required("Product description is required")
     .min(10, "Description must be at least 10 characters")
@@ -1714,9 +2007,13 @@ export const editProductSchema = Yup.object().shape({
 
 export const addChallengeSchema = Yup.object().shape({
   challengeTitle: Yup.string().required("Challenge title is required"),
-  challengeDescription: Yup.string().required("Challenge description is required"),
+  challengeDescription: Yup.string().required(
+    "Challenge description is required"
+  ),
   badgeType: Yup.string().required("Badge type is required"),
-  status: Yup.string().required("Status is required").oneOf(["0", "1"], "Please select a valid status"),
+  status: Yup.string()
+    .required("Status is required")
+    .oneOf(["0", "1"], "Please select a valid status"),
   startTime: Yup.string()
     .required("Start time is required")
     .test("is-time", "Start time must be a valid time", (value) => {
@@ -1727,12 +2024,15 @@ export const addChallengeSchema = Yup.object().shape({
     .test("is-time", "End time must be a valid time", (value) => {
       return /^(?:[01]\d|2[0-3]):[0-5]\d$/.test(value); // Simple regex to check HH:mm format
     })
-    .test("is-greater", "End time must be after start time", function (endTime) {
-      const { startTime } = this.parent;
-      if (startTime && endTime) {
-        return startTime < endTime; // Compare the times as strings
+    .test(
+      "is-greater",
+      "End time must be after start time",
+      function (endTime) {
+        const { startTime } = this.parent;
+        if (startTime && endTime) {
+          return startTime < endTime; // Compare the times as strings
+        }
+        return true; // If startTime or endTime is not provided, validation passes for this test
       }
-      return true; // If startTime or endTime is not provided, validation passes for this test
-    }),
+    ),
 });
-

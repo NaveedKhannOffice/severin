@@ -67,6 +67,9 @@ export const productsData = {
       {
         id: "1",
         name: "Ppot (Teapot)",
+
+        short_description:
+          "A beautifully crafted ceramic teapot perfect for your morning tea ritual. Made from high-quality materials with an elegant design.",
         description:
           "A beautifully crafted ceramic teapot perfect for your morning tea ritual. Made from high-quality materials with an elegant design.",
         price: "CHF 18",
@@ -94,6 +97,8 @@ export const productsData = {
       {
         id: "2",
         name: "C-cup (Mug)",
+        short_description:
+          "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
         description:
           "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
         price: "CHF 18",
@@ -117,6 +122,8 @@ export const productsData = {
       {
         id: "3",
         name: "Tee (Tea Tin)",
+        short_description:
+          "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
         description:
           "Premium tea storage tin with airtight seal to preserve freshness. Features elegant design and keeps your favorite teas organized.",
         price: "CHF 25",
@@ -142,6 +149,8 @@ export const productsData = {
       {
         id: "4",
         name: "Gift Card",
+        short_description:
+          "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
         description:
           "Perfect gift for tea lovers! Redeemable for any products in our store. Available in multiple denominations to suit your needs.",
         price: "CHF 25 / 75 / 150",
@@ -168,6 +177,8 @@ export const productsData = {
       {
         id: 5,
         name: "Gift Card",
+        short_description:
+          "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
         description:
           "Perfect gift for tea lovers! Redeemable for any products in our store. Available in multiple denominations to suit your needs.",
         price: "CHF 25 / 75 / 150",
@@ -194,6 +205,8 @@ export const productsData = {
       {
         id: 6,
         name: "Gift Card",
+        short_description:
+          "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
         description:
           "Perfect gift for tea lovers! Redeemable for any products in our store. Available in multiple denominations to suit your needs.",
         price: "CHF 25 / 75 / 150",
@@ -220,6 +233,8 @@ export const productsData = {
       {
         id: 7,
         name: "Gift Card",
+        short_description:
+          "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
         description:
           "Perfect gift for tea lovers! Redeemable for any products in our store. Available in multiple denominations to suit your needs.",
         price: "CHF 25 / 75 / 150",
@@ -246,6 +261,64 @@ export const productsData = {
       {
         id: 8,
         name: "Gift Card",
+        short_description:
+          "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
+        description:
+          "Perfect gift for tea lovers! Redeemable for any products in our store. Available in multiple denominations to suit your needs.",
+        price: "CHF 25 / 75 / 150",
+        category: "Gift Cards",
+        productType: "Digital Product",
+        status_detail: "1",
+        photos: [
+          images.productImage7,
+          images.productImage2,
+        ],
+        rating: "5.0",
+        reviews: {
+          count: 45,
+          comments: [],
+        },
+        denominations: ["CHF 25", "CHF 75", "CHF 150"],
+        colors: [
+          { name: "Chalk/Gray", value: "#808080" },
+          { name: "Brown", value: "#8B4513" },
+          { name: "Black", value: "#000000" },
+        ],
+        created_at: "2024-01-12T16:45:00.000Z",
+      },
+      {
+        id: 9,
+        name: "Gift Card",
+        short_description:
+          "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
+        description:
+          "Perfect gift for tea lovers! Redeemable for any products in our store. Available in multiple denominations to suit your needs.",
+        price: "CHF 25 / 75 / 150",
+        category: "Gift Cards",
+        productType: "Digital Product",
+        status_detail: "1",
+        photos: [
+          images.productImage7,
+          images.productImage2,
+        ],
+        rating: "5.0",
+        reviews: {
+          count: 45,
+          comments: [],
+        },
+        denominations: ["CHF 25", "CHF 75", "CHF 150"],
+        colors: [
+          { name: "Chalk/Gray", value: "#808080" },
+          { name: "Brown", value: "#8B4513" },
+          { name: "Black", value: "#000000" },
+        ],
+        created_at: "2024-01-12T16:45:00.000Z",
+      },
+      {
+        id: 10,
+        name: "Gift Card",
+        short_description:
+          "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
         description:
           "Perfect gift for tea lovers! Redeemable for any products in our store. Available in multiple denominations to suit your needs.",
         price: "CHF 25 / 75 / 150",

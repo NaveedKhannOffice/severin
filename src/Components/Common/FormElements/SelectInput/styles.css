@@ -1,0 +1,102 @@
+/*****  Select Box With Arrow *****/
+
+select,
+.form-select {
+  --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23000000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+  background-color: var(--input-bg-color);
+  background-size: 20px 16px;
+  font-size: 15px;
+  color: var(--input-text-color);
+  font-weight: 400;
+  transition: all 0.6s ease 0s;
+  padding: 10px 30px 10px 20px;
+  line-height: 1.5;
+  width: 100%;
+  outline: none;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.05);
+  height: 51px;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: 0px;
+}
+
+.form-select option,
+select option {
+  color: var(--input-text-color);
+  padding: 10px 5px;
+  background-color: transparent;
+}
+
+.form-select:focus {
+  outline-offset: -2px;
+  -webkit-appearance: none;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
+  outline: none;
+  border: var(--bs-border-width) solid var(--bs-input-focus-border-color);
+  color: var(--input-text-color);
+  background-color: var(--input-bg-color-focus);
+}
+
+.form-select:focus,
+select:focus {
+  color: var(--input-text-color)
+}
+
+/* .form-control:disabled{
+  opacity: 1;
+  background: transparent;
+  border: transparent;
+  color:var(--lightGray);
+  box-shadow: none;
+}
+.form-control[readonly] {
+  opacity: 1;
+  background: transparent;
+  border: transparent;
+  color:var(--bs-white);
+  box-shadow: none;
+} */
+
+table .status-select,
+.status-select {
+  background-color: transparent;
+  background-position: right 0rem center;
+  color: var(--input-text-color);
+  font-size: 15px;
+  font-weight: 400;
+  padding: 4px 20px 4px 5px;
+  line-height: 1;
+  border: none;
+  height: auto !important;
+  width: 80px;
+  box-shadow: none;
+}
+
+table .status-select:focus,
+.status-select:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+table .status-select.status-active,
+.status-select.status-active {
+  color: var(--success-tag);
+  --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23119200' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+
+}
+
+table.status-select.status-inactive,
+.status-select.status-inactive {
+  color: var(--danger-tag);
+  --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ff0000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+@media screen and (max-width: 991px) {
+
+  table .status-select,
+  .status-select {
+    width: 80px;
+  }
+
+}

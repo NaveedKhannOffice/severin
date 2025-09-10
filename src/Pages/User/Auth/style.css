@@ -1,0 +1,10 @@
+.form-check label a {
+  color: var(--bs-black);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.form-check label a:hover {
+  color: var(--bs-primary-color);
+  text-decoration: underline;
+}
