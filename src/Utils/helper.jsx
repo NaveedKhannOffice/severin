@@ -594,142 +594,6 @@ export const generateLinks = (role) => {
   let Links = [];
 
   switch (role) {
-    case "admin":
-      Links = [
-        {
-          link: "/admin/dashboard",
-          image: Dashboard,
-          name: "Dashboard",
-        },
-        {
-          link: "/admin/user-management",
-          image: UserManagement,
-          name: "User Management",
-        },
-        {
-          link: "/admin/service-provider-management",
-          image: ServiceProviderManagement,
-          name: "Service Provider Management",
-        },
-        {
-          link: "/admin/service-category-management",
-          image: ServiceCategoryManagement,
-          name: "Service Category Management",
-        },
-        {
-          link: "/admin/product-category-management",
-          image: ProductCategoryManagement,
-          name: "Product Category Management",
-        },
-        {
-          link: "/admin/content-management",
-          image: ContentManagement,
-          name: "Content Management",
-        },
-        {
-          link: "/admin/commission-management",
-          image: CommissionManagement,
-          name: "Commission Management",
-        },
-        {
-          link: "/admin/subscription-logs",
-          image: SubscriptionLogs,
-          name: "Subscription Logs",
-        },
-        {
-          link: "/admin/payout-management",
-          image: PayoutsManagement,
-          name: "Payouts Management",
-        },
-        {
-          link: "/admin/reports-management",
-          image: ReportsManagement,
-          name: "Reports Management",
-        },
-        {
-          link: "/admin/faqs",
-          image: FAQsManagement,
-          name: "FAQs Management",
-        },
-        {
-          link: "/admin/banner-ads",
-          image: BannerAdsManagement,
-          name: "Banner Ads Management",
-        },
-        {
-          link: "/admin/in-app-purchase-management",
-          image: InAppPurchaseManagement,
-          name: "In-App Purchase Management",
-        },
-        {
-          link: "/admin/queries-management",
-          image: AppointmentLogs,
-          name: "Queries Management",
-        },
-        {
-          link: "/admin/emergency-contact-management",
-          image: EmergencyContact,
-          name: "Emergency Contacts Management",
-        },
-        {
-          link: "/admin/appointments",
-          image: AppointmentLogs,
-          name: "Appointment Logs",
-        },
-        {
-          link: "/admin/payment-logs",
-          image: PaymentLogs,
-          name: "Payment Logs",
-        },
-        {
-          link: "/admin/refer-management",
-          image: PaymentLogs,
-          name: "Refer Management",
-        },
-        {
-          link: "/admin/challenge-management",
-          image: PaymentLogs,
-          name: "Challenge Management",
-        },
-      ];
-      break;
-    case "user":
-      Links = [
-        {
-          path: "/",
-          label: "Home",
-        },
-        {
-          path: "/about-us",
-          label: "About Us",
-        },
-        {
-          path: "/education",
-          label: "Education",
-        },
-        {
-          path: "/services",
-          label: "Services",
-        },
-        {
-          path: "/services-provider",
-          label: "Service Providers",
-        },
-        {
-          path: "/newsfeed",
-          label: "Newsfeed",
-        },
-        {
-          path: "/rehab-center",
-          label: "Rehab Centers",
-        },
-        {
-          path: "/in-app-purchase",
-          label: "In-App Purchases",
-        },
-  
-      ];
-      break;
     default: // No role case or fallback links
       Links = [
         {
@@ -738,27 +602,15 @@ export const generateLinks = (role) => {
         },
         {
           path: "/about-us",
-          label: "About Us",
+          label: "Our Story",
         },
         {
           path: "/services",
-          label: "All Service",
+          label: "Shop",
         },
         {
           path: "/services-provider",
-          label: "All Service Providers",
-        },
-        {
-          path: "/newsfeed",
-          label: "Newsfeed",
-        },
-        {
-          path: "/education",
-          label: "Education",
-        },
-        {
-          path: "/contact-us",
-          label: "Contact Us",
+          label: "FAQ's",
         },
       ];
 

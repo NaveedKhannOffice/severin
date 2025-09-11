@@ -28,13 +28,14 @@
   --input-text-color: #6C7275;
   --input-label-color: #6C7275;
   --bs-border-width: 2px;
-  --bs-primary:#BD7C66;
-  --bs-primary-btn:#BD7C66;
-  --bs-primary-btn-hover:#6C7275;
-  --bs-input-border-color:#6C7275;
-  --bs-input-focus-border-color:#BD7C66;
-  --bs-secondary-color:#6C7275;
-  --bs-primary-color:#BD7C66;
+  --bs-primary: #BD7C66;
+  --bs-primary-btn: #BD7C66;
+  --bs-primary-btn-hover: #6C7275;
+  --bs-input-border-color: #6C7275;
+  --bs-input-focus-border-color: #BD7C66;
+  --bs-secondary-color: #6C7275;
+  --bs-primary-color: #BD7C66;
+  --navbar-toggler-border-color: #000000;
 
 
 }
@@ -636,6 +637,7 @@ p.section-text {
   padding: 15px;
   border: none;
 }
+
 .product-card .card-image {
   height: 200px;
   object-fit: cover;
@@ -681,14 +683,17 @@ p.section-text {
   font-weight: 500;
   font-size: 18px;
 }
-.product-card .btn-link span{
+
+.product-card .btn-link span {
   padding-left: 25px;
 }
-.product-card .btn-link span::before{
+
+.product-card .btn-link span::before {
   background-color: #959595;
   top: 50%;
   width: 15px;
 }
+
 .product-card .product-attributes-wrapper {
   font-size: 16px;
   color: #000000;

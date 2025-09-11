@@ -7,6 +7,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import Marquee from "react-fast-marquee";
+import { LuUserRound } from "react-icons/lu";
+import { BsCart3 } from "react-icons/bs";
+import { MdLogin, MdLogout } from "react-icons/md";
 import {
   Button,
   Container,
@@ -114,10 +117,6 @@ export const Header = () => {
     setUserRole(role);
   }, []);
 
-
-
-
-
   let currentLinks = generateLinks(role);
   const location = useLocation();
 
@@ -128,20 +127,22 @@ export const Header = () => {
         className={`w-100 z-inxed-2 w-100 user-header ${
           location.pathname == "/" && "home_header"
         }`}
-      >   
+      >
         <div className="top-bar d-flex gap-2 justify-content-center align-items-center px-3">
-          <div><Link to="/shop">SHOP</Link> | <Link to="/our-story">OUR STORY</Link> | <Link to="/customer-care">CUSTOMER CARE</Link></div>
+          <div>
+            <Link to="/shop">SHOP</Link> |{" "}
+            <Link to="/our-story">OUR STORY</Link> |{" "}
+            <Link to="/customer-care">CUSTOMER CARE</Link>
+          </div>
         </div>
-        <Navbar bg="light" variant="light" className={``}>
+        <Navbar expand={"md"} bg="light" variant="light" className={``}>
           <Container fluid className="">
             <Navbar.Brand as={Link} to={"/"} className="me-3">
               <img src={images.Logo} alt="" />
             </Navbar.Brand>
-            <Offcanvas
+            <Navbar.Offcanvas
+              id="offcanvasNavbar-expand-lg"
               className="main-nav-wrap flex-grow-1 me-0 me-lg-3"
-              show={show}
-              onHide={handleClose}
-              responsive="lg"
             >
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title></Offcanvas.Title>
@@ -150,322 +151,134 @@ export const Header = () => {
                 id="basic-navbar-nav"
                 className="justify-content-between"
               >
-                {token ? (
-                  <div
-                    className={`d-flex scroll-nav-wrapper flex-grow-1 justify-content-start ${
-                      token
-                        ? "justify-content-lg-center"
-                        : "justify-content-lg-end"
-                    }`}
-                  >
-                    {showLeftButton && (
-                      <button
-                        className="scroll-button d-lg-inline-block d-none left"
-                        onClick={scrollLeft}
-                      >
-                        <FontAwesomeIcon icon={faAngleLeft} />
-                      </button>
-                    )}
-                    <Nav
-                      className="mx-0 scrollable-nav"
-                      ref={navbarRef}
-                      onScroll={checkScrollButtons}
-                      onMouseLeave={hideDropdown}
+                <div
+                  className={`d-flex scroll-nav-wrapper flex-grow-1 justify-content-start  justify-content-md-center justify-content-lg-end`}
+                >
+                  {showLeftButton && (
+                    <button
+                      className="scroll-button d-lg-inline-block d-none left"
+                      onClick={scrollLeft}
                     >
-                      {currentLinks.map((element, index) => (
+                      <FontAwesomeIcon icon={faAngleLeft} />
+                    </button>
+                  )}
+                  <Nav
+                    className="mx-0 scrollable-nav"
+                    ref={navbarRef}
+                    onScroll={checkScrollButtons}
+                    onMouseLeave={hideDropdown}
+                  >
+                    {currentLinks.map((element, index) => {
+                      return (
                         <Nav.Item as="li" key={index}>
-                          <NavLink
-                            className="nav-link"
-                            to={element.path}
-                            onClick={handleClose}
-                          >
+                          <NavLink className={`nav-link`} to={element.path}>
                             {element.label}
                           </NavLink>
                         </Nav.Item>
-                      ))}
-                    </Nav>
-                    {showRightButton && (
-                      <button
-                        className="scroll-button d-lg-inline-block d-none right"
-                        onClick={scrollRight}
-                      >
-                        <FontAwesomeIcon icon={faAngleRight} />
-                      </button>
-                    )}
-                  </div>
-                ) : (
-                  // Guest Navigation
-                  <div
-                    className={`d-flex scroll-nav-wrapper flex-grow-1 justify-content-start justify-content-lg-end`}
-                  >
-                    {showLeftButton && (
-                      <button
-                        className="scroll-button d-lg-inline-block d-none left"
-                        onClick={scrollLeft}
-                      >
-                        <FontAwesomeIcon icon={faAngleLeft} />
-                      </button>
-                    )}
-                    <Nav
-                      className="mx-0 scrollable-nav"
-                      ref={navbarRef}
-                      onScroll={checkScrollButtons}
-                      onMouseLeave={hideDropdown}
+                      );
+                    })}
+                  </Nav>
+                  {showRightButton && (
+                    <button
+                      className="scroll-button d-lg-inline-block d-none right"
+                      onClick={scrollRight}
                     >
-                      {currentLinks.map((element, index) => {
-                        const isAccessible =
-                          userRole ||
-                          pageAcces.includes(
-                            element.path.replace("/", "").toLowerCase()
-                          );
-
-                        return (
-                          <Nav.Item as="li" key={index}>
-                            <NavLink
-                              className={({ isActive }) =>
-                                `nav-link ${
-                                  isAccessible && isActive ? "active" : ""
-                                }`
-                              }
-                              to={isAccessible ? element.path : "#"}
-                            >
-                              {element.label}
-                            </NavLink>
-                          </Nav.Item>
-                        );
-                      })}
-                    </Nav>
-                    {showRightButton && (
-                      <button
-                        className="scroll-button d-lg-inline-block d-none right"
-                        onClick={scrollRight}
+                      <FontAwesomeIcon icon={faAngleRight} />
+                    </button>
+                  )}
+                </div>
+              </Offcanvas.Body>
+            </Navbar.Offcanvas>
+            <div className="d-flex gap-3">
+              <Nav
+                as="ul"
+                className="gap-3 gap-xxl-3 navbar-right align-items-center ms-lg-5 d-sm-flex flex-row"
+              >
+                <>
+                  <Nav.Item as="li">
+                    <Dropdown className="dropdown-user">
+                      <Dropdown.Toggle
+                        className="after-none"
+                        variant=""
+                        id="dropdown-basic"
                       >
-                        <FontAwesomeIcon icon={faAngleRight} />
-                      </button>
-                    )}
-                  </div>
-                )}
-
-                {token ? (
-                  <Nav
-                    as="ul"
-                    className="gap-3 gap-xxl-4 navbar-login align-items-sm-center flex-row d-sm-none "
-                  >
-                    <>
-                      <Nav.Item as="li">
-                        <Link to="/chat">
-                          <images.ChatIcon />
-                        </Link>
-                      </Nav.Item>
-                      <Nav.Item as="li">
-                        
-                      </Nav.Item>
-                      <Nav.Item as="li">
-                        <Dropdown className="dropdown-user">
-                          <Dropdown.Toggle
-                            className="after-none"
-                            variant=""
-                            id="dropdown-basic"
-                          >
-                            {user && (
-                              <Dropdown.Item
-                                as="div"
-                                className="text-center login-user"
-                              >
-                                <div className="d-flex align-items-center gap-2">
-                                  <span className="avatar avatar-online">
-                                    <img
-                                      src={
-                                        profilePic ??
-                                        images.userImage ??
-                                        images.Placeholder
-                                      }
-                                      alt="avatar"
-                                    />
-                                  </span>
-                                  <span className="user-name fw-semibold">
-                                    {fullName(user)}
-                                  </span>
-                                  <FontAwesomeIcon
-                                    icon={faChevronDown}
-                                    color="#333"
-                                  />
-                                </div>
-                              </Dropdown.Item>
-                            )}
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu align="end">
+                        {/* {user && (
+                            <Dropdown.Item as="div" className="text-center login-user">
+                              <span className="avatar avatar-online">
+                                <img src={user?.photo_path} alt="avatar" />
+                              </span>
+                              <span className="user-name fw-semibold">{fullName(user)}</span>
+                            </Dropdown.Item>
+                          )} */}
+                        <LuUserRound />
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu align="end">
+                        {user && (
+                          <>
                             <Dropdown.Item as={Link} to="/profile">
+                              <span>
+                                <LuUserRound />
+                              </span>{" "}
                               My Profile
-                            </Dropdown.Item>
-                            <Dropdown.Item as={Link} to="/payment-logs-user">
-                              Payment Logs
-                            </Dropdown.Item>
-                            <Dropdown.Item as={Link} to="/rating-&-reviews">
-                              Ratings & Reviews
-                            </Dropdown.Item>
-                            <Dropdown.Item as={Link} to="">
-                              Bank Details
-                            </Dropdown.Item>
-                            <Dropdown.Item as={Link} to="/blocked-users">
-                              Blocked User
                             </Dropdown.Item>
                             <Dropdown.Item
                               className="logout"
                               onClick={() => setShowModal(true)}
                             >
+                              <span>
+                                <MdLogout />
+                              </span>
                               Logout
                             </Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </Nav.Item>
-                    </>
-                  </Nav>
-                ) : (
-                  <Nav
-                    as="ul"
-                    className={`navbar-right flex-grow-1 flex-lg-grow-0 ${
-                      token ? "justify-content-center" : "justify-content-end"
-                    }  gap-2 d-sm-none`}
-                  >
-                    <Nav.Item as="li">
-                      <Link to={"/login"} className="btn btn-secondary">
-                        Login
-                      </Link>
-                    </Nav.Item>
-                    <Nav.Item as="li">
-                      <Link className="btn btn-primary" to={"/signup"}>
-                        Sign up
-                      </Link>
-                    </Nav.Item>
-                  </Nav>
-                )}
-              </Offcanvas.Body>
-            </Offcanvas>
-            <Navbar.Collapse
-              id=""
-              className="flex-grow-0 h-100 justify-content-end"
-            >
-              {token ? (
-                <Nav
-                  as="ul"
-                  className="gap-3 gap-xxl-4 navbar-login align-items-center d-sm-flex d-none"
-                >
-                  <>
-                    <Nav.Item as="li">
-                      <Link to="/chat">
-                        <images.ChatIcon />
-                      </Link>
-                    </Nav.Item>
-                    <Nav.Item as="li">
-                     
-                    </Nav.Item>
-                    <Nav.Item as="li">
-                      <Dropdown className="dropdown-user">
-                        <Dropdown.Toggle
-                          className="after-none"
-                          variant=""
-                          id="dropdown-basic"
-                        >
-                          {user && (
+                          </>
+                        )}
+                        {!user && (
+                          <>
                             <Dropdown.Item
-                              as="div"
-                              className="text-center login-user"
+                              className="logout"
+                              onClick={() => setShowModal(true)}
                             >
-                              <div className="d-flex align-items-center gap-2">
-                                <span className="avatar avatar-online">
-                                  <img
-                                    src={profilePic ?? images.userImage}
-                                    alt="avatar"
-                                  />
-                                </span>
-                                <span className="user-name fw-semibold">
-                                  {fullName(user)}
-                                </span>
-                                <FontAwesomeIcon
-                                  icon={faChevronDown}
-                                  color="#333"
-                                />
-                              </div>
+                              <span>
+                                <MdLogin />
+                              </span>
+                              Login
                             </Dropdown.Item>
-                          )}
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu align="end">
-                          <Dropdown.Item as={Link} to="/profile">
-                            <span>
-                              <images.MyProfile />
-                            </span>
-                            <span>My Profile</span>
-                          </Dropdown.Item>
-                          <Dropdown.Item as={Link} to="/payment-logs-user">
-                            <span>
-                              <images.PaymentLog />
-                            </span>
-                            <span>Payment Logs</span>
-                          </Dropdown.Item>
-                          <Dropdown.Item as={Link} to="/rating-reviews">
-                            <span>
-                              <images.RatingReview />
-                            </span>
-                            <span>Ratings & Reviews</span>
-                          </Dropdown.Item>
-                          <Dropdown.Item as={Link} to="/bank-details">
-                            <span>
-                              <images.BankDetails />
-                            </span>
-                            <span> Bank Details</span>
-                          </Dropdown.Item>
-                          {/* <Dropdown.Item as={Link} to="/blocked-users">
-                            <span>
-                              <images.BlockedUsers />
-                            </span>
-                            <span>Blocked Users</span>
-                          </Dropdown.Item> */}
-                          <Dropdown.Item
-                            className="logout"
-                            onClick={() => setShowModal(true)}
-                          >
-                            <span>
-                              <images.Logout />
-                            </span>
-                            <span>Logout</span>
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </Nav.Item>
-                  </>
-                </Nav>
-              ) : (
-                <Nav
-                  as="ul"
-                  className="navbar-right flex-grow-1 flex-lg-grow-0 justify-content-end gap-2 align-items-center d-sm-flex d-none"
-                >
-                  <Nav.Item as="li">
-                    <Link to={"/login"} className="btn btn-secondary">
-                      Login
-                    </Link>
+                            <Dropdown.Item
+                              className="logout"
+                              onClick={() => setShowModal(true)}
+                            >
+                              <span>
+                                <MdLogin />
+                              </span>
+                              Sign up
+                            </Dropdown.Item>
+                          </>
+                        )}
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </Nav.Item>
                   <Nav.Item as="li">
-                    <Link to={"/signup"} className="btn btn-primary">
-                      Sign up
-                    </Link>
+                    <Dropdown className="dropdown-cart">
+                      <Dropdown.Toggle variant="" id="dropdown-basic">
+                        <BsCart3 />
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu align="end">
+                        <Dropdown.Item as={Link} to="/cart">
+                          Cart Empty
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </Nav.Item>
-                </Nav>
-              )}
-
-              <Button
-                variant="primary"
-                className="menu-toggle mobile-nav d-lg-none ms-3"
-                onClick={handleShow}
-              >
-                <FontAwesomeIcon icon={faBars} />
-              </Button>
-            </Navbar.Collapse>
+                </>
+              </Nav>
+              <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
+            </div>
           </Container>
         </Navbar>
         <div className="top-bar bg-dark text-white py-2">
           <Marquee speed={50} gradient={false}>
-            SALE: 15% off &nbsp; | &nbsp; SHOP &nbsp; | &nbsp; OUR STORY &nbsp; | &nbsp; CUSTOMER CARE &nbsp; | &nbsp; SHIPPING WORLDWIDE
+            SALE: 15% off &nbsp; | &nbsp; SHOP &nbsp; | &nbsp; OUR STORY &nbsp;
+            | &nbsp; CUSTOMER CARE &nbsp; | &nbsp; SHIPPING WORLDWIDE
           </Marquee>
         </div>
       </header>
