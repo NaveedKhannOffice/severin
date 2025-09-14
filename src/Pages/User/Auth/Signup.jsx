@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { UserAuthLayout } from "../../../Components/Layouts/UserLayout/AuthLayout/index.jsx";
 
-import { showToast } from "../../../Components/Toast/index.jsx";
+import { showToast } from "../../../Components/Common/Toast/index.jsx";
 import { signupUserValidationSchema } from "../../../Config/Validations.jsx";
 import { useFormStatus } from "../../../Hooks/useFormStatus.jsx";
 import { post } from "../../../Services/Api";

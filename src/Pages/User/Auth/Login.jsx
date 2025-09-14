@@ -11,6 +11,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLogin } from "../../../Services/Auth";
 import { useFormStatus } from "../../../Hooks/useFormStatus";
 import CustomButton from "../../../Components/Common/CustomButton";
+import { loginCredentials } from "../../../Config/data";
+import { setData, setRoles, setToken } from "../../../Store/actions.jsx";
+import { showToast } from "../../../Components/Common/Toast/index";
 
 const LogIn = () => {
   usePageTitle("Login");
@@ -24,20 +27,20 @@ const LogIn = () => {
 
   const handleSubmit = async (values) => {
     startSubmitting();
-    // let currentUser;
-
-    // currentUser =
-    //   loginCredentials.email == values.email && loginCredentials.password == values.password
-    //     ? (currentUser = loginCredentials)
-    //     : (currentUser = false);
-
+    console.log(values, "values");
+    
+    try {
+      // Check if using demo mode or real API
+      const isDemoMode = true; // Set to false when using real API
+      
+      if (isDemoMode) {
+        // Demo mode: Using static credentials
     const currentUser = loginCredentials.find(
       (user) => user.email === values.email && user.password === values.password
     );
 
-    // let response = await login(apiEndpoint, values); // open this whn using backend api
     if (currentUser && currentUser.status) {
-      //remove all redux when using backend APIs
+          // Using Redux for state management
       dispatch(setToken(currentUser.token));
       dispatch(setRoles(currentUser.role));
       dispatch(setData(currentUser));
@@ -46,24 +49,42 @@ const LogIn = () => {
       setTimeout(() => {
         if (currentUser?.role === "admin") {
           navigate(`/admin/dashboard`);
-        } else if (currentUser?.role === "provider") {
-          navigate(`/provider`);
-        } else {
-          navigate(`/`); // Default fallback route
+            } else {
+              navigate(`/`);
         }
       }, 1000);
-
-      // setTimeout(() => {
-      //   navigate(currentUser.role === "admin" ? `/admin/dashboard` : `/test`);
-      // }, 1000);
-
-      // setTimeout(() => {
-      //   navigate(`/admin/dashboard`);
-      // }, 1000);
+        } else {
+          showToast("Invalid credentials", "error");
+        }
+      } else {
+        // Real API mode: Using useLogin hook
+        const apiEndpoint = '/api/auth/login'; // Replace with your actual API endpoint
+        const response = await login(apiEndpoint, values);
+        
+        console.log("Login response:", response);
+        
+        if (response && response.data) {
+          // The useLogin hook already handles Redux state updates
+          showToast("Login successful", "success");
+          
+          setTimeout(() => {
+            if (response.data.user.type === "admin") {
+              navigate(`/admin/dashboard`);
+            } else {
+              navigate(`/`);
+            }
+          }, 1000);
     } else {
-      showToast(currentUser.message, "error");
+          showToast("Login failed", "error");
+        }
     }
+
+    } catch (error) {
+      console.error("Login error:", error);
+      showToast("Login failed. Please try again.", "error");
+    } finally {
     stopSubmitting();
+    }
   };
 
   return (

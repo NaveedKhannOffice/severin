@@ -601,15 +601,15 @@ export const generateLinks = (role) => {
           label: "Home",
         },
         {
-          path: "/about-us",
+          path: "/our-story",
           label: "Our Story",
         },
         {
-          path: "/services",
+          path: "/shop",
           label: "Shop",
         },
         {
-          path: "/services-provider",
+          path: "/faqs",
           label: "FAQ's",
         },
       ];
@@ -2230,4 +2230,44 @@ export const usePageTitleUser = (title) => {
   useEffect(() => {
     document.title = `HQS | ${title}`;
   }, [title]);
+};
+
+export const slugify = (text) => {
+  return text
+    .toString()
+    .toLowerCase()                   // lowercase
+    .trim()                          // remove spaces from start & end
+    .replace(/\s+/g, '-')            // spaces -> dashes
+    .replace(/[^\w\-]+/g, '')        // remove non-word chars
+    .replace(/\-\-+/g, '-');         // multiple dashes -> single dash
+}
+
+const colorNames = {
+  "#000": "black",
+  "#000000": "black",
+  "#2d2f30": "black",
+  "#ffffff": "white",
+  "#f6a623": "orange",
+  "#7b8f45": "olive",
+  "#808080": "gray",
+  "#ff0000": "red",
+  "#0000ff": "blue",
+  "#f99a38": "deep saffron",
+  "#798d4f": "olive green",
+  "#ffe603ff": "yellow",
+  "#00ff00": "green",
+  "#888888": "light grey",
+  // Add more as needed
+};
+
+export const sizeDisplayMap = {
+  small: "S",
+  medium: "M",
+  large: "L",
+  "extra large": "XL",
+};
+
+export const getColorName = (hex) => {
+  const normalized = hex.toLowerCase();
+  return colorNames[normalized] || hex;
 };

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { images } from "../../../../Assets";
 import "./style.css";
+import { slugify } from "../../../../Utils/helper";
 
 const ProductSection = ({ data, loading, error }) => {
   // Use data from props instead of internal state
@@ -78,20 +79,22 @@ const ProductSection = ({ data, loading, error }) => {
               >
                 <Card className="product-card h-100">
                   <div className="position-relative">
-                    <Card.Img
-                      variant="top"
-                      src={product.photos?.[0] || images.placeholder}
-                      alt={product.name}
-                      className="card-image"
-                    />
+                    <Link to={`/product/${product.id}/${slugify(product.name || 'product')}`}>
+                        <Card.Img
+                          variant="top"
+                          src={product.photos?.[0] || images.placeholder}
+                          alt={product.name}
+                          className="card-image"
+                        />
+                    </Link>
                   </div>
 
                   <Card.Body className="position-relative px-0 pb-0">
                     <div className="d-flex">
-                      <div className="flex-grow-1">
+                      <div className="flex-grow-1 mb-3">
                         <Card.Title className="mb-0">
                           <Link
-                            to={`/product-detail/${product.id}`}
+                            to={`/product/${product.id}/${slugify(product.name || 'product')}`}
                             className="text-decoration-none"
                           >
                             {product.name}
@@ -105,7 +108,7 @@ const ProductSection = ({ data, loading, error }) => {
                       </div>
                     </div>
 
-                    <div className="product-attributes-wrapper">
+                    <div className="product-attributes-wrapper d-flex gap-2 flex-column">
                     {/* Color options */}
                     {product.colors && (
                       <div className="d-flex gap-4 align-items-center">
@@ -133,17 +136,18 @@ const ProductSection = ({ data, loading, error }) => {
 
                     {/* Size options */}
                     {product.sizes && (
-                      <div className="mb-0 d-flex gap-4 align-items-center">
-                        <small className="attribute-name flex-shrink-0">
-                          Sizes: {product.sizes.join(" / ")}
-                        </small>
-                      </div>
-                    )}
+                        <div className="mb-0 d-flex gap-4 align-items-center">
+                          <small className="attribute-name flex-shrink-0">Sizes:</small>
+                          <div className="flex-grow-1 mb-0">
+                            {product.sizes.join(" / ")}
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     <div className="d-flex justify-content-end align-items-center mt-1">
                       <Link
-                        to={`/product-detail/${product.id}`}
+                        to={`/product/${product.id}/${slugify(product.name || 'product')}`}
                         className="btn btn-link"
                       >
                         <span>See Details</span>

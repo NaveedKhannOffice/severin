@@ -6,8 +6,8 @@
 
 
 :root {
-  --seconderyColor: #fe3156;
-  --primaryColor: linear-gradient(261deg, #1a8c1a 45.38%, #1819ff 174.25%);
+  /* --seconderyColor: #fe3156; */
+  /* --primaryColor: linear-gradient(261deg, #1a8c1a 45.38%, #1819ff 174.25%); */
   --grayColor: #666;
   --grayLightColor: #999;
   --redColor: #d70000;
@@ -36,6 +36,7 @@
   --bs-secondary-color: #6C7275;
   --bs-primary-color: #BD7C66;
   --navbar-toggler-border-color: #000000;
+  --bs-secondary: #2B2B2B;
 
 
 }
@@ -44,6 +45,23 @@ body {
   font-family: "Epilogue", sans-serif;
   font-size: 16px;
   min-width: 320px;
+}
+
+input.form-control::placeholder {
+  color: inherit;
+}
+input.form-control::-moz-placeholder {
+  color: inherit;
+  opacity: 1;
+}
+input.form-control:-ms-input-placeholder {
+  color: inherit;
+} 
+input.form-control::-ms-input-placeholder {
+  color: inherit;
+}
+input.form-control::-webkit-input-placeholder {
+  color: inherit;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -222,6 +240,9 @@ a {
   min-width: auto !important;
 }
 
+.dropdown-toggle span::before{
+  display: none !important;
+}
 /*----- General Css End -----*/
 
 /******** Custom Forms Elements START
@@ -361,8 +382,8 @@ form .form-control.input-bottom {
 }
 
 .closeButton:hover {
-  color: var(--whiteColor);
-  background: var(--primaryColor);
+  color: var(--bs-white);
+  background: var(--bs-primary-btn);
 }
 
 .modalImage {

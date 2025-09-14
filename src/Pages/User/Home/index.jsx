@@ -5,18 +5,18 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 import Slider from "react-slick";
 import { images } from "../../../Assets";
-import HeroSection from "./HeroSection";
+import OurStorySection from "./OurStorySection";
 import NewArrivalsSection from "./NewArrivalsSection";
-import AimsSection from "./AimsSection";
+import GiftSection from "./GiftSection";
 import TestimonialSection from "./TestiminialSection";
 
 import {
   homeBannerData,
-  aimsData,
+  giftData,
   testimonialResponse,
   productsData,
   newArrivalsData,
-  heroData,
+  ourStoryData,
 } from "../../../Config/data";
 // import { fetchHeroDataAPI } from "../../../Config/heroData";
 import { useAuth } from "../../../Hooks/useAuth";
@@ -28,12 +28,12 @@ const Home = () => {
   // Centralized state management
   const [homeData, setHomeData] = useState({
     homeBanner: [],
-    hero: null,
+    ourStory: null,
     services: [],
     testimonials: [],
     newArrivals: [],
     products: [], // Add this line
-    aims: [],
+    gift: [],
     loading: true,
     error: null,
   });
@@ -106,19 +106,19 @@ const Home = () => {
       const [
         homeBannerRes,
         newArrivalsRes,
-        heroRes,
+        ourStoryRes,
         productsRes,
         testimonialsRes,
-        aimsRes,
+        giftRes,
       ] = await Promise.all([
         // getAll("/user/top-services"),
         // getAll("/user/new-arrivals"), // Your new arrivals API
         Promise.resolve(homeBannerData), // Wrap static data in Promise.resolve
         Promise.resolve(newArrivalsData), // Wrap static data in Promise.resolve
-        Promise.resolve(heroData), // Wrap static data in Promise.resolve
+        Promise.resolve(ourStoryData), // Wrap static data in Promise.resolve
         Promise.resolve(productsData), // Wrap static data in Promise.resolve
         Promise.resolve(testimonialResponse), // Wrap static data in Promise.resolve
-        Promise.resolve(aimsData), // Wrap static data in Promise.resolve
+        Promise.resolve(giftData), // Wrap static data in Promise.resolve
       ]);
 
       // Debug: Check data before setting
@@ -127,11 +127,11 @@ const Home = () => {
 
       setHomeData({
         homeBanner: homeBannerRes.status ? homeBannerRes.data : [],
-        hero: heroRes.status ? heroRes.data : [],
+        ourStory: ourStoryRes.status ? ourStoryRes.data : [],
         products: productsRes.status ? productsRes.detail.data : [],
         testimonials: testimonialsRes.status ? testimonialsRes.data : [], // This should work now
         newArrivals: newArrivalsRes.status ? newArrivalsRes.detail.data : [],
-        aims: aimsRes.detail, // Use static data directly
+        gift: giftRes.detail, // Use static data directly
         loading: false,
         error: null,
       });
@@ -224,8 +224,8 @@ const Home = () => {
         error={homeData.error}
       />
 
-      <HeroSection
-        data={homeData.hero}
+      <OurStorySection
+        data={homeData.ourStory}
         loading={homeData.loading}
         error={homeData.error}
       />
@@ -242,10 +242,10 @@ const Home = () => {
         error={homeData.error}
       />
 
-      <AimsSection
-        title={homeData.aims.title}
-        description={homeData.aims.description}
-        giftImage={homeData.aims.image}
+      <GiftSection
+        title={homeData.gift.title}
+        description={homeData.gift.description}
+        giftImage={homeData.gift.image}
       />
     </>
   );

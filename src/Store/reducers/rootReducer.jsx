@@ -5,6 +5,7 @@ import imagesReducer from "./imagesReducer";
 import tokenReducer from "./tokenReducer";
 import roleReducer from "./roleReducer";
 import logoutReducer from "./logoutReducer";
+import cartReducer from "./cartReducer";
 
 const rootReducer = combineReducers({
   data: setDataReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   token: tokenReducer,
   role: roleReducer,
   logout: logoutReducer, // Add the logout reducer here
+  cart: cartReducer, // Add the cart reducer here
 });
 
 export default rootReducer;

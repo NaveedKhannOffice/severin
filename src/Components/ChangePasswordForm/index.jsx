@@ -85,7 +85,7 @@ const ChangePasswordForm = ({
                 variant={btnVariant}
                 className="px-5"
                 text={btnText}
-                pendingText="Submitting..."
+                loadingText="Submitting..."
                 isPending={isSubmitting}
                 type="submit"
               />

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import "./styles.css"
-const AimsSection = ({ title, description, giftImage }) => {
+
+const GiftSection = ({ title, description, giftImage }) => {
   return (
-    <section className="section aim-sec">
+    <section className="section gift-sec">
       <Container fluid>
         <Row>
           <Col xs={12} xl={11} className='mx-auto'>
@@ -25,14 +26,10 @@ const AimsSection = ({ title, description, giftImage }) => {
               </Col>
             </Row>
           </Col>
-          {/* <Col xs={12} lg={6} className="align-self-end"
-          data-aos="fade-up"
-          data-aos-delay="200">
-          </Col> */}
         </Row>
       </Container>
     </section>
   );
 };
 
-export default AimsSection;
+export default GiftSection;

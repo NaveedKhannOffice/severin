@@ -37,7 +37,7 @@ const CustomModal = (props) => {
               ""
             ) : (
               <img
-                src={images.Question}
+                src={images.question}
                 alt="question"
                 className="modalImage"
               />
@@ -94,7 +94,7 @@ const CustomModal = (props) => {
                   />
                   <CustomButton
                     onClick={props?.close}
-                    variant="secondary"
+                    variant="outline-secondary"
                     text={"Cancel"}
                   />
                 </div>
@@ -110,13 +110,13 @@ const CustomModal = (props) => {
                 <div className="mt-4">
                   <CustomButton
                     onClick={props?.action}
-                    variant="primary px-5 modalButton"
+                    variant="primary px-5"
                     text="Yes"
                     className="me-2"
                   />
                   <CustomButton
                     onClick={props?.close}
-                    variant="secondary px-5 modalButton"
+                    variant="outline-secondary px-5"
                     text="No"
                   />
                 </div>

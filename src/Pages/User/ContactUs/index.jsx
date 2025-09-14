@@ -135,7 +135,7 @@ const ContactUs = ({ showModal }) => {
                                           variant="site-btn primary-btn"
                                           className="px-5 w-100"
                                           text="Submit"
-                                          pendingText="Loading..."
+                                          loadingText="Loading..."
                                           // isPending={isSubmitting}
                                           type="submit"
                                        />

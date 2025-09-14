@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { images } from "../../../Assets";
-import { Container, Row, Col, Table } from "react-bootstrap";
+// import { images } from "../../../Assets";
+import { Container, Row, Col } from "react-bootstrap";
 import { Formik, Form } from "formik";
 import { useFormStatus } from "../../../Hooks/useFormStatus";
-import { productData } from "../../../Config/data";
-import { useNavigate, useParams } from "react-router-dom";
-import CustomButton from "../../../Components/CustomButton";
-import BackButton2 from "../../../Components/BackButton/BackButton2";
+// import { productData } from "../../../Config/data";
+import { useNavigate } from "react-router-dom";
+import CustomButton from "../../../Components/Common/CustomButton";
+import BackButton from "../../../Components/Common/BackButton";
 import { usePageTitle } from "../../../Utils/helper";
 import "./style.css";
-import CustomInput from "../../../Components/CustomInput";
+import TextInput from "../../../Components/Common/FormElements/TextInput";
 import { checkoutValidationSchema } from "../../../Config/Validations";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
-import { Select } from "../../../Components/Select";
+import  SelectInput  from "../../../Components/Common/FormElements/SelectInput";
 import {
-  countryOptions,
-  stateOptions,
-  yearOptions,
+  // countryOptions,
+  // stateOptions,
+  // yearOptions,
 } from "../../../Config/TableStatus";
 import { getAll, post } from "../../../Services/Api";
 import { parsePhoneNumber } from "libphonenumber-js";
-import { showToast } from "../../../Components/Toast";
+import { showToast } from "../../../Components/Common/Toast";
 
 const Checkout = () => {
   usePageTitle("Checkout", true);
@@ -239,7 +239,7 @@ const Checkout = () => {
       <Container fluid>
         <Row>
           <Col sm={12} className="d-flex align-items-center mb-4 mb-xxl-5">
-            <BackButton2 className="me-2" />
+            <BackButton className="me-2" />
             <h2 className="page-title fw-bold mb-0">Checkout</h2>
           </Col>
         </Row>
@@ -334,7 +334,7 @@ const Checkout = () => {
                         </h4>
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
-                        <CustomInput
+                        <TextInput
                           label="First Name"
                           id="first_name"
                           type="text"
@@ -349,7 +349,7 @@ const Checkout = () => {
                         />
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
-                        <CustomInput
+                        <TextInput
                           label="Last Name"
                           id="last_name"
                           type="text"
@@ -364,7 +364,7 @@ const Checkout = () => {
                         />
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
-                        <CustomInput
+                        <TextInput
                           label="Email"
                           id="email"
                           type="email"
@@ -405,7 +405,7 @@ const Checkout = () => {
                         </h4>
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
-                        <CustomInput
+                        <TextInput
                           label="First Name"
                           id="shipping_first_name"
                           type="text"
@@ -423,7 +423,7 @@ const Checkout = () => {
                         />
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
-                        <CustomInput
+                        <TextInput
                           label="Last Name"
                           id="shipping_last_name"
                           type="text"
@@ -468,7 +468,7 @@ const Checkout = () => {
                         ) : null}
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
-                        <CustomInput
+                        <TextInput
                           label="Residential Address"
                           id="shipping_address"
                           type="text"
@@ -485,7 +485,7 @@ const Checkout = () => {
                         />
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
-                        <Select
+                        <SelectInput
                           className="mainInput selectInput w-100"
                           label="Country"
                           labelclass="mainLabel"
@@ -507,8 +507,8 @@ const Checkout = () => {
                           }
                         >
                           {allCountries}
-                        </Select>
-                        {/* <CustomInput
+                        </SelectInput>
+                        {/* <TextInput
                                                     label="Country"
                                                     id="shipping_country"
                                                     type="text"
@@ -524,7 +524,7 @@ const Checkout = () => {
                                                 /> */}
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
-                        <Select
+                        <SelectInput
                           className="mainInput selectInput w-100"
                           label="State"
                           labelclass="mainLabel"
@@ -549,8 +549,8 @@ const Checkout = () => {
                           }
                         >
                           {shippingStates}
-                        </Select>
-                        {/* <CustomInput
+                        </SelectInput>
+                        {/* <TextInput
                                                     label="State"
                                                     id="shipping_state"
                                                     type="text"
@@ -566,7 +566,7 @@ const Checkout = () => {
                                                 /> */}
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
-                        <CustomInput
+                        <TextInput
                           label="Zip Code"
                           id="shipping_zip_code"
                           type="text"
@@ -584,7 +584,7 @@ const Checkout = () => {
                         />
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
-                        {/* <CustomInput
+                        {/* <TextInput
                                                     label="City"
                                                     id="shipping_city"
                                                     type="text"
@@ -597,7 +597,7 @@ const Checkout = () => {
                                                     onBlur={handleBlur}
                                                     error={touched.shipping_city && errors.shipping_city}
                                                 /> */}
-                        <Select
+                        <SelectInput
                           className="mainInput selectInput w-100"
                           label="City"
                           labelclass="mainLabel"
@@ -616,7 +616,7 @@ const Checkout = () => {
                           error={touched.shipping_city && errors.shipping_city}
                         >
                           {shippingCities}
-                        </Select>
+                        </SelectInput>
                       </Col>
                       <Col xs={12} className="mb-3 mb-lg-4">
                         <div className="radio-checkbox-wrapper gap-3 gap-sm-5">
@@ -642,7 +642,7 @@ const Checkout = () => {
                         </h4>
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
-                        <CustomInput
+                        <TextInput
                           label="First Name"
                           id="billing_first_name"
                           type="text"
@@ -660,7 +660,7 @@ const Checkout = () => {
                         />
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
-                        <CustomInput
+                        <TextInput
                           label="Last Name"
                           id="billing_last_name"
                           type="text"
@@ -709,7 +709,7 @@ const Checkout = () => {
                           )}
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
-                        <CustomInput
+                        <TextInput
                           label="Residential Address"
                           id="billing_address"
                           type="text"
@@ -726,7 +726,7 @@ const Checkout = () => {
                         />
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
-                        <Select
+                        <SelectInput
                           className="mainInput selectInput w-100"
                           label="Country"
                           labelclass="mainLabel"
@@ -748,8 +748,8 @@ const Checkout = () => {
                           }
                         >
                           {allCountries}
-                        </Select>
-                        {/* <CustomInput
+                        </SelectInput>
+                        {/* <TextInput
                                                     label="Country"
                                                     id="billing_country"
                                                     type="text"
@@ -765,7 +765,7 @@ const Checkout = () => {
                                                 /> */}
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
-                        <Select
+                        <SelectInput
                           className="mainInput selectInput w-100"
                           label="State"
                           labelclass="mainLabel"
@@ -785,8 +785,8 @@ const Checkout = () => {
                           error={touched.billing_state && errors.billing_state}
                         >
                           {billingStates}
-                        </Select>
-                        {/* <CustomInput
+                        </SelectInput>
+                        {/* <TextInput
                                                     label="State"
                                                     id="billing_state"
                                                     type="text"
@@ -802,7 +802,7 @@ const Checkout = () => {
                                                 /> */}
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
-                        <CustomInput
+                        <TextInput
                           label="Zip Code"
                           id="billing_zip_code"
                           type="text"
@@ -819,7 +819,7 @@ const Checkout = () => {
                         />
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
-                        {/* <CustomInput
+                        {/* <TextInput
                                                     label="City"
                                                     id="billing_city"
                                                     type="text"
@@ -832,7 +832,7 @@ const Checkout = () => {
                                                     onBlur={handleBlur}
                                                     error={touched.billing_city && errors.billing_city}
                                                 /> */}
-                        <Select
+                        <SelectInput
                           className="mainInput selectInput w-100"
                           label="City"
                           labelclass="mainLabel"
@@ -851,14 +851,14 @@ const Checkout = () => {
                           error={touched.billing_city && errors.billing_city}
                         >
                           {billingCities}
-                        </Select>
+                        </SelectInput>
                       </Col>
                       <Col xs={12} lg={6} className="mb-1 mb-lg-2">
                         <CustomButton
                           variant="btn-primary"
                           className="btn px-5"
                           text="Place Order"
-                          pendingText="Loading..."
+                          loadingText="Loading..."
                           // isPending={isSubmitting}
                           type="submit"
                         />

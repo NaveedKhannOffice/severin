@@ -1,7 +1,7 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./style.css";
-import BackButton2 from "../../../BackButton/BackButton2";
+import BackButton2 from "../../../Common/BackButton/BackButton2";
 import { images } from "../../../../Assets";
 
 export const UserAuthLayout = (props) => {

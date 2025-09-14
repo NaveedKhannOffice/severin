@@ -1,20 +1,42 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from "react-redux";
 import { images } from '../../../Assets'
-import { Container, Row, Col, ProgressBar } from 'react-bootstrap'
+import { Container, Row, Col, ProgressBar, Button } from 'react-bootstrap'
 import "./style.css"
 import { Formik, Form, Field } from 'formik'
 import { useFormStatus } from '../../../Hooks/useFormStatus'
-import { productData } from '../../../Config/data'
+import { productsData, newArrivalsData } from '../../../Config/data'
 import { useNavigate, useParams } from 'react-router-dom'
 import Rating from "react-rating";
+import { FaPlus } from "react-icons/fa6";
+import { FaMinus } from "react-icons/fa6";
+
 import { FaRegStar, FaStar } from 'react-icons/fa6'
-import CustomButton from '../../../Components/CustomButton'
 import { getAll, post } from '../../../Services/Api'
-import { showToast } from '../../../Components/Toast'
+import { showToast } from '../../../Components/Common/Toast/index'
+import CustomButton from '../../../Components/Common/CustomButton'
+import { getColorName, sizeDisplayMap } from '../../../Utils/helper'
+import { addItem, decreaseQty, increaseQty, removeItem } from "../../../Store/actions";
+import { FaTrash } from "react-icons/fa6";
+import { useSelector } from "react-redux";
+import { cartItems } from "../../../Store/selectors";
+import NewArrivalsSection from "../Home/NewArrivalsSection";
 
 const ProductView = () => {
-    const { id } = useParams();
-    const [productDetails, setProductDetails] = useState({});
+    const { id, slug } = useParams();
+    const dispatch = useDispatch();
+    const cart = useSelector(cartItems);
+    const [selectedColor, setSelectedColor] = useState("");
+    const [selectedSize, setSelectedSize] = useState("");
+    const [inputQuantity, setInputQuantity] = useState(1);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const [productData, setProductData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [newArrivals, setNewArrivals] = useState([]);
+    const [newArrivalsLoading, setNewArrivalsLoading] = useState(false);
+    const [newArrivalsError, setNewArrivalsError] = useState(null);
     const [reviews, setReviews] = useState([]);
     const [filteredReviews, setFilteredReviews] = useState([]);
     const [filtereData, setFilterData] = useState([]);
@@ -23,468 +45,380 @@ const ProductView = () => {
     const navigate = useNavigate();
 
     const { isSubmitting, startSubmitting, stopSubmitting } = useFormStatus(); // use your custom hook   
-
     const getproductDetails = async () => {
-        // const response = productData?.detail?.data?.find((item) => item.id === Number(id));
-
-        try {
-            const response = await getAll(`/user/cart/show-cart-item/${id}`);
-            const reviewsResponse = await getAll(`/user/cart/show-cart-review/${id}`);
-            if (response?.status) {
-                // setProductDetails(response.detail);
-                setProductDetails(response?.data);
-                setReviews(reviewsResponse?.reviews);
-                setFilteredReviews(reviewsResponse?.reviews);
-                setFilterData(reviewsResponse);
-
-            } else {
-                console.log("Error in fetching product details: ", response);
-            }
+      setLoading(true);
+      setError(null);
+      
+      try {
+          // console.log("=== ProductView Debug Info ===");
+          // console.log("URL Params - ID:", id, "Slug:", slug);
+          // console.log("ProductsData exists:", !!productsData);
+          // console.log("ProductsData structure:", productsData);
+          // console.log("ProductsData.detail exists:", !!productsData?.detail);
+          // console.log("ProductsData.detail.data exists:", !!productsData?.detail?.data);
+          // console.log("ProductsData.detail.data length:", productsData?.detail?.data?.length);
+          // console.log("===============================");
+          
+          // Check if productsData exists and has the correct structure
+          if (!productsData?.detail?.data) {
+              console.log("No products data found in static data");
+              setError("No products data available");
+              setLoading(false);
+              return;
+          }
+          
+          // Find product by ID (try multiple methods)
+          let response = productsData.detail.data.find((item) => item.id === id.toString());
+          
+          if (!response) {
+              // Try with number comparison
+              response = productsData.detail.data.find((item) => Number(item.id) === Number(id));
+          }
+          
+          if (!response) {
+              // Try with string comparison
+              response = productsData.detail.data.find((item) => String(item.id) === String(id));
+          }
+          
+          // console.log("Found product:", response);
+          
+          if (response) {
+              setProductData(response);
+              // console.log("Product details set successfully:", response);
+          } else {
+              console.log("No product found with ID:", id);
+              console.log("Available product IDs:", productsData.detail.data.map(item => item.id));
+              setError(`Product with ID ${id} not found`);
+          }
 
         } catch (error) {
-            console.log("Error in fetching the product: ", error)
+            console.log("Error in fetching the product: ", error);
+            setError("Failed to load product details");
+        } finally {
+            setLoading(false);
         }
+    };
 
-
+    // API call for New Arrivals
+    const getNewArrivals = async () => {
+        setNewArrivalsLoading(true);
+        setNewArrivalsError(null);
+        
+        try {
+            // Replace with your actual API endpoint
+            // const response = await getAll("/user/new-arrivals");
+            const response = newArrivalsData;
+            
+            if (response.status) {
+                setNewArrivals(response.detail.data || []);
+            } else {
+                // Fallback to static data if API fails
+                setNewArrivals(newArrivalsData.status ? newArrivalsData.detail.data : []);
+            }
+        } catch (error) {
+            console.log("Error fetching new arrivals: ", error);
+            setNewArrivalsError("Failed to load new arrivals");
+            // Fallback to static data
+            setNewArrivals(newArrivalsData.status ? newArrivalsData.detail.data : []);
+        } finally {
+            setNewArrivalsLoading(false);
+        }
     };
 
     useEffect(() => {
         getproductDetails();
+        getNewArrivals(); // Call API for new arrivals
+    }, [id, slug]);
+
+    // Reset input quantity when product changes
+    useEffect(() => {
+        setInputQuantity(1);
+        setCurrentImageIndex(0);
+        setSelectedColor("");
+        setSelectedSize("");
     }, [id]);
 
-    useEffect(() => {
-        setFilteredReviews(
-            reviews.comments?.filter((c) => {
-                if (reviewsFilter === "All") return c;
-                else {
-                    return Number(c.rating) === Number(reviewsFilter);
-                }
-            })
-        );
-    }, [reviews, reviewsFilter]);
-
-    const filteredReviews1 = reviewsFilter === "All"
-        ? filtereData?.reviews
-        : filtereData?.reviews?.filter(review => review?.rating === reviewsFilter);
-
-    const handleSubmit = async (values, { resetForm }) => {
-        startSubmitting();
-        // console.log("Form Submit Values", values)
-
-        try {
-
-            const response = await post(`/user/cart/create`, values);
-
-            if (response.status) {
-                showToast("Added to cart", "success");
-                setTimeout(() => {
-                    navigate('/view-cart')
-
-                }, 1500)
-            } else {
-                showToast(response?.message, "error");
+    // Get current images based on selected color
+    const getCurrentImages = () => {
+        if (!productData) return [];
+        
+        // If color is selected and has specific images
+        if (selectedColor && productData.colors) {
+            const selectedColorData = productData.colors.find(color => 
+                (color.value || color) === selectedColor
+            );
+            if (selectedColorData && selectedColorData.images) {
+                return selectedColorData.images;
             }
-
-
-        } catch (error) {
-            console.log("Add to cart error: ", error);
         }
-
-        stopSubmitting();
-        resetForm();
+        
+        // Fallback to default photos
+        return productData.photos || [];
     };
 
+    // Handle color selection and update images
+    const handleColorSelect = (color) => {
+        setSelectedColor(color);
+        setCurrentImageIndex(0); // Reset to first image when color changes
+    };
+
+
+    // Get current cart quantity for this product with selected variants
+    const getCartQuantity = () => {
+      if (!cart?.cartItems) return 0;
+      const cartItemId = `${id}_${selectedColor || 'no-color'}_${selectedSize || 'no-size'}`;
+      const cartItem = cart.cartItems.find(item => item.cartItemId === cartItemId);
+      return cartItem ? cartItem.qty : 0;
+    };
+
+    const currentCartQty = getCartQuantity();
+
+    // Handle input quantity change
+    const handleQuantityChange = (e) => {
+      const value = parseInt(e.target.value) || 1;
+      setInputQuantity(Math.max(1, Math.min(value, productData?.stock_quantity || 999)));
+    };
+
+    // Handle Enter key press to add items
+    const handleKeyPress = (e) => {
+      if (e.key === 'Enter') {
+        handleAddToCart();
+      }
+    };
+
+    // Add items to cart based on input quantity
+    const handleAddToCart = () => {
+      // Validate required selections
+      if (productData?.colors && productData.colors.length > 0 && !selectedColor) {
+        showToast("Please select a color", "warning");
+        return;
+      }
+      
+      if (productData?.sizes && productData.sizes.length > 0 && !selectedSize) {
+        showToast("Please select a size", "warning");
+        return;
+      }
+      
+      const quantityToAdd = inputQuantity;
+      
+      // Prepare product data for cart
+      const productDataForCart = {
+        id: Number(id),
+        name: productData?.name,
+        price: parseFloat(productData?.price) || 0,
+        image: getCurrentImages()[currentImageIndex] || productData?.photos?.[0],
+        color: selectedColor || null,
+        size: selectedSize || null,
+        stock_quantity: productData?.stock_quantity
+      };
+      
+      // Add multiple items at once
+      for (let i = 0; i < quantityToAdd; i++) {
+        dispatch(addItem(productDataForCart));
+      }
+      
+      showToast(`${quantityToAdd} Item(s) Added To Cart!`, "success");
+      // Keep the current quantity instead of resetting to 1
+    };
+
+    console.log(newArrivals);
     return (
-        <section className='page-content product-view'>
-            <Container fluid>
-                <Row>
-                    <Col md={6}>
-                        <div className="product-media-wrap">
-                            <div className="product-media-main">
-                                <img src={productDetails?.medias?.[0]?.media_path} alt="" />
-                            </div>
+      <section className='page-content product-view'>
+        <Container fluid>
+          {/* Loading State */}
+          {loading && (
+            <Row>
+              <Col md={12}>
+                <div className="text-center py-5">
+                  <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                  <p className="mt-2">Loading product details...</p>
+                </div>
+              </Col>
+            </Row>
+          )}
+
+          {/* Error State */}
+          {error && !loading && (
+            <Row>
+              <Col md={12}>
+                <div className="alert alert-danger text-center py-5">
+                  <h4>Error Loading Product</h4>
+                  <p>{error}</p>
+                  <button 
+                    className="btn btn-primary" 
+                    onClick={() => getproductDetails()}
+                  >
+                    Try Again
+                  </button>
+                </div>
+              </Col>
+            </Row>
+          )}
+
+          {/* Product Details */}
+          {!loading && !error && productData && (
+            <>
+          <Row>
+            <Col md={6}>
+              <div className="product-media-wrap">
+                {/* Main Image */}
+                <div className="product-media-main">
+                  <img 
+                    src={getCurrentImages()[currentImageIndex] || productData?.photos?.[0]} 
+                    alt={productData?.name || "Product"} 
+                    className="main-product-image"
+                  />
+                </div>
+                
+                {/* Image Thumbnails */}
+                {getCurrentImages().length > 1 && (
+                  <div className="product-thumbnails">
+                    {getCurrentImages().map((image, index) => (
+                      <div
+                        key={index}
+                        className={`thumbnail ${currentImageIndex === index ? 'active' : ''}`}
+                        onClick={() => setCurrentImageIndex(index)}
+                      >
+                        <img 
+                          src={image} 
+                          alt={`${productData?.name} ${index + 1}`}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </Col>
+            <Col md={6} className='d-flex'>
+              <div className="align-self-center flex-grow-1">
+                <div className="product-view__info">
+                  <div className="product-view__title mb-2">
+                    <h3 className='fw-light'>{productData?.name}</h3>
+                  </div>
+                  {productData?.categories && (
+                    <div className="product-view__categories mb-3">
+                      {productData.categories.map((category, index) => (
+                        <span key={index} className="product-view__category-tag">
+                          {category?.name}
+                        </span>
+                      ))}
+                    </div>
+                  )} 
+                  <div className="product-view__price mb-4">
+                      <div className="price fw-semibold"><span className='currency-code'>CHF</span>{productData?.price}</div>
+                  </div>
+
+                  {/* Color Selector - Only show if product has colors */}
+                  {productData?.colors && productData.colors.length > 0 && (
+                    <div className="mb-3">
+                      <strong>Colors:</strong> <span>{selectedColor ? getColorName(selectedColor) : 'Select a color'}</span>
+                      <div className="d-flex gap-2 mt-2">
+                        {productData.colors.map((color) => (
+                          <div
+                            key={color.value || color}
+                            className={`color-swatch ${selectedColor === (color.value || color) ? "selected" : ""}`}
+                            style={{ backgroundColor: color.value || color }}
+                            onClick={() => handleColorSelect(color.value || color)}
+                            title={color.name || getColorName(color.value || color)}
+                          ></div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Size Selector - Only show if product has sizes */}
+                  {productData?.sizes && productData.sizes.length > 0 && (
+                    <div className="mb-4">
+                      <strong>Size:</strong> <span>{selectedSize || 'Select a size'}</span>
+                      <div className="d-flex gap-2 mt-2">
+                        {productData.sizes.map((size) => (
+                          <button 
+                            key={size} 
+                            className={`size-button ${selectedSize === size ? "active" : ""}`} 
+                            onClick={() => setSelectedSize(size)}
+                          >
+                            {sizeDisplayMap[size.toLowerCase()] || size.charAt(0).toUpperCase()}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {productData?.description && (
+                    <div className="product-description">
+                      <p>{productData?.description}</p>
+                    </div>
+                  )}
+                </div>
+                <div className="product-view__actions">
+                  <div className="d-flex gap-3">
+                    {productData?.stock_quantity > 0 ? (
+                      <>
+                        <div className="product-info-quantity flex-shrink-0">
+                          <div className="quantity-picker">
+                            <Button 
+                              className="quantity-picker__btn quantity-picker__btn--minus" 
+                              onClick={() => setInputQuantity(Math.max(1, inputQuantity - 1))}
+                            >
+                          <FaMinus />
+                        </Button>
+                            <input 
+                              type="number" 
+                              className="quantity-picker__input" 
+                              value={inputQuantity}
+                              onChange={handleQuantityChange}
+                              onKeyPress={handleKeyPress}
+                              min="1"
+                              max={productData?.stock_quantity || 999}
+                            />
+                            <Button 
+                              className="quantity-picker__btn quantity-picker__btn--plus" 
+                              onClick={() => setInputQuantity(Math.min(inputQuantity + 1, productData?.stock_quantity || 999))}
+                            >
+                        <FaPlus />
+                      </Button>
+                          </div>
                         </div>
-                    </Col>
-                    <Col md={6} className='d-flex'>
-                        <div className="product-info-wrap align-self-center flex-grow-1">
-                            <div className="product-info-list">
-                                <Formik
-                                    initialValues={{
-                                        quantity: 1, // Default value set to 1
-                                        product_id: productDetails?.id,
-                                        price: productDetails?.price,
-                                    }}
-                                    // validationSchema={ProductValidation}
-
-                                    onSubmit={handleSubmit}
-                                    enableReinitialize
-                                >
-                                    {({
-                                        values,
-                                        errors,
-                                        touched,
-                                        handleChange,
-                                        setFieldValue,
-                                    }) => {
-                                        const increaseValue = () => {
-                                            setFieldValue('quantity', Number(values.quantity) + 1);
-                                        };
-
-                                        const decreaseValue = () => {
-                                            if (values.quantity > 1) {
-                                                setFieldValue('quantity', Number(values.quantity) - 1);
-                                            }
-                                        };
-                                        return (
-                                            <>
-                                                {/* Static Information */}
-
-                                                <div className="product-category">
-                                                    <h5 className='fw-regular'>{productDetails?.category?.category_title}</h5>
-                                                </div>
-                                                <div className="product-title mb-3">
-                                                    <h3 className='fw-bold'>{productDetails?.title}</h3>
-                                                </div>
-                                                {/* Formik Form Starts */}
-                                                <Form>
-                                                    <div className="d-flex justify-content-between mb-4">
-                                                        <div className="product-info-price flex-grow-1 align-self-center">
-                                                            <div className="price fw-bold"><span className='currency-symbol'>$</span>{productDetails?.price}</div>
-                                                        </div>
-                                                        <div className="product-info-quantity flex-shrink-0">
-                                                            <div className="quantity-picker">
-                                                                <span className="btn-quantity minus-btn" onClick={decreaseValue}>-</span>
-                                                                <Field
-                                                                    name="quantity"
-                                                                    type="number"
-                                                                    className="form-control"
-                                                                    value={values.quantity}
-                                                                    onChange={handleChange}
-                                                                    min="1"
-                                                                />
-                                                                <span className="btn-quantity plus-btn" onClick={increaseValue}>+</span>
-                                                            </div>
-                                                            {touched.product_quantity && errors.product_quantity && (
-                                                                <div className="text-danger">{errors.product_quantity}</div>
-                                                            )}
-                                                        </div>
-                                                    </div>
-                                                    {productDetails?.delivery_option && (
-                                                        <div className="product-description mb-4 d-flex gap-3">
-                                                            <h6 className="fw-bold">Delivery Type</h6>
-                                                            <p className="lh-base ps-3">{productDetails?.delivery_option}</p>
-                                                        </div>
-                                                    )}
-                                                    {productDetails?.description && (
-                                                        <div className="product-description mb-4">
-                                                            <h6 className='fw-bold'>Description</h6>
-                                                            <p>{productDetails?.description}</p>
-                                                        </div>
-                                                    )}
-                                                    {productData?.quantity > 0 ? (
-                                                        <div className="product-info-buy-button mt-3">
-                                                            <button type="submit" className="btn btn-primary">
-                                                                Add to Cart
-                                                            </button>
-                                                        </div>
-
-                                                    ) : (
-                                                        <div className="product-info-buy-button mt-3">
-                                                            <span className="btn btn-primary" disabled>
-                                                                Out of stock
-                                                            </span>
-                                                        </div>
-                                                    )}
-
-                                                </Form>
-                                                {/* Formik Form Ends */}
-                                            </>
-                                        );
-                                    }}
-                                </Formik>
-                            </div>
+                        <div className="product-view__add-to-cart">
+                          <CustomButton variant="primary" onClick={handleAddToCart}>Add to Cart</CustomButton>
                         </div>
-                    </Col>
-                </Row>
+                      </>
+                    ) : (
+                      <p className="text-danger fw-bold mb-0">Out of Stock</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12} className=''>
+            <NewArrivalsSection
+              data={newArrivals}
+              loading={newArrivalsLoading}
+              error={newArrivalsError}
+              animate={false}
+            />
+            </Col>
+          </Row>
+            </>
+          )}
 
-                <Row>
-                    <Col xs={12} lg={10} className='product-reviews pt-4 pt-lg-5'>
-                        {/* <Row>
-                            <Col xs={12}>
-                                <h2 className='page-title fw-bold'>Reviews</h2>
-                            </Col>
-                            <Col xs={12} className="d-flex flex-wrap justify-content-between align-items-center gap-4 rating-reviews">
-                                <div className="d-flex flex-column align-items-start reviews-info">
-                                    <div className="d-flex gap-4 align-items-baseline">
-                                        <h3 className='fw-bold'>{productDetails.rating}<span>/5</span></h3>
-                                        <p className="review-count mb-0">{reviews?.count} Reviews</p>
-                                    </div>
-                                    <Rating
-                                        className="mt-3"
-                                        emptySymbol={<FaRegStar color="#E9D225" size={40} />}
-                                        fullSymbol={<FaStar size={40} color="#E9D225" />}
-                                        initialRating={parseFloat(productDetails.rating).toFixed(1)}
-                                        readonly
-                                    />
-                                </div>
-                                <div className='reviews-bar'>
-                                    <div className="reviews-item d-flex align-items-center gap-4">
-                                        <label htmlFor="rating1">5 Star</label>
-                                        <ProgressBar variant="progress" now={90} />
-                                        <span>30</span>
-                                    </div>
-                                    <div className="reviews-item d-flex align-items-center gap-4">
-                                        <label htmlFor="rating2">4 Star</label>
-                                        <ProgressBar variant="progress" now={75} />
-                                        <span>20</span>
-                                    </div>
-                                    <div className="reviews-item d-flex align-items-center gap-4">
-                                        <label htmlFor="rating3">3 Star</label>
-                                        <ProgressBar variant="progress" now={20} />
-                                        <span>5</span>
-                                    </div>
-                                    <div className="reviews-item d-flex align-items-center gap-4">
-                                        <label htmlFor="rating4">2 Star</label>
-                                        <ProgressBar variant="progress" now={10} />
-                                        <span>1</span>
-                                    </div>
-                                    <div className="reviews-item d-flex align-items-center gap-4">
-                                        <label htmlFor="rating5">1 Star</label>
-                                        <ProgressBar variant="progress" now={4} />
-                                        <span>1</span>
-                                    </div>
-                                </div>
-                            </Col>
-                            <Col xs={12} className="mt-4 pt-3">
-                                <div className="d-flex flex-wrap gap-3 review-tabs">
-                                    <CustomButton
-                                        onClick={() => {
-                                            setReviewsFilter("All");
-                                        }}
-                                        className={`btn ${reviewsFilter === "All" ? "primary-btn" : "btn-outline-primary"} `}
-                                        text="All"
-                                    />
-                                    <CustomButton
-                                        onClick={() => {
-                                            setReviewsFilter("5");
-                                        }}
-                                        className={`btn ${reviewsFilter === "5" ? "primary-btn" : "btn-outline-primary"} `}
-                                    >
-
-                                        <FaStar className="text-warning" />
-                                        <span>5</span>
-                                    </CustomButton>
-                                    <CustomButton
-                                        onClick={() => {
-                                            setReviewsFilter("4");
-                                        }}
-                                        className={`btn ${reviewsFilter === "4" ? "btn-primary" : "btn-outline-primary"} `}
-                                    >
-                                        <FaStar className="text-warning" />
-                                        <span>4</span>
-                                    </CustomButton>
-                                    <CustomButton
-                                        onClick={() => {
-                                            setReviewsFilter("3");
-                                        }}
-                                        className={`btn ${reviewsFilter === "3" ? "btn-primary" : "btn-outline-primary"} `}
-                                    >
-                                        <FaStar className="text-warning" />
-                                        <span>3</span>
-                                    </CustomButton>
-                                    <CustomButton
-                                        onClick={() => {
-                                            setReviewsFilter("2");
-                                        }}
-                                        className={`btn ${reviewsFilter === "2" ? "btn-primary" : "btn-outline-primary"} `}
-                                    >
-                                        <div className="d-flex align-items-center">
-                                            <FaStar className="text-warning" />
-                                            <span>2</span>
-                                        </div>
-                                    </CustomButton>
-                                    <CustomButton
-                                        onClick={() => {
-                                            setReviewsFilter("1");
-                                        }}
-                                        className={`btn ${reviewsFilter === "1" ? "btn-primary" : "btn-outline-primary"} `}
-                                    >
-                                        <div className="d-flex align-items-center">
-                                            <FaStar className="text-warning" />
-                                            <span>1</span>
-                                        </div>
-                                    </CustomButton>
-                                </div>
-                                <hr className="my-5" />
-                                {filteredReviews?.length > 0 ? (
-                                    filteredReviews?.map((data, i) => (
-                                        <div key={i} className="card-comment d-flex gap-3 mt-4">
-                                            <div className="d-flex flex-grow-1 gap-3 comment-info">
-                                                <img className="profile-avatar" src={data.user?.["photo-path"]} alt="user_photo" />
-                                                <div className="flex-grow-1 align-self-center">
-                                                    <div className="star-rating d-flex gap-1 mb-3">
-                                                        {Array.from({ length: data.rating }).map((_, j) => (
-                                                            <FaStar key={`${i} -${j} `} className="" />
-                                                        ))}
-                                                    </div>
-                                                    <h6 className="mb-1">{data.user?.name}</h6>
-                                                    <time className="published-date" dateTime={data.timestamp}>{data.timestamp} </time>
-                                                </div>
-                                            </div>
-                                            <div className="d-flex flex-grow-1 align-self-center">
-                                                <div className="comment-text">
-                                                    <p>{data.comment}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))
-                                ) : (
-                                    <p>No {reviewsFilter} star review</p>
-                                )}
-                            </Col>
-                        </Row> */}
-                        <Row>
-                            <Col xs={12} className="d-flex flex-wrap justify-content-between align-items-center gap-4 rating-reviews">
-                                <div className="d-flex flex-column align-items-start reviews-info">
-                                    <div className="d-flex gap-4 align-items-baseline">
-                                        <h3 className='fw-bold'>{filtereData?.average_rating}<span>/5</span></h3>
-                                        <p className="review-count mb-0">{filtereData?.total_reviews} Reviews</p>
-                                    </div>
-                                    <Rating
-                                        className="mt-3"
-                                        emptySymbol={<FaRegStar color="#E9D225" size={40} />}
-                                        fullSymbol={<FaStar size={40} color="#E9D225" />}
-                                        initialRating={parseFloat(filtereData?.average_rating || "0").toFixed(1)}
-                                        readonly
-                                    />
-                                </div>
-                                <div className='reviews-bar'>
-                                    <div className="reviews-item d-flex align-items-center gap-4">
-                                        <label htmlFor="rating1">5 Star</label>
-                                        <ProgressBar variant="progress" now={filtereData?.star_distribution?.[5]} />
-                                        <span>{filtereData?.star_distribution?.[5]}</span>
-                                    </div>
-                                    <div className="reviews-item d-flex align-items-center gap-4">
-                                        <label htmlFor="rating2">4 Star</label>
-                                        <ProgressBar variant="progress" now={filtereData?.star_distribution?.[4]} />
-                                        <span>{filtereData?.star_distribution?.[4]}</span>
-                                    </div>
-                                    <div className="reviews-item d-flex align-items-center gap-4">
-                                        <label htmlFor="rating3">3 Star</label>
-                                        <ProgressBar variant="progress" now={filtereData?.star_distribution?.[3]} />
-                                        <span>{filtereData?.star_distribution?.[3]}</span>
-                                    </div>
-                                    <div className="reviews-item d-flex align-items-center gap-4">
-                                        <label htmlFor="rating4">2 Star</label>
-                                        <ProgressBar variant="progress" now={filtereData?.star_distribution?.[2]} />
-                                        <span>{filtereData?.star_distribution?.[2]}</span>
-                                    </div>
-                                    <div className="reviews-item d-flex align-items-center gap-4">
-                                        <label htmlFor="rating5">1 Star</label>
-                                        <ProgressBar variant="progress" now={filtereData?.star_distribution?.[1]} />
-                                        <span>{filtereData?.star_distribution?.[1]}</span>
-                                    </div>
-                                </div>
-                            </Col>
-                            <Col xs={12} className="mt-4 pt-3">
-                                <div className="d-flex flex-wrap gap-3 review-tabs">
-                                    <CustomButton
-                                        onClick={() => {
-                                            setReviewsFilter("All");
-                                        }}
-                                        className={`btn ${reviewsFilter === "All" ? "primary-btn" : "btn-outline-primary"}`}
-                                        text="All"
-                                    />
-                                    <CustomButton
-                                        onClick={() => {
-                                            setReviewsFilter(5);
-                                        }}
-                                        className={`btn ${reviewsFilter === "5" ? "primary-btn" : "btn-outline-primary"}`}
-                                    >
-
-                                        <FaStar className="text-warning" />
-                                        <span>5</span>
-                                    </CustomButton>
-                                    <CustomButton
-                                        onClick={() => {
-                                            setReviewsFilter(4);
-                                        }}
-                                        className={`btn ${reviewsFilter === "4" ? "btn-primary" : "btn-outline-primary"}`}
-                                    >
-                                        <FaStar className="text-warning" />
-                                        <span>4</span>
-                                    </CustomButton>
-                                    <CustomButton
-                                        onClick={() => {
-                                            setReviewsFilter(3);
-                                        }}
-                                        className={`btn ${reviewsFilter === "3" ? "btn-primary" : "btn-outline-primary"}`}
-                                    >
-                                        <FaStar className="text-warning" />
-                                        <span>3</span>
-                                    </CustomButton>
-                                    <CustomButton
-                                        onClick={() => {
-                                            setReviewsFilter(2);
-                                        }}
-                                        className={`btn ${reviewsFilter === "2" ? "btn-primary" : "btn-outline-primary"}`}
-                                    >
-                                        <div className="d-flex align-items-center">
-                                            <FaStar className="text-warning" />
-                                            <span>2</span>
-                                        </div>
-                                    </CustomButton>
-                                    <CustomButton
-                                        onClick={() => {
-                                            setReviewsFilter(1);
-                                        }}
-                                        className={`btn ${reviewsFilter === "1" ? "btn-primary" : "btn-outline-primary"}`}
-                                    >
-                                        <div className="d-flex align-items-center">
-                                            <FaStar className="text-warning" />
-                                            <span>1</span>
-                                        </div>
-                                    </CustomButton>
-                                </div>
-                                <hr className="my-5" />
-                                {filteredReviews1?.length > 0 ? (
-                                    filteredReviews1.map((data, i) => (
-                                        <div key={data.id} className="card-comment d-flex gap-3 mt-4">
-                                            <div className="d-flex flex-grow-1 gap-3 comment-info">
-                                                <img className="profile-avatar" src={data.user.photo} alt="user_photo" />
-                                                <div className="flex-grow-1 align-self-center">
-                                                    <div className="star-rating d-flex gap-1 mb-3">
-                                                        {Array.from({ length: data.rating }).map((_, j) => (
-                                                            <FaStar key={`${data.id}-${j}`} className="" />
-                                                        ))}
-                                                    </div>
-                                                    <h6 className="mb-1">{`${data.user.first_name} ${data.user.last_name}`}</h6>
-                                                    <time className="published-date" dateTime={data.created_at}>{data.created_at}</time>
-                                                </div>
-                                            </div>
-                                            <div className="d-flex flex-grow-1 align-self-center">
-                                                <div className="comment-text">
-                                                    <p>{data.review}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))
-                                ) : (
-                                    <p>No {reviewsFilter} star review</p>
-                                )}
-                            </Col>
-                            {/* <Col xs={12} className='mt-3 mt-lg-4'>
-                           <CustomPagination
-                              pagination={pagination}
-                              setFilters={setFilters}
-                           />
-                        </Col> */}
-                        </Row>
-
-                    </Col>
-                </Row>
-            </Container>
-        </section>
+          {/* No Product Found */}
+          {!loading && !error && !productData && (
+            <Row>
+              <Col md={12}>
+                <div className="alert alert-warning text-center py-5">
+                  <h4>Product Not Found</h4>
+                  <p>No product details available.</p>
+                </div>
+              </Col>
+            </Row>
+          )}
+        </Container>
+      </section>
     )
 }
 

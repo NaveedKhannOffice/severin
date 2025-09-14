@@ -8,12 +8,31 @@ import "./style.css";
 import TextInput from "../../../Common/FormElements/TextInput";
 import CustomButton from "../../../Common/CustomButton";
 
+// Navigation data objects
+const quickLinks = [
+  { label: "Home", path: "/" },
+  { label: "About Us", path: "/about-us" },
+  { label: "Shop", path: "/shop" },
+  { label: "Contact Us", path: "/contact-us" }
+];
+
+const informationLinks = [
+  { label: "FAQs", path: "/faqs" },
+  { label: "Privacy Policy", path: "/privacy-policy" },
+  { label: "Terms of Service", path: "/terms-of-service" }
+];
+
+const socialLinks = [
+  { icon: FaFacebookF, path: "/", label: "Facebook" },
+  { icon: BsTwitterX, path: "/", label: "Twitter" },
+  { icon: BiLogoInstagramAlt, path: "/", label: "Instagram" }
+];
+
 
 export const Footer = () => {
   return (
     <>
       <footer id="footer" className="position-relative">
-        
           <Container fluid>
             <Row>
               <Col xs={12} md={12} lg={9} className="">
@@ -26,15 +45,16 @@ export const Footer = () => {
                       <div className="widget social-links">
                         <h3 className="widget-title fw-bold mb-2 mb-lg-2">Follow Us</h3>
                         <Nav as="ul" className="d-flex gap-3">
-                          <Nav.Item as="li">
-                            <NavLink to="/"><FaFacebookF /></NavLink>
-                          </Nav.Item>
-                          <Nav.Item as="li">
-                            <NavLink to="/"><BsTwitterX /></NavLink>
-                          </Nav.Item>
-                          <Nav.Item as="li">
-                            <NavLink to="/"><BiLogoInstagramAlt /></NavLink>
-                          </Nav.Item>
+                          {socialLinks.map((social, index) => {
+                            const IconComponent = social.icon;
+                            return (
+                              <Nav.Item as="li" key={index}>
+                                <NavLink to={social.path} title={social.label}>
+                                  <IconComponent />
+                                </NavLink>
+                              </Nav.Item>
+                            );
+                          })}
                         </Nav>
                       </div>
                     </Col>
@@ -44,18 +64,11 @@ export const Footer = () => {
                           <div className="widget">
                             <h3 className="widget-title fw-bold mb-2 mb-lg-2">Quick Links</h3>
                             <Nav as="ul" className="">
-                              <Nav.Item as="li">
-                                <NavLink to="/">Home</NavLink>
-                              </Nav.Item>
-                              <Nav.Item as="li">
-                                <NavLink to="/about-us">About Us</NavLink>
-                              </Nav.Item>
-                              <Nav.Item as="li">
-                                <NavLink to="/about-us">Sop</NavLink>
-                              </Nav.Item>
-                              <Nav.Item as="li">
-                                <NavLink to="/contact-us">Contact Us</NavLink>
-                              </Nav.Item>
+                              {quickLinks.map((link, index) => (
+                                <Nav.Item as="li" key={index}>
+                                  <NavLink to={link.path}>{link.label}</NavLink>
+                                </Nav.Item>
+                              ))}
                             </Nav>
                           </div>
                         </Col>
@@ -63,15 +76,11 @@ export const Footer = () => {
                           <div className="widget">
                             <h3 className="widget-title fw-bold mb-2 mb-lg-2">Information</h3>
                             <Nav as="ul" className="">
-                              <Nav.Item as="li">
-                                <NavLink to="/">Faqs</NavLink>
-                              </Nav.Item>
-                              <Nav.Item as="li">
-                                <NavLink to="/about-us">Privacy Policy</NavLink>
-                              </Nav.Item>
-                              <Nav.Item as="li">
-                                <NavLink to="/about-us">Terms of Service</NavLink>
-                              </Nav.Item>
+                              {informationLinks.map((link, index) => (
+                                <Nav.Item as="li" key={index}>
+                                  <NavLink to={link.path}>{link.label}</NavLink>
+                                </Nav.Item>
+                              ))}
                             </Nav>
                           </div>
                         </Col>
@@ -102,7 +111,7 @@ export const Footer = () => {
                     variant="primary"
                     className="px-5 w-100"
                     text="submit now"
-                    pendingText="Loading..."
+                    loadingText="Loading..."
                     // isPending={isSubmitting}
                     type="submit"
                   />

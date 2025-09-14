@@ -5,5 +5,5 @@
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-l
-  RewriteRule . connect-mio/index.html [L]
+  RewriteRule . severin/index.html [L]
 </IfModule>

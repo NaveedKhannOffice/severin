@@ -1,9 +1,9 @@
 {
-  "name": "connect-mio",
+  "name": "severin",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "connect-mio",
+  "homepage": "severin",
   "scripts": {
     "dev": "vite",
     "build": "vite build --base=/",

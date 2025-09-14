@@ -3,7 +3,7 @@
 
 .btn {
   color: var(--bs-white);
-  padding: 15px 40px;
+  padding: 17px 40px 13px 40px;
   font-size: 17px;
   font-weight: 400;
   transition: all .6s ease 0s;
@@ -41,7 +41,9 @@
   left: 0;
   transform: translateY(-50%);
   border-radius: 2px;
+  transition: all .6s ease 0s;
 }
+
 
 .btn-primary {
   color: var(--bs-white);
@@ -92,7 +94,6 @@
   background: var(--bs-primary);
 }
 
-
 /****** Button Secondary ******/
 .btn-secondary {
   color: var(--bs-white);
@@ -105,6 +106,28 @@
   background-color: var(--primBtn);
   outline: none;
   border-color: var(--primBtn);
+}
+
+
+/****** Button Outline Secondary ******/
+.btn-outline-secondary {
+  color: var(--bs-secondary);
+  background: transparent;
+  border: 1px solid var(--bs-secondary);
+}
+
+.btn-outline-secondary:hover,
+.btn-secondary:not(:disabled):not(.disabled):active {
+  color: var(--bs-white);
+  background-color: var(--bs-secondary);
+  outline: none;
+  border-color: var(--bs-secondary);
+}
+.btn-outline-secondary span::before{
+  background: var(--bs-secondary);
+}
+.btn-outline-secondary:hover span::before{
+  background: var(--bs-white);
 }
 
 /****** Button Black ******/

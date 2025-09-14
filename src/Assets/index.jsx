@@ -1,11 +1,8 @@
 // Brach
 import Logo from "./images/logo.png";
 import UserImage from "./images/user-img.png";
-import FooterLogo from "../Assets/images/footer-logo.png";
-import CartIcon from "../Assets/images/cartIcon.svg?react";
-import HeartIcon from "../Assets/images/heartIcon.svg?react";
-import UserIcon from "../Assets/images/userIcon.svg?react";
-import CardIconOutline from "../Assets/images/card-icon-outline.svg?react";
+import question from "./images/question.png";
+import FooterLogo from "../Assets/images/footer-logo.png";;
 import CameraIconOutline from "../Assets/images/camera-icon-outline.svg?react";
 import GridIcon from "../Assets/images/svg/grid-icon.svg?react";
 import GridIconV from "../Assets/images/svg/gridV-icon.svg?react";
@@ -32,13 +29,10 @@ export const images = {
   gifthqs,
   paymentLogo,
   Logo,
+  question,
   UserImage,
   FooterLogo,
-  CartIcon,
-  HeartIcon,  
-  UserIcon,
   heroBanner,
-  CardIconOutline,
   CameraIconOutline,
   productImage,
   MyShopproduct,

@@ -5,8 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { images } from "../../../../Assets";
 import "./style.css";
+import { slugify } from "../../../../Utils/helper";
 
-const NewArrivalsSection = ({ data, loading, error }) => {
+const NewArrivalsSection = ({ data, loading, error, animate = true }) => {
   // Use data from props instead of internal state
   const newArrivals = data || [];
 
@@ -56,7 +57,7 @@ const NewArrivalsSection = ({ data, loading, error }) => {
             xs={12}
             className="mb-2 d-flex justify-content-between align-items-center"
           >
-            <h2 className="section-title mb-0" data-aos="flip-up">
+            <h2 className="section-title mb-0" data-aos={animate ? "flip-up" : "none"}>
               New Arrivals
             </h2>
             <Link to="/shop" className="btn btn-primary">
@@ -73,11 +74,12 @@ const NewArrivalsSection = ({ data, loading, error }) => {
                 md={4}
                 lg={3}
                 className="mb-4"
-                data-aos="fade-up"
+                data-aos={animate ? "fade-up" : "none"}
                 data-aos-delay={index * 100}
               >
                 <Card className="product-card h-100">
                   <div className="position-relative">
+                  <Link to={`/product/${product.id}/${slugify(product.name || 'product')}`}>
                     <Card.Img
                       variant="top"
                       src={product.photos?.[0] || images.placeholder}
@@ -90,6 +92,7 @@ const NewArrivalsSection = ({ data, loading, error }) => {
                     >
                       <FontAwesomeIcon icon={faHeart} />
                     </button> */}
+                    </Link>
                   </div>
 
                   <Card.Body className="position-relative px-0 pb-0">
@@ -100,7 +103,7 @@ const NewArrivalsSection = ({ data, loading, error }) => {
                       <div className="flex-grow-1">
                         <Card.Title className="mb-0">
                           <Link
-                            to={`/product-detail/${product.id}`}
+                            to={`/product/${product.id}/${slugify(product.name || 'product')}`}
                             className="text-decoration-none"
                           >
                             {product.name}
@@ -135,7 +138,7 @@ const NewArrivalsSection = ({ data, loading, error }) => {
                       </p>
                     </div> */}
 
-                    <div className="product-attributes-wrapper">
+                    <div className="product-attributes-wrapper d-flex gap-3 flex-column">
 
                       {/* Color options */}
                       {product.colors && (
@@ -166,7 +169,7 @@ const NewArrivalsSection = ({ data, loading, error }) => {
                       {product.sizes && (
                         <div className="mb-0 d-flex gap-4 align-items-center">
                           <small className="attribute-name flex-shrink-0">Sizes:</small>
-                          <div className="flex-grow-1">
+                          <div className="flex-grow-1 mb-0">
                             {product.sizes.join(" / ")}
                           </div>
                         </div>
@@ -179,7 +182,7 @@ const NewArrivalsSection = ({ data, loading, error }) => {
                         {product.productType}
                       </span> */}
                       <Link
-                        to={`/product-detail/${product.id}`}
+                        to={`/product/${product.id}/${slugify(product.name || 'product')}`}
                         className="btn btn-link"
                       >
                         <span>See Details</span>

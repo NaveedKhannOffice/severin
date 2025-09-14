@@ -435,7 +435,7 @@ const OrderLogsDetail = ({ showModal }) => {
                                     variant="btn-user-primary"
                                     className="btn-user"
                                     text="Submit"
-                                    pendingText="Submitting..."
+                                    loadingText="Submitting..."
                                     isPending={isSubmitting}
                                     type="submit"
                                     disabled={isSubmitting}

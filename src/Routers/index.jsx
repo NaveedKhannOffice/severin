@@ -16,23 +16,24 @@ import PreventUser from "./PreventUser";
 import UserLogin from "../Pages/User/Auth/Login";
 import UserSignup from "../Pages/User/Auth/Signup";
 import Shop from "../Pages/User/Shop";
+import ProductView from "../Pages/User/Shop/ProductView";
+import Cart from "../Pages/User/Shop/Cart";
+import Checkout from "../Pages/User/Shop/Checkout";
+import Search from "../Pages/User/Search";
 // import ContactUs from "../Pages/User/ContactUs";
 // import OrderLogs from "../Pages/User/OrderLogs";
 // import OrderLogsDetail from "../Pages/User/OrderLogs/OrderLogsDetail";
 // import UserProfile from "../Pages/User/Profile";
 // import UserChangePassword from "../Pages/User/Profile/UserChangePassword";
 // import UserEditProfile from "../Pages/User/Profile/UserEditProfile";
-// import Cart from "../Pages/User/Shop/Cart";
-// import Checkout from "../Pages/User/Shop/Checkout";
-// import ProductView from "../Pages/User/Shop/ProductView";
 // import Wishlist from "../Pages/User/Shop/Wishlist";
 
 
 import ScrollToTop from "../Components/ScrollToTop";
-
 import ErrorPage from "../Pages/User/ErrorPage";
-
 import MainLayout from "../Components/Layouts/UserLayout/MainLayout";
+import OurStory from "../Pages/User/OurStory";
+import Faqs from "../Pages/User/Faqs";
 
 
 
@@ -58,6 +59,12 @@ const routes = [
             children: [
               { path: "", element: <Home /> },
               { path: "shop", element: <Shop />, },
+              { path: "/product/:id/:slug", element: <ProductView /> },
+              { path: "/cart/", element: <Cart /> },
+              { path: "/checkout/", element: <Checkout /> },
+              { path: "/search", element: <Search /> },
+              { path: "/our-story/", element: <OurStory /> },
+              { path: "/faqs/", element: <Faqs /> },
               // { path: "contact-us", element: <ContactUs /> },
             ],
           },
@@ -94,8 +101,6 @@ const routes = [
 
         //       { path: "/product-detail/:id", element: <ProductView /> },
         //       { path: "/wishlist/", element: <Wishlist /> },
-        //       { path: "/view-cart/", element: <Cart /> },
-        //       { path: "/checkout/", element: <Checkout /> },
 
         //       { path: "/order-logs/", element: <OrderLogs /> },
         //       { path: "/order-logs/:id", element: <OrderLogsDetail /> },

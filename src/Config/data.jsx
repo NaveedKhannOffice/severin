@@ -2,21 +2,7 @@ import { images } from "../Assets";
 
 export const loginCredentials = [
   {
-    email: "admin@gmail.com",
-    phone: "+1561555768",
-    password: "123",
-    status: true,
-    role: "admin",
-    message: "Login successfully",
-    token: "1164|ihHvE9J6cn1U3St4Sk6v6JKOdm2ARA87hXYbIdS63831040a",
-    "full-name": "John Wick",
-    "first-name": "John",
-    "last-name": "Wick",
-    "photo-path": "https://media4.giphy.com/avatars/digitalducks/syqUuk9PflgI.png",
-    "user-id": 1,
-  },
-  {
-    user_id: 2,
+    user_id: 1,
     email: "user@gmail.com",
     password: "123",
     language: "English",
@@ -32,30 +18,7 @@ export const loginCredentials = [
     user_name: "albert",
     photo_path: images.UserImage,
   },
-  {
-    user_id: 3,
-    email: "provider@gmail.com",
-    password: "123",
-    language: "spanish",
-    relationship: "Mother",
-    phone: "+1561555768",
-    status: true,
-    role: "provider",
-    message: "Login successfully",
-    token: "1166|ihHvE9J6cn1U3St4Sk6v6JKOdm2ARA87hXYbIdS63831040a",
-    full_name: "Tom albert",
-    first_name: "Tom",
-    last_name: "Albert",
-    user_name: "albert",
-    gender: "male",
-    state: "texas",
-    city: "Dallas",
-    bio: "Lorem ipsum",
-    certificate_image: images.certificate_image,
-    institution_name: " Institute ABC",
-    certificate_title: "Certificate Abc",
-    photo_path: images.UserImage,
-  },
+
 ];
 
 export const productsData = {
@@ -65,16 +28,35 @@ export const productsData = {
     current_page: 1,
     data: [
       {
-        id: "1",
+        id: 1,
         name: "Ppot (Teapot)",
 
         short_description:
           "A beautifully crafted ceramic teapot perfect for your morning tea ritual. Made from high-quality materials with an elegant design.",
         description:
-          "A beautifully crafted ceramic teapot perfect for your morning tea ritual. Made from high-quality materials with an elegant design.",
-        price: "CHF 18",
-        category: "Kitchenware",
+          "This is a finely crafted, matte charcoal teapot—its silhouette humble yet commanding, with soft curves that speak to centuries of quiet refinement. Born of fire and earth, its ceramic body bears the delicate speckling of stoneware forged in traditional kilns. The teapot is not merely a vessel, but a silent storyteller—echoing the heritage of East Asian tea traditions, where rituals unfold with grace and intention. Its destiny lies in moments of stillness: cradled between hands during morning solitude, passed reverently during ceremonial gatherings, or quietly steeping on a windowsill as dusk settles. The embossed “HQS” on its base is not just a mark—it is a signature of craftsmanship, a tribute to hands that shaped it and a lineage that spans generations. Rooted in tradition yet timeless in design, this teapot is more than an object—it is a bridge between history and the present, inviting you to pause, pour, and be.",
+        price: "18",
+        categories: [
+          {
+            id: 10,
+            name: "premium",
+            slug: "premium"
+          },
+          {
+            id: 12,
+            name: "bio",
+            slug: "bio"
+          },
+          {
+            id: 12,
+            name: "ritual",
+            slug: "ritual"
+          }
+        ],
+        stock_quantity: 5,
+        
         productType: "Physical Product",
+        category: "Kitchenware",
         status_detail: "1",
         photos: [
           images.productImage1,
@@ -88,22 +70,37 @@ export const productsData = {
           comments: [],
         },
         colors: [
-          { name: "Chalk/Gray", value: "#808080" },
-          { name: "Brown", value: "#8B4513" },
-          { name: "Black", value: "#000000" },
+          { 
+            name: "Chalk/Gray", 
+            value: "#808080",
+            images: [images.productImage1, images.productImage2]
+          },
+          { 
+            name: "Brown", 
+            value: "#8B4513",
+            images: [images.productImage3, images.productImage4]
+          },
+          { 
+            name: "Black", 
+            value: "#000000",
+            images: [images.productImage1, images.productImage3]
+          },
         ],
+        sizes: ["Small", "Medium", "Large"],
         created_at: "2024-01-15T10:30:00.000Z",
       },
       {
-        id: "2",
+        id: 2,
         name: "C-cup (Mug)",
         short_description:
           "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
         description:
           "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
-        price: "CHF 18",
+        price: "18",
         category: "Kitchenware",
+        stock_quantity: 5,
         productType: "Physical Product",
+        category: "Kitchenware",
         status_detail: "1",
         photos: [
           images.productImage2,
@@ -120,15 +117,17 @@ export const productsData = {
         created_at: "2024-01-14T14:20:00.000Z",
       },
       {
-        id: "3",
+        id: 3,
         name: "Tee (Tea Tin)",
         short_description:
           "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
         description:
           "Premium tea storage tin with airtight seal to preserve freshness. Features elegant design and keeps your favorite teas organized.",
-        price: "CHF 25",
+        price: "25",
+        stock_quantity: 5,
         category: "Tea Accessories",
         productType: "Physical Product",
+        category: "Kitchenware",
         status_detail: "1",
         photos: [
           images.productImage3,
@@ -147,7 +146,7 @@ export const productsData = {
         created_at: "2024-01-13T09:15:00.000Z",
       },
       {
-        id: "4",
+        id: 4,
         name: "Gift Card",
         short_description:
           "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
@@ -156,6 +155,7 @@ export const productsData = {
         price: "CHF 25 / 75 / 150",
         category: "Gift Cards",
         productType: "Digital Product",
+        category: "Gift Cards",
         status_detail: "1",
         photos: [
           images.productImage4,
@@ -181,9 +181,10 @@ export const productsData = {
           "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
         description:
           "Perfect gift for tea lovers! Redeemable for any products in our store. Available in multiple denominations to suit your needs.",
-        price: "CHF 25 / 75 / 150",
+        price: " 25 / 75 / 150",
         category: "Gift Cards",
         productType: "Digital Product",
+        category: "Gift Cards",
         status_detail: "1",
         photos: [
           images.productImage5,
@@ -209,9 +210,10 @@ export const productsData = {
           "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
         description:
           "Perfect gift for tea lovers! Redeemable for any products in our store. Available in multiple denominations to suit your needs.",
-        price: "CHF 25 / 75 / 150",
+        price: " 25 / 75 / 150",
         category: "Gift Cards",
         productType: "Digital Product",
+        category: "Gift Cards",
         status_detail: "1",
         photos: [
           images.productImage6,
@@ -237,9 +239,10 @@ export const productsData = {
           "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
         description:
           "Perfect gift for tea lovers! Redeemable for any products in our store. Available in multiple denominations to suit your needs.",
-        price: "CHF 25 / 75 / 150",
+        price: " 25 / 75 / 150",
         category: "Gift Cards",
         productType: "Digital Product",
+        category: "Gift Cards",
         status_detail: "1",
         photos: [
           images.productImage1,
@@ -265,9 +268,10 @@ export const productsData = {
           "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
         description:
           "Perfect gift for tea lovers! Redeemable for any products in our store. Available in multiple denominations to suit your needs.",
-        price: "CHF 25 / 75 / 150",
+        price: " 25 / 75 / 150",
         category: "Gift Cards",
         productType: "Digital Product",
+        category: "Gift Cards",
         status_detail: "1",
         photos: [
           images.productImage7,
@@ -293,9 +297,10 @@ export const productsData = {
           "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
         description:
           "Perfect gift for tea lovers! Redeemable for any products in our store. Available in multiple denominations to suit your needs.",
-        price: "CHF 25 / 75 / 150",
+        price: " 25 / 75 / 150",
         category: "Gift Cards",
         productType: "Digital Product",
+        category: "Gift Cards",
         status_detail: "1",
         photos: [
           images.productImage7,
@@ -321,9 +326,10 @@ export const productsData = {
           "A comfortable ceramic mug with ergonomic handle design. Perfect for coffee, tea, or any hot beverage. Available in multiple sizes.",
         description:
           "Perfect gift for tea lovers! Redeemable for any products in our store. Available in multiple denominations to suit your needs.",
-        price: "CHF 25 / 75 / 150",
+        price: " 25 / 75 / 150",
         category: "Gift Cards",
         productType: "Digital Product",
+        category: "Gift Cards",
         status_detail: "1",
         photos: [
           images.productImage7,
@@ -523,7 +529,7 @@ export const newArrivalsData = {
   },
 };
 
-export const aimsData = {
+export const giftData = {
   status: true,
   detail: {
     title: "The Gift of Choice",
@@ -549,9 +555,9 @@ export const homeBannerData = {
   }
 }
 
-export const heroData = {
+export const ourStoryData = {
   status: true,
-  message: "Hero fetched successfully",
+  message: "Our Story fetched successfully",
   data: {
   title: "Designed For",
   subtitle: "A Few Not The Many",

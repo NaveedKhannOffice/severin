@@ -296,7 +296,7 @@ const UserEditProfile = ({ showModal }) => {
                                                                     variant="btn btn-primary min-width-auto"
                                                                     className="px-5"
                                                                     text="Update"
-                                                                    pendingText="Submitting..."
+                                                                    loadingText="Submitting..."
                                                                     isPending={isSubmitting}
                                                                     type="submit"
                                                                 />

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import "./style.css";
-import BackIcon from "../../Assets/images/svg/backIcon.svg?react";
+import { FaArrowLeft } from "react-icons/fa6";
+
 
 const BackButton = ({ url = "" }) => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const BackButton = ({ url = "" }) => {
 
   return (
     <button className="backButton" onClick={goBack}>
-      <BackIcon />
+      <FaArrowLeft />
     </button>
   );
 };

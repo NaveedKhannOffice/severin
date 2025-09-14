@@ -34,8 +34,8 @@
 }
 
 .breadcrumb-item a:hover {
-  color: var(--primaryColor, #007bff);
-  background-color: rgba(0, 123, 255, 0.1);
+  color: #2B2B2B;
+  text-decoration: underline;
 }
 
 .breadcrumb-item.active {
