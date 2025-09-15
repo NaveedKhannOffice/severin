@@ -270,7 +270,7 @@ export const Header = () => {
                           <>
                             <Dropdown.Item as="div" className="text-center login-user">
                               <span className="avatar avatar-online">
-                                <img src={user?.photo_path} alt="avatar" />
+                                <img src={user?.photo} alt="avatar" />
                               </span>
                               <span className="user-name fw-semibold">{fullName(user)}</span>
                             </Dropdown.Item>
