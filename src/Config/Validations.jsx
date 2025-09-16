@@ -199,16 +199,16 @@ export const signupUserValidationSchema = Yup.object().shape({
     .max(50, "User Name must be less than 50 characters")
     .matches(/^[a-zA-Z\s]+$/, "User Name can only contain letters and spaces"),
 
-  mobile_number: Yup.string()
-    .required("Phone number is required")
-    .matches(
-      /^(\+?1[-.\s]?)?\(?([0-9]{3})\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{4})$/,
-      "Please enter a valid phone number"
-    )
-    .test("phone-length", "Phone number must be 10 digits", function (value) {
-      const digits = value.replace(/\D/g, "");
-      return digits.length === 10;
-    }),
+  // mobile_number: Yup.string()
+  //   .required("Phone number is required")
+  //   .matches(
+  //     /^(\+?1[-.\s]?)?\(?([0-9]{3})\)?[-.\s]?([0-9]{3})[-.\s]?([0-9]{4})$/,
+  //     "Please enter a valid phone number"
+  //   )
+  //   .test("phone-length", "Phone number must be 10 digits", function (value) {
+  //     const digits = value.replace(/\D/g, "");
+  //     return digits.length === 10;
+  //   }),
 
   email: Yup.string()
     .email("Invalid email address")
