@@ -50,7 +50,6 @@ const routes = [
     path: "/",
     element: <ScrollToTop />,
     children: [
-  
       {
         element: <GuestRoutes user />,
         children: [
@@ -58,27 +57,23 @@ const routes = [
             element: <MainLayout />,
             children: [
               { path: "", element: <Home /> },
-              { path: "shop", element: <Shop />, },
-              { path: "/product/:id/:slug", element: <ProductView /> },
-              { path: "/cart/", element: <Cart /> },
-              { path: "/checkout/", element: <Checkout /> },
-              { path: "/search", element: <Search /> },
-              { path: "/our-story/", element: <OurStory /> },
-              { path: "/faqs/", element: <Faqs /> },
-              // { path: "contact-us", element: <ContactUs /> },
+              { path: "shop", element: <Shop /> },
+              { path: "product/:id/:slug", element: <ProductView /> },
+              { path: "cart", element: <Cart /> },
+              { path: "checkout", element: <Checkout /> },
+              { path: "search", element: <Search /> },
+              { path: "our-story", element: <OurStory /> },
+              { path: "faqs", element: <Faqs /> },
             ],
           },
           {
             element: <MainLayout />,
             children: [
               {
-                element: <PreventUser />, // Wrap provider routes with PreventUser
+                element: <PreventUser />,
                 children: [
                   { path: "signup", element: <UserSignup /> },
                   { path: "login", element: <UserLogin /> },
-                  // { path: "/forget-password", element: <UserForgetPassword /> },
-                  // { path: "/forget-password2", element: <UserForgetPassword2 /> },
-                  // { path: "/forget-password3", element: <UserForgetPassword3 /> },
                 ],
               },
             ],
@@ -88,36 +83,29 @@ const routes = [
       },
       {
         element: <ProtectedRoutes user roles={[roles.user]} />,
-        // children: [
-        //   // { path: "/", element: <Home /> },
-        //   {
-        //     element: <MainLayout />,
-        //     children: [
-        //       // { path: "/payment-successfull", element: <Suuccessfull /> },
-        //       { path: "/profile", element: <UserProfile /> },
-        //       { path: "/edit-profile", element: <UserEditProfile /> },
-        //       { path: "/change-password", element: <UserChangePassword /> },
-
-
-        //       { path: "/product-detail/:id", element: <ProductView /> },
-        //       { path: "/wishlist/", element: <Wishlist /> },
-
-        //       { path: "/order-logs/", element: <OrderLogs /> },
-        //       { path: "/order-logs/:id", element: <OrderLogsDetail /> },
-
-        //     ]
-        //   },
-        //   { path: "*", element: <ErrorPage /> },
-        // ],
+        children: [
+          {
+            element: <MainLayout />,
+            children: [
+              // { path: "profile", element: <UserProfile /> },
+              // { path: "edit-profile", element: <UserEditProfile /> },
+              // { path: "change-password", element: <UserChangePassword /> },
+              // { path: "wishlist", element: <Wishlist /> },
+              // { path: "order-logs", element: <OrderLogs /> },
+              // { path: "order-logs/:id", element: <OrderLogsDetail /> },
+            ],
+          },
+          { path: "*", element: <ErrorPage /> },
+        ],
       },
       {
         path: "*",
         element: <h2>404</h2>,
-        // element: <GlobalErrorPage />,
       },
     ],
   },
 ];
+
 
 const Routers = () => {
   const element = useRoutes(routes);

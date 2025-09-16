@@ -8,7 +8,7 @@ import { images } from "../../../Assets";
 import OurStorySection from "./OurStorySection";
 import NewArrivalsSection from "./NewArrivalsSection";
 import GiftSection from "./GiftSection";
-import TestimonialSection from "./TestiminialSection";
+import TestimonialSection from "./TestimonialSection";
 
 import {
   homeBannerData,
