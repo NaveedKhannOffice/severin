@@ -1,0 +1,34 @@
+.stats {
+  margin-bottom: 1rem;
+  border-right: 2px solid #fff0;
+}
+
+.stats:not(:last-child) {
+  border-color: #dadada;
+}
+
+.chartjs-tooltip {
+  position: absolute;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 3px 10px rgb(0, 0, 0, .16);
+  padding: 10px;
+}
+@media screen and (max-width: 1200px) and (min-width: 768px) {
+  .stats,
+  .stats:not(:last-child) {
+    border-color: #dadada;
+  }
+
+  .stats:nth-child(odd) {
+    border-color: #dadada;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .stats,
+  .stats:not(:last-child),
+  .stats:nth-child(odd) {
+    border-color: #dadada;
+  }
+}

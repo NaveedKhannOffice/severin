@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { fullName, usePageTitle } from "../../../Utils/helper";
-import CustomButton from "../../../Components/CustomButton";
+import CustomButton from "../../../Components/Common/CustomButton";
 import { useAuth } from "../../../Hooks/useAuth";
 import { getCountryFlag } from "../../../Utils/helper";
 import "./style.css";

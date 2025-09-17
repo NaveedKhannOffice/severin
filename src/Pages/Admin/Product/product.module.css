@@ -1,0 +1,31 @@
+.commentsProfilePicture {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 60px;
+}
+.totalReviewCount {
+  font-size: 22px !important;
+  color: #666;
+  font-weight: 500;
+}
+.ratingBarNumber {
+  color: #495560;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 0;
+  width: 54px;
+}
+.ratingBar {
+  width: 400px;
+}
+.rating {
+  color: #222;
+  font-size: 40px;
+  font-weight: 700;
+}
+.rating h4 {
+  display: inline;
+  font-size: 40px !important;
+  font-weight: 700;
+}

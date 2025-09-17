@@ -10,11 +10,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Dropdown, Nav, Navbar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import ChatIconAdmin from "../../../../Assets/images/svg/chatIconAdmin.svg?react";
+// import ChatIconAdmin from "../../../../Assets/images/svg/chatIconAdmin.svg?react";
 import { useAuth } from "../../../../Hooks/useAuth";
 import { useLogout } from "../../../../Services/Auth";
 import CustomModal from "../../../CustomModal";
-import HeaderNotification from "../../../HeaderNotification";
+// import HeaderNotification from "../../../HeaderNotification";
 import Toast, { showToast } from "../../../Toast";
 import "./style.css";
 import { images } from "../../../../Assets";
@@ -51,12 +51,12 @@ export const Header = (props) => {
         >
           <Nav className="ms-auto">
             <Link className="customerSupportIcon me-2" to={"/admin/chat"}>
-              <ChatIconAdmin />
+              {/* <ChatIconAdmin /> */}
             </Link>
-            <HeaderNotification
+            {/* <HeaderNotification
               notificationData={notificationData}
               getNotification={getNotification}
-            />
+            /> */}
             <Dropdown className="userDropdown">
               <Dropdown.Toggle
                 variant="transparent"

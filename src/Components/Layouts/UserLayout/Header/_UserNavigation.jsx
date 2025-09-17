@@ -14,7 +14,7 @@ import { useAuth } from "../../../../Hooks/useAuth";
 import { useLogout } from "../../../../Services/Auth";
 import "./style.css";
 import { fullName, generateLinks, generateProviderLinks } from "../../../../Utils/helper";
-import HeaderNotification from "../../../HeaderNotification";
+// import HeaderNotification from "../../../HeaderNotification";
 import { notificationsData } from "../../../../Config/data";
 
 
@@ -244,7 +244,7 @@ const UserNavigation = () => {
                 </Nav.Item>
 
                 <Nav.Item as="li">
-                  <HeaderNotification viewAllLink="/notifications" notificationData={notificationData} getNotification={getNotification} />
+                  {/* <HeaderNotification viewAllLink="/notifications" notificationData={notificationData} getNotification={getNotification} /> */} 
                   {/* <NotificationDropDown viwAllLink="/buyer/notifications" key={notiData.id} notiData={notiData} notiread={"false"} /> */}
                 </Nav.Item>
                 <Nav.Item as="li">

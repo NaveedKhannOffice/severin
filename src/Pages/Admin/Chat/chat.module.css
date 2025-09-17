@@ -1,0 +1,555 @@
+.message {
+  /* / display: flex;
+    align-items: center; / */
+  margin-top: 16px;
+  border-radius: 5px;
+  /* padding: 12px; */
+  width: fit-content;
+  max-width: 80%;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0px 4px 8px 0px rgba(192, 192, 192, 0.25);
+  padding: 1rem 1rem 0px 1rem;
+  & p {
+    margin: 0;
+    margin-bottom: 4px;
+  }
+}
+.message:last-child {
+  margin-bottom: 1rem;
+}
+.chatDashCard {
+  min-height: calc(100vh - 500px) !important;
+}
+.profile-pic {
+  width: 60px !important;
+  height: 60px !important;
+  border-radius: 100%;
+  /* margin-right: 10px; */
+}
+
+.my-message {
+  position: relative;
+  margin-left: auto;
+  margin-right: 2rem;
+  background-color: #1819ff0f;
+  border-bottom-right-radius: 4px;
+}
+
+.my-message::after {
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 30px;
+  right: -18px;
+  top: 10px;
+}
+
+.other-message {
+  position: relative;
+  margin-left: 25px;
+  border-radius: 10px;
+  border-bottom-left-radius: 4px;
+}
+.other-message::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  left: -20px;
+}
+
+.currently-selected-chat {
+  background-color: #d6d6d6;
+}
+
+.chat-module {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.1);
+}
+
+.chat-sidebar {
+  max-width: 350px;
+  width: 100%;
+  /* background-color: #f0f0f0;
+    padding: 20px; */
+}
+.chat-sidebar ul {
+  overflow-y: auto;
+  margin-bottom: 0;
+  max-height: calc(100vh - 339px);
+}
+.chat-sidebar ul {
+  padding-left: 0;
+}
+.chat-sidebar {
+  display: none;
+}
+
+.chat-sidebar.open {
+  display: block;
+}
+.chat-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  max-width: 400px;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transform: translateX(-100%);
+  z-index: 1;
+  padding-top: 20px;
+}
+
+.chat-sidebar.open {
+  transform: translateX(0);
+}
+
+.chat-area {
+  flex: 1;
+  /* padding: 0 20px; */
+  overflow-y: auto;
+}
+
+.chat-window {
+  border-radius: 5px;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  /* height: calc(100vh - 200px); */
+}
+
+.messages {
+  height: calc(100vh - 323px);
+  background-color: rgba(239, 239, 239, 0.5);
+  overflow-y: hidden;
+}
+.messages > div > div::-webkit-scrollbar,
+.chat-sidebar ul::-webkit-scrollbar {
+  width: 6px;
+}
+.messages > div > div::-webkit-scrollbar-track,
+.chat-sidebar ul::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+.messages > div > div::-webkit-scrollbar-thumb,
+.chat-sidebar ul::-webkit-scrollbar-thumb {
+  background-color: #c0c0c0c0;
+  border-radius: 10px;
+}
+.uploadedFiles::-webkit-scrollbar-thumb {
+  background-color: #c0c0c0c0;
+  border-radius: 10px;
+}
+.uploadedFiles::-webkit-scrollbar {
+  height: 5px;
+}
+.uploadedFiles::-webkit-scrollbar-track {
+  background: #ffeccc;
+  border-radius: 10px;
+}
+
+.input-area {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem 1rem 0.8rem;
+  background-color: rgba(239, 239, 239, 0.5);
+}
+
+.input-area-inner {
+  position: relative;
+  margin-left: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #dadada;
+  border-radius: 5px;
+  padding-left: 35px;
+  font-family: "Sharp Sans Display No1 TRIAL Book";
+  font-size: 16px;
+  font-weight: 400;
+}
+.input-area input:focus {
+  border: 2px solid var(--gradient15);
+  outline: 0;
+}
+
+.input-area input::placeholder {
+  color: #aaaaaa;
+  font-family: "Qanelas";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
+}
+
+.input-area button {
+  padding: 0px;
+  margin-left: 5px;
+  background: transparent;
+  color: var(--gradient15);
+  border: none;
+  cursor: pointer;
+}
+
+.fileUpload {
+  color: #707070 !important;
+  cursor: pointer;
+}
+.fileUpload label {
+  cursor: pointer;
+}
+.uploadedFiles {
+  border: 2px solid var(--gradient15) !important;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  overflow-x: auto;
+}
+.isFileVisible {
+  padding: 5px 5px;
+}
+.fileVisible {
+  width: 80px;
+  height: 40px;
+  object-fit: cover;
+  border: 1px solid black;
+  position: relative;
+}
+.fileVisible img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.deleteBtn {
+  border: 0;
+  background: red;
+  color: #fff;
+  border-radius: 99px;
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  z-index: 2;
+  font-size: 12px;
+}
+.thumbUp {
+  font-size: 30px;
+}
+
+.no-chat-selected {
+  font-style: italic;
+  color: #999;
+}
+
+.chatHeader {
+  /* border: 1px solid green; */
+  /* border-radius: 10px 10px 0 0; */
+  background-color: #0072cf;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  padding: 10px 20px;
+}
+.chatHeader p {
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.chatHeaderImg {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 60px;
+}
+.messageImg {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 60px;
+}
+.searchWrapper1 {
+  position: sticky;
+  display: inline-block;
+  top: 0;
+  /* min-width: 350px !important; */
+  width: 100%;
+  z-index: 1;
+}
+
+.chatBadge {
+  background: #1f9767;
+  width: 19px;
+  height: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 99px;
+  font-size: 11px;
+  color: #fff;
+}
+
+.isOpen {
+  background: #ffeccc;
+  border-radius: 10px;
+  box-shadow: 0px 4px 55px 0px rgba(0, 0, 0, 0.1);
+}
+
+.noti-tag-time {
+  text-wrap: nowrap;
+  font-size: 14px;
+}
+.sidebarChat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  position: relative;
+  padding-inline: 24px;
+  padding-block: 8px;
+}
+.sidebarChat:hover,
+.sidebarChat:active {
+  background-color: rgba(246, 246, 246, 0.84);
+}
+
+.chatToggleButton {
+  background: transparent;
+  border: 0;
+  font-size: 30px;
+  color: var(--blueColor);
+}
+
+.sidebarCloseBtn {
+  border: 0;
+  background: transparent;
+  margin-bottom: 10px;
+  margin-left: auto;
+}
+
+.uploadImg {
+  width: 200px;
+  height: 100px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.uploadImg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+}
+.camInputImg {
+  filter: brightness(0);
+}
+@media screen and (max-width: 1399.5px) {
+  /* .input-area input {
+    padding-left: 30px;
+  } */
+}
+
+@media screen and (max-width: 1199.5px) {
+  .chat-area {
+    padding: 0;
+  }
+
+  .chat-sidebar {
+    min-height: 100vh;
+    z-index: 1000 !important;
+  }
+}
+
+@media (min-width: 1199.5px) {
+  .chat-sidebar {
+    position: relative;
+    transform: none;
+    height: auto;
+    width: auto;
+    box-shadow: none;
+    display: block;
+  }
+
+  .chatToggleButton {
+    display: none;
+  }
+
+  .sidebar-toggle {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 991.5px) {
+  /* .input-area-inner img {
+    width: 20px !important;
+  } */
+}
+
+@media screen and (max-width: 575.5px) {
+  .thumbUp {
+    font-size: 15px;
+  }
+
+  .input-area input {
+    padding-left: 35px;
+  }
+
+  .input-area-inner {
+    gap: 6px;
+  }
+
+  .chatDashCard {
+    padding: 1.5rem 1rem;
+  }
+
+  .chatToggleButton {
+    font-size: 20px;
+  }
+}
+
+
+
+
+/* chat.module.css */
+
+/* File upload container */
+.fileUpload {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 10px;
+}
+
+/* Microphone button styles */
+.micButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color); /* Use your theme color */
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.micButton:hover {
+  transform: scale(1.1);
+}
+
+/* Recording state styles */
+.recordingIndicator {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ff4d4f;
+  animation: pulse 1.5s infinite;
+  cursor: pointer;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 77, 79, 0.7);
+    transform: scale(1);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(255, 77, 79, 0);
+    transform: scale(1.05);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 77, 79, 0);
+    transform: scale(1);
+  }
+}
+
+/* Audio preview container */
+.audioPreview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.audioPreview audio {
+  max-width: 200px;
+  height: 40px;
+  background: var(--input-bg); /* Use your theme color */
+  border-radius: 20px;
+}
+
+/* Cancel button for audio */
+.cancelAudioButton {
+  background: var(--input-bg); /* Use your theme color */
+  border: none;
+  border-radius: 15px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cancelAudioButton:hover {
+  background-color: #e0e0e0;
+}
+
+/* Recording timer */
+.recordingTimer {
+  font-size: 12px;
+  color: #ff4d4f;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+/* Visualizer animation (optional) */
+.audioVisualizer {
+  display: flex;
+  align-items: flex-end;
+  height: 30px;
+  gap: 3px;
+  margin-left: 10px;
+}
+
+.visualizerBar {
+  width: 3px;
+  background-color: #ff4d4f;
+  border-radius: 3px;
+  animation: visualizerAnimation 1s infinite alternate;
+}
+
+@keyframes visualizerAnimation {
+  from {
+    height: 20%;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+/* Add this to create random heights for visualizer bars */
+.visualizerBar:nth-child(1) { animation-delay: 0.1s; height: 30%; }
+.visualizerBar:nth-child(2) { animation-delay: 0.3s; height: 60%; }
+.visualizerBar:nth-child(3) { animation-delay: 0.5s; height: 40%; }
+.visualizerBar:nth-child(4) { animation-delay: 0.2s; height: 80%; }
+.visualizerBar:nth-child(5) { animation-delay: 0.4s; height: 50%; }
