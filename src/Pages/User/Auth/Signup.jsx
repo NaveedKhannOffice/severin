@@ -34,16 +34,10 @@ const UserSignup = () => {
 
     const updatedValues = {
       type: "user",
-      first_name: values.first_name,
-      last_name: values.last_name,
-      phone: values.mobile_number,
-      language: values.language,
-      relation: values.relation_patient,
+      first_name: values.user_name,
       email: values.email,
       password: values.password,
       password_confirmation: values.confirm_password,
-      refer_code: values.refer_code,
-      photo: values.profile_image,
     };
 
     try {
@@ -123,7 +117,7 @@ const UserSignup = () => {
                 />
               </div>
               <div className="mb-4">
-               <TextInput
+               {/* <TextInput
                   id="mobile_number"
                   type="tel"
                   required
@@ -132,7 +126,7 @@ const UserSignup = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   error={touched.mobile_number && errors.mobile_number}
-                />
+                /> */}
               </div>
               <div className="mb-4">
                 <TextInput

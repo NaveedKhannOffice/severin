@@ -1,0 +1,69 @@
+.faq-header.card-header {
+  padding: 0;
+  margin-bottom: 0;
+  color: transparent;
+  background-color: transparent;
+  border-bottom: 0;
+}
+.faq-card .card-body {
+  padding: 0;
+}
+.faq-card.card {
+  background-color: transparent !important;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: none !important;
+}
+.faq-card .toggle-button {
+  background-color: white;
+  color: #007bff;
+  border: none;
+  border-radius: 8px;
+ 
+  padding: 8px 8px;
+}
+.faq-img {
+  max-height: 478px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.faq-card .toggle-button.open {
+  color: #28a745;
+  background-color: white;
+  border: 2px solid;
+}
+.accordion-content {
+  padding: 0px 90px 0px 0px;
+}
+.answer-content {
+  font-size: 1rem;
+}
+
+.answer-content p {
+  margin: 0;
+}
+
+.answer-content img,
+.answer-content video {
+  width: 100%;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.faq-card .faq-btn.btn-check:checked + .btn,
+:not(.btn-check) + .btn:active,
+.btn:first-child:active,
+.btn.active,
+.btn.show {
+  color: #007bff;
+  background-color: transparent;
+  border-color: #28a745;
+}

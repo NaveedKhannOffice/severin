@@ -2,7 +2,7 @@ import React from "react";
 import { Formik } from "formik";
 import { Col, Container, Row } from "react-bootstrap";
 import { changePassword } from "../../Config/Validations";
-import CustomInput from "../Common/CustomInput";
+import TextInput from "../Common/FormElements/TextInput";
 import CustomButton from "../Common/CustomButton";
 
 const ChangePasswordForm = ({
@@ -34,7 +34,7 @@ const ChangePasswordForm = ({
         <form onSubmit={handleSubmit} className="password-wrap">
           <Row className="mb-3">
             <Col md={12} className="my-1">
-              <CustomInput
+              <TextInput
                 label="Current Password"
                 labelclass="mainLabel"
                 type="password"
@@ -49,7 +49,7 @@ const ChangePasswordForm = ({
               />
             </Col>
             <Col md={12} className="my-1">
-              <CustomInput
+              <TextInput
                 label="New Password"
                 labelclass="mainLabel"
                 type="password"
@@ -64,7 +64,7 @@ const ChangePasswordForm = ({
               />
             </Col>
             <Col md={12} className="my-1">
-              <CustomInput
+              <TextInput
                 label="Confirm Password"
                 labelclass="mainLabel"
                 type="password"
