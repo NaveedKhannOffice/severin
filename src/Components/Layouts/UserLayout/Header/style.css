@@ -335,7 +335,7 @@ Menu Wrapper
 }
 
 .dropdown-user  .login-user{
-  margin-top: 0.5rem;
+  margin-top: 0;
   border-bottom: 1px solid #3333331d;
 }
 .dropdown-user .avatar {
@@ -387,8 +387,11 @@ Menu Wrapper
 }
 
 .dropdown-user .dropdown-menu a:hover {
-  /* color: #fff; */
+  color: #fff;
   background-color: #2B2B2B;
+}
+.dropdown-user .dropdown-menu a:hover .user-name{
+  color: #FFF;
 }
 
 .dropdown-user .dropdown-menu a.dropdown-item:not(:last-child) {

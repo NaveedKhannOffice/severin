@@ -1,0 +1,63 @@
+.settings-sidebar {
+  border: 1px solid rgba(215, 215, 215, .18);
+  background: #fbfbfb;
+  box-shadow: 0 4px 30px #0000001a;
+  border-radius: 20px;
+  padding: 40px 0;
+  height: 100%;
+}
+
+.settings-sidebar .sidebar-header .page-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--bs-black);
+  text-transform: capitalize;
+  padding: 0 25px;
+}
+
+.settings-nav {
+  display: block;
+}
+
+.settings-nav .nav-item {
+  margin-right: 0;
+}
+
+.settings-nav li .nav-link {
+  color: var(--bs-black);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 18px;
+  font-style: normal;
+  padding: 25px 25px 25px 25px;
+  text-transform: capitalize;
+  position: relative;
+  display: block;
+  text-decoration: none;
+  white-space: nowrap;
+  border-width: 0 0 1px 0;
+  border-color: rgba(215, 215, 215, 0.50);
+  background-color: transparent;
+  border-radius: 0;
+  text-align: left;
+  font-family: inherit;
+}
+
+.settings-nav > li:hover > .nav-link,
+.settings-nav li .nav-link.active {
+  color: var(--bs-white);
+  background: var(--primary-color);
+}
+
+@media (max-width: 767px) {
+  .settings-nav li .nav-link {
+    font-size: 16px;
+    padding: 15px 25px 15px 25px;
+  }
+}
+
+@media (max-width: 575px) {
+  .settings-sidebar {
+    padding: 20px 0;
+  }
+}
