@@ -1,8 +1,8 @@
 import React from "react";
 import { Formik } from "formik";
 import { contactValidationSchema } from "../../Config/Validations";
-import CustomInput from "../CustomInput";
-import CustomButton from "../CustomButton";
+import TextInput from "../Common/FormElements/TextInput";
+import CustomButton from "../Common/CustomButton";
 
 const ContactForm = ({ onSubmit }) => {
   return (
@@ -27,7 +27,7 @@ const ContactForm = ({ onSubmit }) => {
       }) => (
         <form onSubmit={handleSubmit}>
           <div className="col-md-12">
-            <CustomInput
+            <TextInput
               label="Name"
               labelclass="mainLabel"
               type="text"
@@ -39,7 +39,7 @@ const ContactForm = ({ onSubmit }) => {
               onBlur={handleBlur}
               error={touched.name && errors.name}
             />
-            <CustomInput
+            <TextInput
               label="Email Address"
               labelclass="mainLabel"
               type="email"
@@ -51,7 +51,7 @@ const ContactForm = ({ onSubmit }) => {
               onBlur={handleBlur}
               error={touched.email && errors.email}
             />
-            <CustomInput
+            <TextInput
               label="Contact No"
               labelclass="mainLabel"
               type="number"
@@ -63,7 +63,7 @@ const ContactForm = ({ onSubmit }) => {
               onBlur={handleBlur}
               error={touched.phone && errors.phone}
             />
-            <CustomInput
+            <TextInput
               label="Subject"
               labelclass="mainLabel"
               type="text"
@@ -75,7 +75,7 @@ const ContactForm = ({ onSubmit }) => {
               onBlur={handleBlur}
               error={touched.subject && errors.subject}
             />
-            <CustomInput
+            <TextInput
               label="Query"
               labelclass="mainLabel"
               rows="8"

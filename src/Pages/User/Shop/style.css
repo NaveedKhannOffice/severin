@@ -135,6 +135,7 @@
   transition: all 0.3s ease;
   opacity: 0;
   visibility: hidden;
+  text-transform: capitalize;
 }
 .color-selected-label{
   font-size: 12px;
@@ -190,6 +191,7 @@
 .product-view__title h3 {
   font-size: 35px;
   font-weight: 300;
+  text-transform: capitalize;
 }
 
 /* Product Category Tags */

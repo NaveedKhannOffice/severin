@@ -4,17 +4,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./style.css";
 import { usePageTitle } from "../../../Utils/helper";
 import PageTitle from "../../../Components/PageTitle";
-import CustomButton from "../../../Components/CustomButton";
-import CustomInput from "../../../Components/CustomInput";
+import CustomButton from "../../../Components/Common/CustomButton";
+import TextInput from "../../../Components/Common/FormElements/TextInput";
 import { Formik } from "formik";
 import {
   paymentCardValidationSchema,
   paymentValidationSchema,
   subsPaymentValidationSchema,
 } from "../../../Config/Validations";
-import BackButton2 from "../../../Components/BackButton/BackButton2";
+import BackButton2 from "../../../Components/Common/BackButton/BackButton2";
 import { months, yearOptions } from "../../../Config/TableStatus";
-import { Select } from "../../../Components/Select";
+import { Select } from "../../../Components/Common/FormElements/SelectInput";
 import { SubscriptionData } from "../../../Config/data";
 import { useFormStatus } from "../../../Hooks/useFormStatus";
 import withModal from "../../../HOC/withModal";
@@ -103,7 +103,7 @@ const CardDetail = ({ showModal }) => {
                       {/* {console.log(errors)} */}
                       <Row>
                         <Col lg={6} className="mb-4">
-                          <CustomInput
+                          <TextInput
                             label="Card Holder Name"
                             id="card_holder_name"
                             type="text"
@@ -121,7 +121,7 @@ const CardDetail = ({ showModal }) => {
                           />
                         </Col>
                         <Col lg={6} className="mb-4">
-                          <CustomInput
+                          <TextInput
                             label="Credit/Debit Card No."
                             id="card_number"
                             type="text"
@@ -194,7 +194,7 @@ const CardDetail = ({ showModal }) => {
                           </div>
                         </Col>
                         <Col lg={6} className="mb-4">
-                          <CustomInput
+                          <TextInput
                             label="CVV Number"
                             id="cvv_number"
                             type="text"
