@@ -13,7 +13,7 @@ export const setData = (data) => {
 
 export const setToken = (token) => ({
   type: "SET_TOKEN",
-  payload: token,
+  payload: token, 
 });
 
 export const setRoles = (role) => ({

@@ -18,6 +18,23 @@ export const loginCredentials = [
     user_name: "albert",
     photo_path: images.UserImage,
   },
+  {
+    user_id: 2,
+    email: "admin@gmail.com",
+    password: "123",
+    language: "English",
+    relationship: "Father",
+    phone: "+1561555768",
+    status: true,
+    role: "admin",
+    message: "Login successfully",
+    token: "1165|ihHvE9J6cn1U3St4Sk6v6JKOdm2ARA87hXYbIdS63831040a",
+    full_name: "Tom albert",
+    first_name: "Tom",
+    last_name: "Albert",
+    user_name: "albert",
+    photo_path: images.UserImage,
+  },
 
 ];
 

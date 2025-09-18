@@ -37,7 +37,7 @@ import ForgetPassword from "../Pages/Admin/Auth/ForgetPassword";
 import ForgetPassword2 from "../Pages/Admin/Auth/ForgetPassword2";
 import ForgetPassword3 from "../Pages/Admin/Auth/ForgetPassword3";
 import PreventAdmin from "./PreventAdmin";
-// import Dashboard from "../Pages/Admin/Dashboard";
+import Dashboard from "../Pages/Admin/Dashboard";
 // import Profile from "../Pages/Admin/Profile";
 // import EditProfile from "../Pages/Admin/Profile/EditProfile";
 // import ChangePassword from "../Pages/Admin/Profile/ChangePassword";
@@ -154,11 +154,11 @@ const routes = [
           { path: "admin/*", element: <PreventAdmin /> },
         ],
       },
-      // {
-      //   element: <ProtectedRoutes admin roles={[roles.admin]} />,
-      //   children: [
-      //     { path: "admin/*", element: <PreventAdmin /> },
-      //     { path: "admin/dashboard", element: <Dashboard /> },
+      {
+        element: <ProtectedRoutes admin roles={[roles.admin]} />,
+        children: [
+          { path: "admin/*", element: <PreventAdmin /> },
+          { path: "admin/dashboard", element: <Dashboard /> },
       //     { path: "admin/profile", element: <Profile /> },
       //     { path: "admin/edit-profile", element: <EditProfile /> },
       //     { path: "admin/change-password", element: <ChangePassword /> },
@@ -442,8 +442,8 @@ const routes = [
       //     { path: "admin/challenge-management/:id/edit", element: <EditChallenge /> },
       //     { path: "admin/challenge-management/:id", element: <ChallengeDetail /> },
 
-      //   ],
-      // },
+        ],
+      },
       
       {
         element: <GuestRoutes user />,

@@ -60,7 +60,7 @@ const cardsInfo = {
    },
 };
 
-export const Dashboard = () => {
+const Dashboard = () => {
    const [dateRange, setDateRange] = useState([null, null]);
    const [defaultData, setDefaultData] = useState({
       earning: null,
@@ -225,3 +225,6 @@ export const Dashboard = () => {
       </DashboardLayout>
    );
 };
+
+export { Dashboard };
+export default Dashboard;

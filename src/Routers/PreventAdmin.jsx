@@ -4,7 +4,7 @@ import { useAuth } from "../Hooks/useAuth";
 export default function PreventAdmin() {
   const { role, token } = useAuth();
   if (token && role === "admin") {
-    return <Navigate to="/" />;
+    return <Navigate to="/admin/dashboard" />;
   } else {
     return <Navigate to="/admin" />;
   }

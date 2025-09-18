@@ -29,7 +29,7 @@ import { images } from "../../../../Assets";
 import { useAuth } from "../../../../Hooks/useAuth";
 import { useLogout } from "../../../../Services/Auth";
 import { fullName, generateLinks, slugify } from "../../../../Utils/helper";
-import CustomModal from "../../../CustomModal";
+import CustomModal from "../../../Common/CustomModal";
 import Toast, { showToast } from "../../../Common/Toast/index";
 import { cartItems } from "../../../../Store/selectors";
 import "./style.css";

@@ -2,11 +2,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import React, { useCallback, useEffect, useState } from "react";
 import "./style.css";
-import CustomButton from "../Common/CustomButton";
-import { Select } from "../Common/FormElements/SelectInput";
-import { sorting } from "../../Config/TableStatus";
+import CustomButton from "../../Common/CustomButton";
+import { Select } from "../../Common/FormElements/SelectInput";
+import { sorting } from "../../../Config/TableStatus";
 import debounce from "lodash.debounce";
-import SiteInput from "../Common/FormElements/TextInput";
+import SiteInput from "../../Common/FormElements/TextInput";
 import { Dropdown } from "react-bootstrap";
 // import { FaFilter } from "react-icons/fa6";
 

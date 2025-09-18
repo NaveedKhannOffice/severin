@@ -5,7 +5,7 @@ import { generateLinks } from "../../../../Utils/helper";
 import "./style.css";
 import { images } from "../../../../Assets";
 
-export const Sidebar = (props) => {
+const Sidebar = (props) => {
   const [user, setUser] = useState({});
   const urlPath = window.location.pathname;
   const { role } = useAuth();
@@ -45,3 +45,6 @@ export const Sidebar = (props) => {
     </>
   );
 };
+
+export { Sidebar };
+export default Sidebar;

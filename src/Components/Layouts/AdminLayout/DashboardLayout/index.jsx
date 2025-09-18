@@ -3,7 +3,7 @@ import { Header } from "../Header";
 import { Sidebar } from "../Sidebar";
 import "./style.css";
 import { usePageTitle } from "../../../../Utils/helper";
-export const DashboardLayout = (props) => {
+const DashboardLayout = (props) => {
   usePageTitle(props?.pageTitle ?? "");
   const [sideBarClass, setsideBarClass] = useState("");
   const [bodyClass, setbodyClass] = useState("");
@@ -60,3 +60,6 @@ export const DashboardLayout = (props) => {
     </>
   );
 };
+
+export { DashboardLayout };
+export default DashboardLayout;

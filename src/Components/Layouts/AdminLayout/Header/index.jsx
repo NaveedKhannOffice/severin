@@ -13,13 +13,13 @@ import { Link, useNavigate } from "react-router-dom";
 // import ChatIconAdmin from "../../../../Assets/images/svg/chatIconAdmin.svg?react";
 import { useAuth } from "../../../../Hooks/useAuth";
 import { useLogout } from "../../../../Services/Auth";
-import CustomModal from "../../../CustomModal";
+import CustomModal from "../../../Common/CustomModal/index";
 // import HeaderNotification from "../../../HeaderNotification";
-import Toast, { showToast } from "../../../Toast";
+import Toast, { showToast } from "../../../Common/Toast/index";
 import "./style.css";
 import { images } from "../../../../Assets";
 
-export const Header = (props) => {
+const Header = (props) => {
   const navigate = useNavigate();
   const { role, user } = useAuth();
   const handleLogout = useLogout();
@@ -130,3 +130,6 @@ export const Header = (props) => {
     </header>
   );
 };
+
+export { Header };
+export default Header;
