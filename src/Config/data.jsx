@@ -18,7 +18,23 @@ export const loginCredentials = [
     user_name: "albert",
     photo_path: images.UserImage,
   },
-
+  {
+    user_id: 1,
+    email: "admin@gmail.com",
+    password: "123",
+    language: "English",
+    relationship: "Mother",
+    phone: "+1561555768",
+    status: true,
+    role: "admin",
+    message: "Login successfully",
+    token: "1165|ihHvE9J6cn1U3St4Sk6v6JKOdm2ARA87hXYbIdS63831040a",
+    full_name: "Tom albert",
+    first_name: "Tom",
+    last_name: "Albert",
+    user_name: "albert",
+    photo_path: images.UserImage,
+  },
 ];
 
 export const productsData = {
@@ -40,21 +56,21 @@ export const productsData = {
           {
             id: 10,
             name: "premium",
-            slug: "premium"
+            slug: "premium",
           },
           {
             id: 12,
             name: "bio",
-            slug: "bio"
+            slug: "bio",
           },
           {
             id: 12,
             name: "ritual",
-            slug: "ritual"
-          }
+            slug: "ritual",
+          },
         ],
         stock_quantity: 5,
-        
+
         productType: "Physical Product",
         category: "Kitchenware",
         status_detail: "1",
@@ -70,20 +86,20 @@ export const productsData = {
           comments: [],
         },
         colors: [
-          { 
-            name: "Chalk/Gray", 
+          {
+            name: "Chalk/Gray",
             value: "#808080",
-            images: [images.productImage1, images.productImage2]
+            images: [images.productImage1, images.productImage2],
           },
-          { 
-            name: "Brown", 
+          {
+            name: "Brown",
             value: "#8B4513",
-            images: [images.productImage3, images.productImage4]
+            images: [images.productImage3, images.productImage4],
           },
-          { 
-            name: "Black", 
+          {
+            name: "Black",
             value: "#000000",
-            images: [images.productImage1, images.productImage3]
+            images: [images.productImage1, images.productImage3],
           },
         ],
         sizes: ["Small", "Medium", "Large"],
@@ -129,10 +145,7 @@ export const productsData = {
         productType: "Physical Product",
         category: "Kitchenware",
         status_detail: "1",
-        photos: [
-          images.productImage3,
-          images.productImage4,
-        ],
+        photos: [images.productImage3, images.productImage4],
         rating: "4.9",
         reviews: {
           count: 32,
@@ -157,10 +170,7 @@ export const productsData = {
         productType: "Digital Product",
         category: "Gift Cards",
         status_detail: "1",
-        photos: [
-          images.productImage4,
-          images.productImage2,
-        ],
+        photos: [images.productImage4, images.productImage2],
         rating: "5.0",
         reviews: {
           count: 45,
@@ -186,10 +196,7 @@ export const productsData = {
         productType: "Digital Product",
         category: "Gift Cards",
         status_detail: "1",
-        photos: [
-          images.productImage5,
-          images.productImage2,
-        ],
+        photos: [images.productImage5, images.productImage2],
         rating: "5.0",
         reviews: {
           count: 45,
@@ -215,10 +222,7 @@ export const productsData = {
         productType: "Digital Product",
         category: "Gift Cards",
         status_detail: "1",
-        photos: [
-          images.productImage6,
-          images.productImage2,
-        ],
+        photos: [images.productImage6, images.productImage2],
         rating: "5.0",
         reviews: {
           count: 45,
@@ -244,10 +248,7 @@ export const productsData = {
         productType: "Digital Product",
         category: "Gift Cards",
         status_detail: "1",
-        photos: [
-          images.productImage1,
-          images.productImage2,
-        ],
+        photos: [images.productImage1, images.productImage2],
         rating: "5.0",
         reviews: {
           count: 45,
@@ -273,10 +274,7 @@ export const productsData = {
         productType: "Digital Product",
         category: "Gift Cards",
         status_detail: "1",
-        photos: [
-          images.productImage7,
-          images.productImage2,
-        ],
+        photos: [images.productImage7, images.productImage2],
         rating: "5.0",
         reviews: {
           count: 45,
@@ -302,10 +300,7 @@ export const productsData = {
         productType: "Digital Product",
         category: "Gift Cards",
         status_detail: "1",
-        photos: [
-          images.productImage7,
-          images.productImage2,
-        ],
+        photos: [images.productImage7, images.productImage2],
         rating: "5.0",
         reviews: {
           count: 45,
@@ -331,10 +326,7 @@ export const productsData = {
         productType: "Digital Product",
         category: "Gift Cards",
         status_detail: "1",
-        photos: [
-          images.productImage7,
-          images.productImage2,
-        ],
+        photos: [images.productImage7, images.productImage2],
         rating: "5.0",
         reviews: {
           count: 45,
@@ -348,7 +340,6 @@ export const productsData = {
         ],
         created_at: "2024-01-12T16:45:00.000Z",
       },
-     
     ],
     first_page_url: "http://localhost/food_app/admin-api/branches?page=1",
     from: 1,
@@ -450,10 +441,7 @@ export const newArrivalsData = {
         category: "Tea Accessories",
         productType: "Physical Product",
         status_detail: "1",
-        photos: [
-          images.productImage3,
-          images.productImage4,
-        ],
+        photos: [images.productImage3, images.productImage4],
         rating: "4.9",
         reviews: {
           count: 32,
@@ -475,10 +463,7 @@ export const newArrivalsData = {
         category: "Gift Cards",
         productType: "Digital Product",
         status_detail: "1",
-        photos: [
-          images.productImage4,
-          images.productImage2,
-        ],
+        photos: [images.productImage4, images.productImage2],
         rating: "5.0",
         reviews: {
           count: 45,
@@ -492,7 +477,6 @@ export const newArrivalsData = {
         ],
         created_at: "2024-01-12T16:45:00.000Z",
       },
-     
     ],
     first_page_url: "http://localhost/food_app/admin-api/branches?page=1",
     from: 1,
@@ -543,31 +527,33 @@ export const homeBannerData = {
   status: true,
   message: "Hero fetched successfully",
   data: {
-  tag: "NEW",
-  title: "Matcha - Set",
-  subtitle: "premium  -  bio - ritual",
-  description: "A Ritual of Simplicity and Substance",
-  tagline: "Premium  -  Bio - Ritual",
-  price: "CHF 155.00",
-  buttonText: "— Our Story",
-  buttonLink: "/about",
-  backgroundImage: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=800&fit=crop"
-  }
-}
+    tag: "NEW",
+    title: "Matcha - Set",
+    subtitle: "premium  -  bio - ritual",
+    description: "A Ritual of Simplicity and Substance",
+    tagline: "Premium  -  Bio - Ritual",
+    price: "CHF 155.00",
+    buttonText: "— Our Story",
+    buttonLink: "/about",
+    backgroundImage:
+      "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=800&fit=crop",
+  },
+};
 
 export const ourStoryData = {
   status: true,
   message: "Our Story fetched successfully",
   data: {
-  title: "Designed For",
-  subtitle: "A Few Not The Many",
-  description: "A Ritual of Simplicity and Substance At HQSH, we believe that true luxury lies in simplicity...",
-  tagline: "At HQSH, we believe that true luxury lies in simplicity...",
-  buttonText: "— Our Story",
-  buttonLink: "/about",
-  backgroundImage: images.heroBannerbg
-  }
-}
+    title: "Designed For",
+    subtitle: "A Few Not The Many",
+    description:
+      "A Ritual of Simplicity and Substance At HQSH, we believe that true luxury lies in simplicity...",
+    tagline: "At HQSH, we believe that true luxury lies in simplicity...",
+    buttonText: "— Our Story",
+    buttonLink: "/about",
+    backgroundImage: images.heroBannerbg,
+  },
+};
 
 export const testimonialResponse = {
   status: true,
@@ -655,21 +641,33 @@ export const wishListData = {
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Ai Boi", "photo-path": "https://www.profilebakery.com/wp-content/uploads/2024/05/Profile-picture-created-with-ai.jpeg" },
+              user: {
+                name: "Ai Boi",
+                "photo-path":
+                  "https://www.profilebakery.com/wp-content/uploads/2024/05/Profile-picture-created-with-ai.jpeg",
+              },
               comment:
                 "Great for maintaining gut health. I've been using DigestAid regularly, and I've noticed a significant improvement in my overall digestive health. It's a great supplement to keep my gut in check.",
               rating: 4,
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Athalia Putri", "photo-path": "https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8" },
+              user: {
+                name: "Athalia Putri",
+                "photo-path":
+                  "https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8",
+              },
               comment:
                 "Gentle and effective. I have a sensitive stomach, and DigestAid has been the perfect solution. It’s gentle on my system while effectively easing discomfort after meals.",
               rating: 5,
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Athalia Putri", "photo-path": "https://newprofilepicapp.com/wp-content/uploads/2024/02/New-Profile-Pic-App.webp" },
+              user: {
+                name: "Athalia Putri",
+                "photo-path":
+                  "https://newprofilepicapp.com/wp-content/uploads/2024/02/New-Profile-Pic-App.webp",
+              },
               comment:
                 "Versatile digestive support. Whether I’m feeling gassy, bloated, or just need help digesting heavy meals, DigestAid always comes through. I like that it targets various digestive issues in one product",
               rating: 4,
@@ -716,21 +714,33 @@ export const wishListData = {
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Ai Boi", "photo-path": "https://www.profilebakery.com/wp-content/uploads/2024/05/Profile-picture-created-with-ai.jpeg" },
+              user: {
+                name: "Ai Boi",
+                "photo-path":
+                  "https://www.profilebakery.com/wp-content/uploads/2024/05/Profile-picture-created-with-ai.jpeg",
+              },
               comment:
                 "Great for maintaining gut health. I've been using DigestAid regularly, and I've noticed a significant improvement in my overall digestive health. It's a great supplement to keep my gut in check.",
               rating: 4,
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Athalia Putri", "photo-path": "https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8" },
+              user: {
+                name: "Athalia Putri",
+                "photo-path":
+                  "https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8",
+              },
               comment:
                 "Gentle and effective. I have a sensitive stomach, and DigestAid has been the perfect solution. It’s gentle on my system while effectively easing discomfort after meals.",
               rating: 5,
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Athalia Putri", "photo-path": "https://newprofilepicapp.com/wp-content/uploads/2024/02/New-Profile-Pic-App.webp" },
+              user: {
+                name: "Athalia Putri",
+                "photo-path":
+                  "https://newprofilepicapp.com/wp-content/uploads/2024/02/New-Profile-Pic-App.webp",
+              },
               comment:
                 "Versatile digestive support. Whether I’m feeling gassy, bloated, or just need help digesting heavy meals, DigestAid always comes through. I like that it targets various digestive issues in one product",
               rating: 4,
@@ -778,21 +788,33 @@ export const wishListData = {
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Ai Boi", "photo-path": "https://www.profilebakery.com/wp-content/uploads/2024/05/Profile-picture-created-with-ai.jpeg" },
+              user: {
+                name: "Ai Boi",
+                "photo-path":
+                  "https://www.profilebakery.com/wp-content/uploads/2024/05/Profile-picture-created-with-ai.jpeg",
+              },
               comment:
                 "Great for maintaining gut health. I've been using DigestAid regularly, and I've noticed a significant improvement in my overall digestive health. It's a great supplement to keep my gut in check.",
               rating: 4,
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Athalia Putri", "photo-path": "https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8" },
+              user: {
+                name: "Athalia Putri",
+                "photo-path":
+                  "https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8",
+              },
               comment:
                 "Gentle and effective. I have a sensitive stomach, and DigestAid has been the perfect solution. It’s gentle on my system while effectively easing discomfort after meals.",
               rating: 5,
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Athalia Putri", "photo-path": "https://newprofilepicapp.com/wp-content/uploads/2024/02/New-Profile-Pic-App.webp" },
+              user: {
+                name: "Athalia Putri",
+                "photo-path":
+                  "https://newprofilepicapp.com/wp-content/uploads/2024/02/New-Profile-Pic-App.webp",
+              },
               comment:
                 "Versatile digestive support. Whether I’m feeling gassy, bloated, or just need help digesting heavy meals, DigestAid always comes through. I like that it targets various digestive issues in one product",
               rating: 4,
@@ -840,21 +862,33 @@ export const wishListData = {
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Ai Boi", "photo-path": "https://www.profilebakery.com/wp-content/uploads/2024/05/Profile-picture-created-with-ai.jpeg" },
+              user: {
+                name: "Ai Boi",
+                "photo-path":
+                  "https://www.profilebakery.com/wp-content/uploads/2024/05/Profile-picture-created-with-ai.jpeg",
+              },
               comment:
                 "Great for maintaining gut health. I've been using DigestAid regularly, and I've noticed a significant improvement in my overall digestive health. It's a great supplement to keep my gut in check.",
               rating: 4,
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Athalia Putri", "photo-path": "https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8" },
+              user: {
+                name: "Athalia Putri",
+                "photo-path":
+                  "https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8",
+              },
               comment:
                 "Gentle and effective. I have a sensitive stomach, and DigestAid has been the perfect solution. It’s gentle on my system while effectively easing discomfort after meals.",
               rating: 5,
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Athalia Putri", "photo-path": "https://newprofilepicapp.com/wp-content/uploads/2024/02/New-Profile-Pic-App.webp" },
+              user: {
+                name: "Athalia Putri",
+                "photo-path":
+                  "https://newprofilepicapp.com/wp-content/uploads/2024/02/New-Profile-Pic-App.webp",
+              },
               comment:
                 "Versatile digestive support. Whether I’m feeling gassy, bloated, or just need help digesting heavy meals, DigestAid always comes through. I like that it targets various digestive issues in one product",
               rating: 4,
@@ -902,21 +936,33 @@ export const wishListData = {
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Ai Boi", "photo-path": "https://www.profilebakery.com/wp-content/uploads/2024/05/Profile-picture-created-with-ai.jpeg" },
+              user: {
+                name: "Ai Boi",
+                "photo-path":
+                  "https://www.profilebakery.com/wp-content/uploads/2024/05/Profile-picture-created-with-ai.jpeg",
+              },
               comment:
                 "Great for maintaining gut health. I've been using DigestAid regularly, and I've noticed a significant improvement in my overall digestive health. It's a great supplement to keep my gut in check.",
               rating: 4,
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Athalia Putri", "photo-path": "https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8" },
+              user: {
+                name: "Athalia Putri",
+                "photo-path":
+                  "https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8",
+              },
               comment:
                 "Gentle and effective. I have a sensitive stomach, and DigestAid has been the perfect solution. It’s gentle on my system while effectively easing discomfort after meals.",
               rating: 5,
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Athalia Putri", "photo-path": "https://newprofilepicapp.com/wp-content/uploads/2024/02/New-Profile-Pic-App.webp" },
+              user: {
+                name: "Athalia Putri",
+                "photo-path":
+                  "https://newprofilepicapp.com/wp-content/uploads/2024/02/New-Profile-Pic-App.webp",
+              },
               comment:
                 "Versatile digestive support. Whether I’m feeling gassy, bloated, or just need help digesting heavy meals, DigestAid always comes through. I like that it targets various digestive issues in one product",
               rating: 4,
@@ -963,21 +1009,33 @@ export const wishListData = {
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Ai Boi", "photo-path": "https://www.profilebakery.com/wp-content/uploads/2024/05/Profile-picture-created-with-ai.jpeg" },
+              user: {
+                name: "Ai Boi",
+                "photo-path":
+                  "https://www.profilebakery.com/wp-content/uploads/2024/05/Profile-picture-created-with-ai.jpeg",
+              },
               comment:
                 "Great for maintaining gut health. I've been using DigestAid regularly, and I've noticed a significant improvement in my overall digestive health. It's a great supplement to keep my gut in check.",
               rating: 4,
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Athalia Putri", "photo-path": "https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8" },
+              user: {
+                name: "Athalia Putri",
+                "photo-path":
+                  "https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8",
+              },
               comment:
                 "Gentle and effective. I have a sensitive stomach, and DigestAid has been the perfect solution. It’s gentle on my system while effectively easing discomfort after meals.",
               rating: 5,
               timestamp: "Jul 14, 2023",
             },
             {
-              user: { name: "Athalia Putri", "photo-path": "https://newprofilepicapp.com/wp-content/uploads/2024/02/New-Profile-Pic-App.webp" },
+              user: {
+                name: "Athalia Putri",
+                "photo-path":
+                  "https://newprofilepicapp.com/wp-content/uploads/2024/02/New-Profile-Pic-App.webp",
+              },
               comment:
                 "Versatile digestive support. Whether I’m feeling gassy, bloated, or just need help digesting heavy meals, DigestAid always comes through. I like that it targets various digestive issues in one product",
               rating: 4,
@@ -1054,7 +1112,8 @@ export const orderLogsData = {
         shipping_address: {
           user_name: "Tom Albert",
           phone_number: "+19159969739",
-          address: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod",
+          address:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod",
           country: "XYZ",
           state: "XYZ",
           city: "XYZ",
@@ -1063,7 +1122,8 @@ export const orderLogsData = {
         billing_address: {
           user_name: "Tom Albert",
           phone_number: "+19159969739",
-          address: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod",
+          address:
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod",
           country: "XYZ",
           state: "XYZ",
           city: "XYZ",
@@ -1101,6 +1161,423 @@ export const orderLogsData = {
         amount: "100",
         shop_name: "Shop ABC",
         status: "cancelled",
+      },
+    ],
+    first_page_url: "http://localhost/food_app/admin-api/branches?page=1",
+    from: 1,
+    last_page: 2,
+    last_page_url: "http://localhost/food_app/admin-api/branches?page=2",
+    links: [
+      {
+        url: null,
+        label: "&laquo; Previous",
+        active: false,
+      },
+      {
+        url: "http://localhost/food_app/admin-api/branches?page=1",
+        label: "1",
+        active: true,
+      },
+      {
+        url: "http://localhost/food_app/admin-api/branches?page=2",
+        label: "2",
+        active: false,
+      },
+      {
+        url: "http://localhost/food_app/admin-api/branches?page=2",
+        label: "Next &raquo;",
+        active: false,
+      },
+    ],
+    next_page_url: "http://localhost/food_app/admin-api/branches?page=2",
+    path: "http://localhost/food_app/admin-api/branches",
+    per_page: 10,
+    prev_page_url: null,
+    to: 10,
+    total: 11,
+  },
+};
+
+export const productCategoryManagementData = {
+  status: true,
+  message: "product category listing",
+  detail: {
+    current_page: 1,
+    data: [
+      {
+        id: 1,
+        categorytitle: "Electronics",
+        creationdate: "2024-01-15T10:30:00.000000Z",
+        NoofProducts: 25,
+        status: 1,
+        created_at: "2024-01-15T10:30:00.000000Z",
+        updated_at: "2024-01-15T10:30:00.000000Z",
+      },
+      {
+        id: 2,
+        categorytitle: "Clothing",
+        creationdate: "2024-01-20T14:45:00.000000Z",
+        NoofProducts: 18,
+        status: 1,
+        created_at: "2024-01-20T14:45:00.000000Z",
+        updated_at: "2024-01-20T14:45:00.000000Z",
+      },
+      {
+        id: 3,
+        categorytitle: "Home & Garden",
+        creationdate: "2024-02-01T09:15:00.000000Z",
+        NoofProducts: 32,
+        status: 1,
+        created_at: "2024-02-01T09:15:00.000000Z",
+        updated_at: "2024-02-01T09:15:00.000000Z",
+      },
+      {
+        id: 4,
+        categorytitle: "Sports & Outdoors",
+        creationdate: "2024-02-10T16:20:00.000000Z",
+        NoofProducts: 15,
+        status: 0,
+        created_at: "2024-02-10T16:20:00.000000Z",
+        updated_at: "2024-02-10T16:20:00.000000Z",
+      },
+      {
+        id: 5,
+        categorytitle: "Books & Media",
+        creationdate: "2024-02-15T11:30:00.000000Z",
+        NoofProducts: 42,
+        status: 1,
+        created_at: "2024-02-15T11:30:00.000000Z",
+        updated_at: "2024-02-15T11:30:00.000000Z",
+      },
+    ],
+    first_page_url:
+      "http://localhost/food_app/admin-api/product-categories?page=1",
+    from: 1,
+    last_page: 1,
+    last_page_url:
+      "http://localhost/food_app/admin-api/product-categories?page=1",
+    links: [
+      {
+        url: null,
+        label: "&laquo; Previous",
+        active: false,
+      },
+      {
+        url: "http://localhost/food_app/admin-api/product-categories?page=1",
+        label: "1",
+        active: true,
+      },
+      {
+        url: null,
+        label: "Next &raquo;",
+        active: false,
+      },
+    ],
+    next_page_url: null,
+    path: "http://localhost/food_app/admin-api/product-categories",
+    per_page: 10,
+    prev_page_url: null,
+    to: 5,
+    total: 5,
+  },
+};
+
+export const userManagementData = {
+  status: true,
+  message: "user listing",
+  detail: {
+    current_page: 1,
+    data: [
+      {
+        id: 1,
+        user_name: "Toms",
+        relationship: "father",
+        language: "English",
+        subscription_type: "monthly",
+        name: "Darvesh Restuarant",
+        email: "darvesh@gmail.com",
+        phone: "03656558478",
+        lat: 36.3212167,
+        lng: 74.66940469,
+        status: 1,
+        address: "8MCC+G3G, Karim Abad Road, Hunza, Karimabad",
+        created_at: "2024-06-25T14:29:37.000000Z",
+        updated_at: "2024-07-05T08:21:31.000000Z",
+        deleted_at: null,
+        status_detail: "1",
+        phone_number: "+9158552465",
+        role: "branch",
+        UserImage:
+          "https://upload.wikimedia.org/wikipedia/commons/b/be/Pep_2017_%28cropped%29.jpg",
+      },
+      {
+        id: 2,
+        user_name: "Toms",
+        relationship: "father",
+        language: "English",
+        subscription_type: "yearly",
+        name: "Darvesh Restuarant",
+        email: "darvesh@gmail.com",
+        phone: "03656558478",
+        lat: 36.3212167,
+        lng: 74.66940469,
+        status: 0,
+        address: "8MCC+G3G, Karim Abad Road, Hunza, Karimabad",
+        created_at: "2024-06-25T14:29:37.000000Z",
+        updated_at: "2024-07-05T08:21:31.000000Z",
+        deleted_at: null,
+        status_detail: "0",
+        phone_number: "+9658552465",
+        role: "branch",
+        UserImage:
+          "https://upload.wikimedia.org/wikipedia/commons/b/be/Pep_2017_%28cropped%29.jpg",
+      },
+    ],
+    first_page_url: "http://localhost/food_app/admin-api/branches?page=1",
+    from: 1,
+    last_page: 2,
+    last_page_url: "http://localhost/food_app/admin-api/branches?page=2",
+    links: [
+      {
+        url: null,
+        label: "&laquo; Previous",
+        active: false,
+      },
+      {
+        url: "http://localhost/food_app/admin-api/branches?page=1",
+        label: "1",
+        active: true,
+      },
+      {
+        url: "http://localhost/food_app/admin-api/branches?page=2",
+        label: "2",
+        active: false,
+      },
+      {
+        url: "http://localhost/food_app/admin-api/branches?page=2",
+        label: "Next &raquo;",
+        active: false,
+      },
+    ],
+    next_page_url: "http://localhost/food_app/admin-api/branches?page=2",
+    path: "http://localhost/food_app/admin-api/branches",
+    per_page: 10,
+    prev_page_url: null,
+    to: 10,
+    total: 11,
+  },
+};
+
+export const userOrderLogsData = {
+  status: true,
+  message: "user Order Logs logs",
+  detail: {
+    current_page: 1,
+    data: [
+      {
+        order_iD: "#123456",
+        shop_name: "lifeline pharmacy",
+        appointment_type: "Online",
+        date: "2024-06-25T14:29:37.000000Z",
+        orderid: "1",
+        amount: "$30",
+        status: "Delivered",
+        id: "1",
+        productlogs: [
+          {
+            sNo: "01",
+            productName: "Digest Aid",
+            productDescription: "Pain Relief",
+            price: "$10",
+            quantity: 10,
+            total: "$100",
+            image:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmxUc8YW6VVv5JDUaWDIthYucrtBlhu33WIxhP9CnrNpiGQt-wz_t6GV5UVMRYqFu6Ykk&usqp=CAU",
+          },
+          {
+            sNo: "02",
+            productName: "Zinc",
+            productDescription: "Antioxidant",
+            price: "$20",
+            quantity: 20,
+            total: "$200",
+            image:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt2C5ilnsaq6kwACZ5ULs_swsKrlo0t_xhBg&s",
+          },
+          {
+            sNo: "03",
+            productName: "Omega 3",
+            productDescription: "Heart Health",
+            price: "$30",
+            quantity: 30,
+            total: "$300",
+            image:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0g8S0XeoIdvhHZoSOJNk9cfrZ4gc3x8s3dQ&s",
+          },
+        ],
+        sub_total: "$80.00",
+        delivery_charges: "$80.00",
+        customerInfo: {
+          name: "Tom Albert",
+          email: "tomalbert@gmail.com",
+          phone: "+1 1234567890",
+        },
+        shippingAddress: {
+          name: "Tom Albert",
+          phone: "+1 1234567890",
+          country: "America",
+          state: "Alaska",
+          city: "Juneau",
+          zipCode: "99801",
+          address: "700 ORCA ST ANCHORAGE AK 99501-4040 USA",
+        },
+        billingAddress: {
+          name: "Tom Albert",
+          phone: "+1 1234567890",
+          country: "America",
+          state: "Alaska",
+          city: "Juneau",
+          zipCode: "99801",
+          address: "700 ORCA ST ANCHORAGE AK 99501-4040 USA",
+        },
+      },
+      {
+        id: "2",
+        order_iD: "#123456",
+        shop_name: "lifeline pharmacy",
+        appointment_type: "Online",
+        date: "2024-06-25T14:29:37.000000Z",
+        orderid: "2",
+        amount: "$30",
+        status: "Cancelled",
+        productlogs: [
+          {
+            sNo: "01",
+            productName: "Digest Aid",
+            productDescription: "Pain Relief",
+            price: "$10",
+            quantity: 10,
+            total: "$100",
+            image:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmxUc8YW6VVv5JDUaWDIthYucrtBlhu33WIxhP9CnrNpiGQt-wz_t6GV5UVMRYqFu6Ykk&usqp=CAU",
+          },
+          {
+            sNo: "02",
+            productName: "Zinc",
+            productDescription: "Antioxidant",
+            price: "$20",
+            quantity: 20,
+            total: "$200",
+            image:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt2C5ilnsaq6kwACZ5ULs_swsKrlo0t_xhBg&s",
+          },
+          {
+            sNo: "03",
+            productName: "Omega 3",
+            productDescription: "Heart Health",
+            price: "$30",
+            quantity: 30,
+            total: "$300",
+            image:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0g8S0XeoIdvhHZoSOJNk9cfrZ4gc3x8s3dQ&s",
+          },
+        ],
+        sub_total: "$80.00",
+        delivery_charges: "$80.00",
+        customerInfo: {
+          name: "Tom Albert",
+          email: "tomalbert@gmail.com",
+          phone: "+1 1234567890",
+        },
+        shippingAddress: {
+          name: "Tom Albert",
+          phone: "+1 1234567890",
+          country: "America",
+          state: "Alaska",
+          city: "Juneau",
+          zipCode: "99801",
+          address: "700 ORCA ST ANCHORAGE AK 99501-4040 USA",
+        },
+        billingAddress: {
+          name: "Tom Albert",
+          phone: "+1 1234567890",
+          country: "America",
+          state: "Alaska",
+          city: "Juneau",
+          zipCode: "99801",
+          address: "700 ORCA ST ANCHORAGE AK 99501-4040 USA",
+        },
+        cancellation_reason:
+          "We’re unable to process your prescription due to missing or incorrect details. Please provide the correct information for us to proceed. The medication you’ve requested is currently out of stock. We’ll notify you once it becomes available, or we can suggest alternatives.",
+      },
+      {
+        id: "3",
+        order_iD: "#123456",
+        shop_name: "lifeline pharmacy",
+        appointment_type: "Online",
+        date: "2024-06-25T14:29:37.000000Z",
+        orderid: "3",
+        amount: "$30",
+        status: "Pending",
+        productlogs: [
+          {
+            sNo: "03",
+            productName: "Digest Aid",
+            productDescription: "Pain Relief",
+            price: "$10",
+            quantity: 10,
+            total: "$100",
+            image:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmxUc8YW6VVv5JDUaWDIthYucrtBlhu33WIxhP9CnrNpiGQt-wz_t6GV5UVMRYqFu6Ykk&usqp=CAU",
+          },
+          {
+            sNo: "02",
+            productName: "Zinc",
+            productDescription: "Antioxidant",
+            price: "$20",
+            quantity: 20,
+            total: "$200",
+            image:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt2C5ilnsaq6kwACZ5ULs_swsKrlo0t_xhBg&s",
+          },
+          {
+            sNo: "03",
+            productName: "Omega 3",
+            productDescription: "Heart Health",
+            price: "$30",
+            quantity: 30,
+            total: "$300",
+            image:
+              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0g8S0XeoIdvhHZoSOJNk9cfrZ4gc3x8s3dQ&s",
+          },
+        ],
+        cancellation_reason:
+          "We’re unable to process your prescription due to missing or incorrect details. Please provide the correct information for us to proceed. The medication you’ve requested is currently out of stock. We’ll notify you once it becomes available, or we can suggest alternatives.",
+        sub_total: "$80.00",
+        delivery_charges: "$80.00",
+        customerInfo: {
+          name: "Tom Albert",
+          email: "tomalbert@gmail.com",
+          phone: "+1 1234567890",
+        },
+        shippingAddress: {
+          name: "Tom Albert",
+          phone: "+1 1234567890",
+          country: "America",
+          state: "Alaska",
+          city: "Juneau",
+          zipCode: "99801",
+          address: "700 ORCA ST ANCHORAGE AK 99501-4040 USA",
+        },
+        billingAddress: {
+          name: "Tom Albert",
+          phone: "+1 1234567890",
+          country: "America",
+          state: "Alaska",
+          city: "Juneau",
+          zipCode: "99801",
+          address: "700 ORCA ST ANCHORAGE AK 99501-4040 USA",
+        },
       },
     ],
     first_page_url: "http://localhost/food_app/admin-api/branches?page=1",

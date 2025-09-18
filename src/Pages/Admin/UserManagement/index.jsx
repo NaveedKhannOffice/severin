@@ -3,7 +3,7 @@ import { FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { DashboardLayout } from "../../../Components/Layouts/AdminLayout/DashboardLayout";
 import CustomTable from "../../../Components/CustomTable";
-import { Select } from "../../../Components/Common/FormElements/SelectInput";
+import SelectInput from "../../../Components/Common/FormElements/SelectInput";
 import { userManagementData } from "../../../Config/data";
 import { userHeaders } from "../../../Config/TableHeaders"; // Table Headers
 import { normalStatus, statusOptions } from "../../../Config/TableStatus"; // Import statusOptions
@@ -28,10 +28,11 @@ const UserManagement = ({
     try {
       startSubmitting(true);
       const url = `/admin/users`;
-      const response = await getAll(url, filters);
+      // const response = await getAll(url, filters);
+      const response = userManagementData;
       if (response.status) {
-        const { total, per_page, current_page, to } = response.meta;
-        setUserData(response.data);
+        const { total, per_page, current_page, to } = response.detail;
+        setUserData(response.detail.data);
         updatePagination({
           showData: to,
           currentPage: current_page,
@@ -128,7 +129,7 @@ const UserManagement = ({
                           <td>{dateFormat(item?.created_at)}</td>
                           {/* Status column with Select dropdown */}
                           <td>
-                            <Select
+                            <SelectInput
                               className={`tabel-select status${item?.status}`}
                               required
                               id={`status${item?.id}`}
@@ -136,9 +137,8 @@ const UserManagement = ({
                               value={item?.status}
                               onChange={(e) => handleStatusChange(e, item?.id)}
                               isInputNeeded={false}
-                            >
-                              {statusOptions}
-                            </Select>
+                              options={statusOptions}
+                            />
                           </td>
                           <td>
                             <div className="d-flex cp gap-3 tableAction align-items-center justify-content-center">

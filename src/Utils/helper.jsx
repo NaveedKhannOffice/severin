@@ -5,11 +5,13 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment-timezone";
 
 //set email
-export const setEmail = (email) => localStorage.setItem("email", JSON.stringify(email));
+export const setEmail = (email) =>
+  localStorage.setItem("email", JSON.stringify(email));
 export const getEmail = () => JSON.parse(localStorage.getItem("email"));
 
 //set emaiFAQsManagementl
-export const setCode = (code) => localStorage.setItem("code", JSON.stringify(code));
+export const setCode = (code) =>
+  localStorage.setItem("code", JSON.stringify(code));
 export const getCode = () => JSON.parse(localStorage.getItem("code"));
 
 export const usePasswordToggle = () => {
@@ -63,7 +65,12 @@ export const usePasswordToggle3 = () => {
 
 //form builder
 export const buildFormData = (formData, data, parentKey) => {
-  if (data && typeof data === "object" && !(data instanceof Date) && !(data instanceof File)) {
+  if (
+    data &&
+    typeof data === "object" &&
+    !(data instanceof Date) &&
+    !(data instanceof File)
+  ) {
     Object.keys(data).forEach((key) => {
       buildFormData(formData, data[key], key);
     });
@@ -82,7 +89,11 @@ export const buildProductFormData = (formData, data, parentKey = "") => {
     });
   } else if (data && typeof data === "object" && !(data instanceof Date)) {
     Object.keys(data).forEach((key) => {
-      buildProductFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
+      buildProductFormData(
+        formData,
+        data[key],
+        parentKey ? `${parentKey}[${key}]` : key
+      );
     });
   } else {
     const value = data == null ? "" : data;
@@ -256,7 +267,15 @@ export const convertUTCToLocalTime = (utcTime) => {
   return moment.utc(utcTime, "HH:mm").local().format("hh:mm A");
 };
 
-const daysOfWeek = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+const daysOfWeek = [
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
+];
 
 export const sortTimingsByDay = (timings) => {
   return timings.sort((a, b) => {
@@ -292,8 +311,16 @@ export const usePageTitle = (title = "", user = false) => {
 
   useEffect(() => {
     document.title = user
-      ? process.env.REACT_APP_WEBSITE_NAME + " | " + title.charAt(0).toUpperCase() + title.slice(1)
-      : process.env.REACT_APP_WEBSITE_NAME + " " + name + " | " + title.charAt(0).toUpperCase() + title.slice(1);
+      ? process.env.REACT_APP_WEBSITE_NAME +
+        " | " +
+        title.charAt(0).toUpperCase() +
+        title.slice(1)
+      : process.env.REACT_APP_WEBSITE_NAME +
+        " " +
+        name +
+        " | " +
+        title.charAt(0).toUpperCase() +
+        title.slice(1);
   }, [title, user, name]); // Add dependencies
 };
 
@@ -438,7 +465,12 @@ export const calculateIndex = (currentPage, selectedEntries) => {
   return (currentPage - 1) * selectedEntries + 1;
 };
 
-export const handleFileChange = (e, formData, setFormData, setUploadedImage) => {
+export const handleFileChange = (
+  e,
+  formData,
+  setFormData,
+  setUploadedImage
+) => {
   const fileInput = e.target;
   const files = fileInput.files;
   if (files && files.length > 0) {
@@ -454,7 +486,8 @@ export const handleFileChange = (e, formData, setFormData, setUploadedImage) => 
 };
 
 export const getUserDetails = (user, data) => {
-  const userDetails = user.sendable_id === data.id ? user.receiver : user.sender;
+  const userDetails =
+    user.sendable_id === data.id ? user.receiver : user.sender;
   return {
     profilePic: userDetails?.file?.file_url,
     firstName: userDetails?.first_name,
@@ -496,7 +529,9 @@ export const convertMinutes = (minutes) => {
   const remainingMinutes = minutes % 60;
 
   if (hours > 0 && remainingMinutes > 0) {
-    return `${hours} hour${hours > 1 ? "s" : ""} and ${remainingMinutes} minute${remainingMinutes !== 1 ? "s" : ""}`;
+    return `${hours} hour${
+      hours > 1 ? "s" : ""
+    } and ${remainingMinutes} minute${remainingMinutes !== 1 ? "s" : ""}`;
   } else if (hours > 0) {
     return `${hours} hour${hours > 1 ? "s" : ""}`;
   } else {
@@ -594,23 +629,74 @@ export const generateLinks = (role) => {
   let Links = [];
 
   switch (role) {
+    case "admin":
+      Links = [
+        {
+          path: "/admin/dashboard",
+          label: "Dashboard",
+          name: "Dashboard",
+          link: "/admin/dashboard",
+          image: () => <i className="fas fa-tachometer-alt"></i>,
+        },
+        {
+          path: "/admin/user-management",
+          label: "User Management",
+          name: "Users",
+          link: "/admin/user-management",
+          image: () => <i className="fas fa-users"></i>,
+        },
+        {
+          path: "/admin/products-management",
+          label: "Product Management",
+          name: "Products",
+          link: "/admin/products-management",
+          image: () => <i className="fas fa-box"></i>,
+        },
+        // {
+        //   path: "/admin/orders-management",
+        //   label: "Order Management",
+        //   name: "Orders",
+        //   link: "/admin/orders-management",
+        //   image: () => <i className="fas fa-shopping-cart"></i>,
+        // },
+        // {
+        //   path: "/admin/settings",
+        //   label: "Settings",
+        //   name: "Settings",
+        //   link: "/admin/settings",
+        //   image: () => <i className="fas fa-cog"></i>,
+        // },
+      ];
+      break;
     default: // No role case or fallback links
       Links = [
         {
           path: "/",
           label: "Home",
+          name: "Home",
+          link: "/",
+          image: () => <i className="fas fa-home"></i>,
         },
         {
           path: "/our-story",
           label: "Our Story",
+          name: "Our Story",
+          link: "/our-story",
+          image: () => <i className="fas fa-book"></i>,
         },
         {
           path: "/shop",
           label: "Shop",
+          name: "Shop",
+          link: "/shop",
+          image: () => <i className="fas fa-store"></i>,
         },
         {
           path: "/faqs",
           label: "FAQ's",
+          name: "FAQ's",
+          link: "/faqs",
+          image: () => <i className="fas fa-question-circle"></i>,
         },
       ];
 
@@ -2175,7 +2261,9 @@ export const isNullOrEmpty = (variable) => {
     variable === null || // Check if null
     variable === undefined || // Check if undefined
     (Array.isArray(variable) && variable.length === 0) || // Check if it's an empty array
-    (typeof variable === "object" && !Array.isArray(variable) && Object.keys(variable).length === 0) // Check if it's an empty object (and not an array)
+    (typeof variable === "object" &&
+      !Array.isArray(variable) &&
+      Object.keys(variable).length === 0) // Check if it's an empty object (and not an array)
   );
 };
 
@@ -2235,12 +2323,12 @@ export const usePageTitleUser = (title) => {
 export const slugify = (text) => {
   return text
     .toString()
-    .toLowerCase()                   // lowercase
-    .trim()                          // remove spaces from start & end
-    .replace(/\s+/g, '-')            // spaces -> dashes
-    .replace(/[^\w\-]+/g, '')        // remove non-word chars
-    .replace(/\-\-+/g, '-');         // multiple dashes -> single dash
-}
+    .toLowerCase() // lowercase
+    .trim() // remove spaces from start & end
+    .replace(/\s+/g, "-") // spaces -> dashes
+    .replace(/[^\w\-]+/g, "") // remove non-word chars
+    .replace(/\-\-+/g, "-"); // multiple dashes -> single dash
+};
 
 const colorNames = {
   "#000": "black",

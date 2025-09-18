@@ -15,7 +15,7 @@ import { useAuth } from "../../../../Hooks/useAuth";
 import { useLogout } from "../../../../Services/Auth";
 import CustomModal from "../../../CustomModal";
 // import HeaderNotification from "../../../HeaderNotification";
-import Toast, { showToast } from "../../../Toast";
+import Toast, { showToast } from "../../../Common/Toast/index";
 import "./style.css";
 import { images } from "../../../../Assets";
 
@@ -78,7 +78,7 @@ export const Header = (props) => {
                   <FontAwesomeIcon className="me-2 yellow-text" icon={faUser} />{" "}
                   Profile
                 </Link>
-                <Link className="userMenuItem" to={`/${role}/mybank-detail`}>
+                {/* <Link className="userMenuItem" to={`/${role}/mybank-detail`}>
                   <FontAwesomeIcon
                     className="me-2 yellow-text"
                     icon={faMoneyCheck}
@@ -91,7 +91,7 @@ export const Header = (props) => {
                     icon={faDollarSign}
                   />
                   Payment Logs
-                </Link>
+                </Link> */}
                 <Link
                   onClick={() => setShowModal(true)}
                   className="userMenuItem"

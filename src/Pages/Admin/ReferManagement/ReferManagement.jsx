@@ -186,7 +186,7 @@ import { FaEye, FaEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { DashboardLayout } from "../../../Components/Layouts/AdminLayout/DashboardLayout";
 import CustomTable from "../../../Components/CustomTable";
-import { Select } from "../../../Components/Common/FormElements/SelectInput";
+import SelectInput from "../../../Components/Common/FormElements/SelectInput";
 import { statusOptions } from "../../../Config/TableStatus";
 import withFilters from "../../../HOC/withFilters";
 import withModal from "../../../HOC/withModal";
@@ -352,7 +352,7 @@ const ReferManagement = ({
                           <td>{item.refer_condition}</td>
                           <td>{dateFormat(item.date)}</td>
                           <td>
-                            <Select
+                            <SelectInput
                               className={`tabel-select status${item.status}`}
                               value={item.status}
                               onChange={(value) =>
@@ -361,7 +361,7 @@ const ReferManagement = ({
                               isInputNeeded={false}
                             >
                               {statusOptions}
-                            </Select>
+                            </SelectInput>
                           </td>
                           <td>
                             <div className="d-flex gap-3 justify-content-center">

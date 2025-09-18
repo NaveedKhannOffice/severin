@@ -15,10 +15,11 @@ export const Sidebar = (props) => {
   }, []);
 
   useEffect(() => {
-    if (props.sideclassName === "collapsed") setHeaderLogo(images.HeaderLogoMobile);
+    if (props.sideclassName === "collapsed")
+      setHeaderLogo(images.HeaderLogoMobile);
     else setHeaderLogo(images.HeaderLogo);
   }, [props.sideclassName]);
-  
+
   let Links = generateLinks(role);
 
   return (
@@ -32,11 +33,20 @@ export const Sidebar = (props) => {
         <ul className="list-unstyled mt-4">
           {Links.map((element, index) => (
             <li className="sidebar-li" key={index}>
-              <Link className={`sideLink ${urlPath.includes(element.link.substring()) ? "active" : ""}`} to={element.link}>
+              <Link
+                className={`sideLink ${
+                  urlPath.includes(element.path || element.link || "")
+                    ? "active"
+                    : ""
+                }`}
+                to={element.path || element.link || "/"}
+              >
                 <span className="sideIcon">
-                  <element.image />
+                  {element.image && <element.image />}
                 </span>
-                <span className="sideLinkText">{element.name}</span>
+                <span className="sideLinkText">
+                  {element.name || element.label || "Link"}
+                </span>
               </Link>
             </li>
           ))}

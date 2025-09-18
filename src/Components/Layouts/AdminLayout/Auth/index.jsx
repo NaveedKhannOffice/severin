@@ -25,7 +25,7 @@ export const AuthLayout = (props) => {
                         className="img-fluid"
                       />
                       <div className="position-absolute top-50 start-50 translate-middle">
-                        <img src={images.adminAuthLogo} alt="authLogo" className="adminAuthLogo" />
+                        {/* <img src={images.adminAuthLogo} alt="authLogo" className="adminAuthLogo" /> */}
                       </div>
                     </div>
                   </Col>

@@ -20,8 +20,8 @@ const Profile = () => {
         <div className="dashCard my-4">
           <div className="row mb-3">
             {user ? (
-              <div className="col-12">
-                <div className="mx-width">
+              <div className="col-12 col-lg-10 ">
+                <div className="">
                   <div className="row text-xl-center mb-5">
                     <div className="col-12">
                       <div className="profileImage ">
@@ -51,7 +51,7 @@ const Profile = () => {
                   <div className="d-flex gap-3 flex-wrap">
                     <CustomButton
                       type="button"
-                      variant="site-btn primary-btn "
+                      variant="primary"
                       className="px-5"
                       text="Edit Profile"
                       onClick={() => {
@@ -60,8 +60,9 @@ const Profile = () => {
                     />
                     <CustomButton
                       type="button"
-                      className="site-btn secondary-btn"
+                      variant="outline-primary"
                       text="Change Password"
+                      
                       onClick={() => {
                         navigate("/admin/change-password");
                       }}

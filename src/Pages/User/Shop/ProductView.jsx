@@ -795,7 +795,7 @@ const ProductView = () => {
 
   return (
     <section className="page-content product-view">
-      <Container fluid>
+      <Container fluid className="mw-100">
         {/* Loading State */}
         {loading && (
           <Row>
@@ -831,304 +831,315 @@ const ProductView = () => {
         {/* Product Details */}
         {!loading && !error && productData && (
           <>
-            <Row>
-              <Col md={6}>
-                <div className="product-media-wrap">
-                  {/* Main Image */}
-                  <div className="product-media-main">
-                    <img
-                      src={
-                        getCurrentImages()[currentImageIndex] ||
-                        productData?.image
-                      }
-                      alt={productData?.name || "Product"}
-                      className="main-product-image"
-                    />
-                  </div>
+          <section className="position-relative">
+              {productData?.variants &&
+                productData.variants.length > 0 && (
+                <div className="color-selector">
+                  <div className="color-options">
+                    {/* <div className="mb-3">
+                      <strong>Colors:</strong>{" "}
+                      <span>{selectedColor || "Select a color"}</span>
+                      <div className="d-flex gap-2 mt-2">
+                        {productData.variants.map((variant) => (
+                          <div
+                            key={variant.name}
+                            className={`color-swatch ${
+                              selectedColor === variant.name
+                                ? "selected"
+                                : ""
+                            }`}
+                            style={{
+                              backgroundColor:
+                                variant.hex ||
+                                hexFromColorName(variant.name),
+                            }}
+                            onClick={() => handleColorSelect(variant.name)}
+                            title={variant.name}
+                          ></div>
+                        ))}
+                      </div>
+                    </div>   */}
 
-                  {/* Image Thumbnails */}
-                  {getCurrentImages().length > 1 && (
-                    <div className="product-thumbnails">
-                      {getCurrentImages().map((image, index) => (
-                        <div
-                          key={index}
-                          className={`thumbnail ${
-                            currentImageIndex === index ? "active" : ""
-                          }`}
-                          onClick={() => setCurrentImageIndex(index)}
-                        >
-                          <img
-                            src={image}
-                            alt={`${productData?.name} ${index + 1}`}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </Col>
-              <Col md={6} className="d-flex">
-                <div className="align-self-center flex-grow-1">
-                  <div className="product-view__info">
-                    <div className="product-view__title mb-2">
-                      <h3 className="fw-light">{productData?.name}</h3>
-                    </div>
-                    {productData?.categories && (
-                      <div className="product-view__categories mb-3">
-                        {productData.categories.map((category, index) => (
-                          <span
-                            key={index}
-                            className="product-view__category-tag"
-                          >
-                            {category?.name}
+                  
+                    {productData.variants.map((variant, index) => (
+                      <>
+                      {
+                        console.log("Variant" , variant)
+                      }
+                    <div
+                      key={variant.name || variant}
+                      className={`color-option ${
+                        selectedColor === (variant.name || variant)
+                          ? "selected"
+                          : ""
+                      }`}
+                      onClick={() =>
+                        handleColorSelect(variant.name || variant)
+                      }
+                    >
+                      <div
+                        className="color-option-swatch"
+                        style={{
+                          backgroundColor: variant.hex || variant,
+                        }}
+                      ></div>
+                      <div className="color-option-content">
+                        {selectedColor === (variant.name || variant) && (
+                          <span className="color-selected-label">
+                            Select Colors
                           </span>
+                        )}
+                        <span className="color-option-name">
+                          {variant.name ||
+                            getColorName(variant.name || variant)}
+                        </span>
+                      </div>
+                    </div>
+                      </>
+                  ))}
+                  
+                  </div>
+                </div>
+              )}
+            <Container fluid>
+              <Row>
+                <Col md={6}>
+                  <div className="product-media-wrap">
+                    {/* Main Image */}
+                    <div className="product-media-main">
+                      <img
+                        src={
+                          getCurrentImages()[currentImageIndex] ||
+                          productData?.image
+                        }
+                        alt={productData?.name || "Product"}
+                        className="main-product-image"
+                      />
+                    </div>
+
+                    {/* Image Thumbnails */}
+                    {getCurrentImages().length > 1 && (
+                      <div className="product-thumbnails">
+                        {getCurrentImages().map((image, index) => (
+                          <div
+                            key={index}
+                            className={`thumbnail ${
+                              currentImageIndex === index ? "active" : ""
+                            }`}
+                            onClick={() => setCurrentImageIndex(index)}
+                          >
+                            <img
+                              src={image}
+                              alt={`${productData?.name} ${index + 1}`}
+                            />
+                          </div>
                         ))}
                       </div>
                     )}
-                    <div className="product-view__price mb-4">
-                      <div className="price fw-semibold">
-                        <span className="currency-code">
-                          {productData?.currency || "CHF"}
-                        </span>
-                        {typeof productData?.price === "string"
-                          ? productData.price
-                          : productData?.price?.toFixed(2) || "0.00"}
+                  </div>
+                </Col>
+                <Col md={6} className="d-flex">
+                  <div className="align-self-center flex-grow-1">
+                    <div className="product-view__info">
+                      <div className="product-view__title mb-2">
+                        <h3 className="fw-light">{productData?.name}</h3>
                       </div>
-                    </div>
+                      {productData?.categories && (
+                        <div className="product-view__categories mb-3">
+                          {productData.categories.map((category, index) => (
+                            <span
+                              key={index}
+                              className="product-view__category-tag"
+                            >
+                              {category?.name}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      <div className="product-view__price mb-4">
+                        <div className="price fw-semibold">
+                          <span className="currency-code">
+                            {productData?.currency || "CHF"}
+                          </span>
+                          {typeof productData?.price === "string"
+                            ? productData.price
+                            : productData?.price?.toFixed(2) || "0.00"}
+                        </div>
+                      </div>
 
-                    {/* Variants/Color Selector */}
-                    {
-                      console.log("Product Varient" , productData?.variants)
-                    }
-                    {productData?.variants &&
-                      productData.variants.length > 0 && (
+                      {/* Variants/Color Selector */}
+                      {
+                        console.log("Product Varient" , productData?.variants)
+                      }
+                      
+
+                      {/* Size Selector */}
+                      {/* {productData?.sizes && productData.sizes.length > 0 && (
+                                            <div className="mb-4">
+                                                <strong>Size:</strong> <span>{selectedSize || 'Select a size'}</span>
+                                                <div className="d-flex gap-2 mt-2">
+                                                    {productData.sizes.map((size) => (
+                                                        <button 
+                                                            key={size} 
+                                                            className={`size-button ${selectedSize === size ? "active" : ""}`} 
+                                                            onClick={() => setSelectedSize(size)}
+                                                        >
+                                                            {sizeDisplayMap[size.toLowerCase()] || size.charAt(0).toUpperCase()}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                          )} */}
+                      {/* Color Selector - Only show if product has colors */}
+                      {productData?.colors && productData.colors.length > 0 && (
                         <div className="color-selector">
-                          <div className="color-options">
-                            {/* <div className="mb-3">
-                              <strong>Colors:</strong>{" "}
-                              <span>{selectedColor || "Select a color"}</span>
-                              <div className="d-flex gap-2 mt-2">
-                                {productData.variants.map((variant) => (
-                                  <div
-                                    key={variant.name}
-                                    className={`color-swatch ${
-                                      selectedColor === variant.name
-                                        ? "selected"
-                                        : ""
-                                    }`}
-                                    style={{
-                                      backgroundColor:
-                                        variant.hex ||
-                                        hexFromColorName(variant.name),
-                                    }}
-                                    onClick={() => handleColorSelect(variant.name)}
-                                    title={variant.name}
-                                  ></div>
-                                ))}
-                              </div>
-                            </div>   */}
+                          {/* <div className="color-selector-header">
+                                                <h6 className="color-selector-title">
+                                                  Select Colors
+                                                </h6>
+                                                <div className="selected-color-info">
+                                                  {selectedColor ? (
+                                                    <div className="selected-color-display">
+                                                      <div
+                                                        className="selected-color-swatch"
+                                                        style={{ backgroundColor: selectedColor }}
+                                                      ></div>
+                                                      <span className="selected-color-name">
+                                                        {getColorName(selectedColor)}
+                                                      </span>
+                                                    </div>
+                                                  ) : (
+                                                    <span className="no-color-selected">
+                                                      Select a color
+                                                    </span>
+                                                  )}
+                                                </div>
+                                              </div> */}
 
-                           
-                            {productData.variants.map((variant, index) => (
-                              <>
-                              {
-                                console.log("Variant" , variant)
-                              }
-                            <div
-                              key={variant.name || variant}
-                              className={`color-option ${
-                                selectedColor === (variant.name || variant)
-                                  ? "selected"
-                                  : ""
-                              }`}
-                              onClick={() =>
-                                handleColorSelect(variant.name || variant)
-                              }
-                            >
+                          <div className="color-options">
+                            {productData.colors.map((color, index) => (
                               <div
-                                className="color-option-swatch"
-                                style={{
-                                  backgroundColor: variant.hex || variant,
-                                }}
-                              ></div>
-                              <div className="color-option-content">
-                                {selectedColor === (variant.name || variant) && (
-                                  <span className="color-selected-label">
-                                    Select Colors
+                                key={color.value || color}
+                                className={`color-option ${
+                                  selectedColor === (color.value || color)
+                                    ? "selected"
+                                    : ""
+                                }`}
+                                onClick={() =>
+                                  handleColorSelect(color.value || color)
+                                }
+                              >
+                                <div
+                                  className="color-option-swatch"
+                                  style={{
+                                    backgroundColor: color.value || color,
+                                  }}
+                                ></div>
+                                <div className="color-option-content">
+                                  {selectedColor === (color.value || color) && (
+                                    <span className="color-selected-label">
+                                      Select Colors
+                                    </span>
+                                  )}
+                                  <span className="color-option-name">
+                                    {color.name ||
+                                      getColorName(color.value || color)}
                                   </span>
-                                )}
-                                <span className="color-option-name">
-                                  {variant.name ||
-                                    getColorName(variant.name || variant)}
-                                </span>
+                                </div>
                               </div>
-                            </div>
-                              </>
-                          ))}
-                           
+                            ))}
                           </div>
                         </div>
                       )}
 
-                    {/* Size Selector */}
-                    {/* {productData?.sizes && productData.sizes.length > 0 && (
-                                          <div className="mb-4">
-                                              <strong>Size:</strong> <span>{selectedSize || 'Select a size'}</span>
-                                              <div className="d-flex gap-2 mt-2">
-                                                  {productData.sizes.map((size) => (
-                                                      <button 
-                                                          key={size} 
-                                                          className={`size-button ${selectedSize === size ? "active" : ""}`} 
-                                                          onClick={() => setSelectedSize(size)}
-                                                      >
-                                                          {sizeDisplayMap[size.toLowerCase()] || size.charAt(0).toUpperCase()}
-                                                      </button>
-                                                  ))}
-                                              </div>
-                                          </div>
-                                        )} */}
-                    {/* Color Selector - Only show if product has colors */}
-                    {productData?.colors && productData.colors.length > 0 && (
-                      <div className="color-selector">
-                        {/* <div className="color-selector-header">
-                                              <h6 className="color-selector-title">
-                                                Select Colors
-                                              </h6>
-                                              <div className="selected-color-info">
-                                                {selectedColor ? (
-                                                  <div className="selected-color-display">
-                                                    <div
-                                                      className="selected-color-swatch"
-                                                      style={{ backgroundColor: selectedColor }}
-                                                    ></div>
-                                                    <span className="selected-color-name">
-                                                      {getColorName(selectedColor)}
-                                                    </span>
-                                                  </div>
-                                                ) : (
-                                                  <span className="no-color-selected">
-                                                    Select a color
-                                                  </span>
-                                                )}
-                                              </div>
-                                            </div> */}
-
-                        <div className="color-options">
-                          {productData.colors.map((color, index) => (
-                            <div
-                              key={color.value || color}
-                              className={`color-option ${
-                                selectedColor === (color.value || color)
-                                  ? "selected"
-                                  : ""
-                              }`}
-                              onClick={() =>
-                                handleColorSelect(color.value || color)
-                              }
-                            >
-                              <div
-                                className="color-option-swatch"
-                                style={{
-                                  backgroundColor: color.value || color,
-                                }}
-                              ></div>
-                              <div className="color-option-content">
-                                {selectedColor === (color.value || color) && (
-                                  <span className="color-selected-label">
-                                    Select Colors
-                                  </span>
-                                )}
-                                <span className="color-option-name">
-                                  {color.name ||
-                                    getColorName(color.value || color)}
-                                </span>
-                              </div>
-                            </div>
-                          ))}
+                      {productData?.description && (
+                        <div className="product-description">
+                          <p>{productData.description}</p>
                         </div>
-                      </div>
-                    )}
+                      )}
 
-                    {productData?.description && (
-                      <div className="product-description">
-                        <p>{productData.description}</p>
-                      </div>
-                    )}
-
-                    {/* Stock Status */}
-                    {isOutOfStock() && (
-                      <div className="text-danger fw-bold mb-3">
-                        Out of Stock
-                      </div>
-                    )}
-                  </div>
-                  <div className="product-view__actions">
-                    <div className="d-flex gap-3">
-                      {!isOutOfStock() ? (
-                        <>
-                          <div className="product-info-quantity flex-shrink-0">
-                            <div className="quantity-picker">
-                              <Button
-                                className="quantity-picker__btn quantity-picker__btn--minus"
-                                onClick={() =>
-                                  setInputQuantity(
-                                    Math.max(1, inputQuantity - 1)
-                                  )
-                                }
-                              >
-                                <FaMinus />
-                              </Button>
-                              <input
-                                type="number"
-                                className="quantity-picker__input"
-                                value={inputQuantity}
-                                onChange={handleQuantityChange}
-                                onKeyPress={handleKeyPress}
-                                min="1"
-                                max={productData?.stock_quantity || 999}
-                              />
-                              <Button
-                                className="quantity-picker__btn quantity-picker__btn--plus"
-                                onClick={() =>
-                                  setInputQuantity(
-                                    Math.min(
-                                      inputQuantity + 1,
-                                      productData?.stock_quantity || 999
-                                    )
-                                  )
-                                }
-                              >
-                                <FaPlus />
-                              </Button>
-                            </div>
-                          </div>
-                          <div className="product-view__add-to-cart">
-                            <CustomButton
-                              variant="primary"
-                              onClick={handleAddToCart}
-                            >
-                              Add to Cart
-                            </CustomButton>
-                          </div>
-                        </>
-                      ) : (
-                        <p className="text-danger fw-bold mb-0"></p>
+                      {/* Stock Status */}
+                      {isOutOfStock() && (
+                        <div className="text-danger fw-bold mb-3">
+                          Out of Stock
+                        </div>
                       )}
                     </div>
+                    <div className="product-view__actions">
+                      <div className="d-flex gap-3">
+                        {!isOutOfStock() ? (
+                          <>
+                            <div className="product-info-quantity flex-shrink-0">
+                              <div className="quantity-picker">
+                                <Button
+                                  className="quantity-picker__btn quantity-picker__btn--minus"
+                                  onClick={() =>
+                                    setInputQuantity(
+                                      Math.max(1, inputQuantity - 1)
+                                    )
+                                  }
+                                >
+                                  <FaMinus />
+                                </Button>
+                                <input
+                                  type="number"
+                                  className="quantity-picker__input"
+                                  value={inputQuantity}
+                                  onChange={handleQuantityChange}
+                                  onKeyPress={handleKeyPress}
+                                  min="1"
+                                  max={productData?.stock_quantity || 999}
+                                />
+                                <Button
+                                  className="quantity-picker__btn quantity-picker__btn--plus"
+                                  onClick={() =>
+                                    setInputQuantity(
+                                      Math.min(
+                                        inputQuantity + 1,
+                                        productData?.stock_quantity || 999
+                                      )
+                                    )
+                                  }
+                                >
+                                  <FaPlus />
+                                </Button>
+                              </div>
+                            </div>
+                            <div className="product-view__add-to-cart">
+                              <CustomButton
+                                variant="primary"
+                                onClick={handleAddToCart}
+                              >
+                                Add to Cart
+                              </CustomButton>
+                            </div>
+                          </>
+                        ) : (
+                          <p className="text-danger fw-bold mb-0"></p>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col xs={12} className="">
-                <NewArrivalsSection
-                  data={newArrivals}
-                  loading={newArrivalsLoading}
-                  error={newArrivalsError}
-                  animate={false}
-                />
-              </Col>
-            </Row>
+                </Col>
+              </Row>
+            </Container>
+          </section>
+
+         
+            <section>
+              <Container fluid>
+                <Row>
+                  <Col xs={12} className="">
+                    <NewArrivalsSection
+                      data={newArrivals}
+                      loading={newArrivalsLoading}
+                      error={newArrivalsError}
+                      animate={false}
+                    />
+                  </Col>
+                </Row>
+              </Container>
+            </section>
           </>
         )}
 
