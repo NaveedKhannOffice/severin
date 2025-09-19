@@ -455,6 +455,8 @@ import axios from "axios";
 
 // Helper functions (copied from ProductDetails component)
 const mapProduct = (p) => {
+  
+
   if (!p) return null;
   const name = p.title || p.name || p.slug || "Product";
   const description = p.description || "Description";
@@ -561,6 +563,9 @@ const ProductView = () => {
   const [isScrollingImages, setIsScrollingImages] = useState(false);
   const [imageSliderRef, setImageSliderRef] = useState(null);
   const [isHeaderScrolled, setIsHeaderScrolled] = useState(false);
+  const leftRef = useRef(null);
+  const rightRef = useRef(null);
+  const [stickyStyle, setStickyStyle] = useState({});
 
   const [productData, setProductData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -615,71 +620,55 @@ const ProductView = () => {
   //   return () => window.removeEventListener("scroll", handleScroll);
   // }, []);
 
+
   // Handle header scroll detection
   // useEffect(() => {
   //   const handleScroll = () => {
   //     const scrollTop =
   //       window.pageYOffset || document.documentElement.scrollTop;
-
+  
   //     const header = document.getElementById("header");
   //     const headerHeight = header ? header.offsetHeight : 0;
-
+  
   //     if (scrollTop > headerHeight) {
   //       setIsHeaderScrolled(true);
   //     } else {
   //       setIsHeaderScrolled(false);
   //     }
   //   };
-
+  
   //   window.addEventListener("scroll", handleScroll);
   //   return () => window.removeEventListener("scroll", handleScroll);
   // }, []);
-
+  
   const containerRef = useRef(null);
-  const leftRef = useRef(null);
-  const rightRef = useRef(null);
-  const [stickyStyle, setStickyStyle] = useState({});
+  const stickyRef = useRef(null);
+  const [isSticky, setIsSticky] = useState(false);
+  const [isStopped, setIsStopped] = useState(false);
+
+  const [translateY, setTranslateY] = useState(0);
+  const [isAtEnd, setIsAtEnd] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const left = leftRef.current;
-      const right = rightRef.current;
+      const container = containerRef.current;
+      if (!container) return;
 
-      if (!left || !right) return;
+      const containerRect = container.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
 
-      const leftRect = left.getBoundingClientRect();
-      const rightHeight = right.offsetHeight;
-      const topOffset = 100; // header offset
+      // total kitna scroll allowed hai (jitni left images ki height)
+      const maxScroll = containerRect.height - windowHeight;
 
-      if (
-        window.scrollY > left.offsetTop - topOffset &&
-        window.scrollY <
-          left.offsetTop + left.offsetHeight - rightHeight - topOffset
-      ) {
-        // fixed state - smooth transition
-        setStickyStyle({
-          position: "fixed",
-          top: topOffset + "px",
-          width: right.offsetWidth + "px",
-          transition: "all 0.3s ease-out",
-        });
-      } else if (
-        window.scrollY >=
-        left.offsetTop + left.offsetHeight - rightHeight - topOffset
-      ) {
-        // stop at bottom - smooth transition
-        setStickyStyle({
-          position: "absolute",
-          bottom: "0",
-          width: right.offsetWidth + "px",
-          transition: "all 0.3s ease-out",
-        });
+      // scroll kitna hua hai
+      const scrollY = window.scrollY - container.offsetTop;
+
+      if (scrollY >= maxScroll) {
+        setTranslateY(maxScroll); // sirf end me translateY apply hoga
+        setIsAtEnd(true);
       } else {
-        // normal state - smooth transition
-        setStickyStyle({
-          position: "static",
-          transition: "all 0.3s ease-out",
-        });
+        setTranslateY(0); // normal state me 0 rehta hai
+        setIsAtEnd(false);
       }
     };
 
@@ -951,6 +940,8 @@ const ProductView = () => {
 
   return (
     <section className="page-content product-view">
+     
+
       <Container fluid className="mw-100">
         {/* Loading State */}
         {loading && (
@@ -988,15 +979,110 @@ const ProductView = () => {
         {!loading && !error && productData && (
           <>
             <section className="position-relative">
+              {productData?.variants && productData.variants.length > 0 && (
+                <div className="color-selector">
+                  <div className="color-options">
+                    {/* <div className="mb-3">
+                      <strong>Colors:</strong>{" "}
+                      <span>{selectedColor || "Select a color"}</span>
+                      <div className="d-flex gap-2 mt-2">
+                        {productData.variants.map((variant) => (
+                          <div
+                            key={variant.name}
+                            className={`color-swatch ${
+                              selectedColor === variant.name
+                                ? "selected"
+                                : ""
+                            }`}
+                            style={{
+                              backgroundColor:
+                                variant.hex ||
+                                hexFromColorName(variant.name),
+                            }}
+                            onClick={() => handleColorSelect(variant.name)}
+                            title={variant.name}
+                          ></div>
+                        ))}
+                      </div>
+                    </div>   */}
+
+                    {productData.variants.map((variant, index) => (
+                      <>
+                        {console.log("Variant", variant)}
+                        <div
+                          key={variant.name || variant}
+                          className={`color-option ${
+                            selectedColor === (variant.name || variant)
+                              ? "selected"
+                              : ""
+                          }`}
+                          onClick={() =>
+                            handleColorSelect(variant.name || variant)
+                          }
+                        >
+                          <div
+                            className="color-option-swatch"
+                            style={{
+                              backgroundColor: variant.hex || variant,
+                            }}
+                          ></div>
+                          <div className="color-option-content">
+                            {selectedColor === (variant.name || variant) && (
+                              <span className="color-selected-label">
+                                Select Colors
+                              </span>
+                            )}
+                            <span className="color-option-name">
+                              {variant.name ||
+                                getColorName(variant.name || variant)}
+                            </span>
+                          </div>
+                        </div>
+                      </>
+                    ))}
+                  </div>
+                </div>
+              )}
               <Container fluid>
-                <div style={{ display: "flex", alignItems: "flex-start" }}>
-                  {/* Left column (images) */}
-                  <div
-                    ref={leftRef}
-                    style={{ flex: "1 1 60%", padding: "20px" }}
-                  >
-                    <div className="product-gallery d-flex gap-4">
-                      {getCurrentImages().length > 1 && (
+              <div
+      ref={containerRef}
+      className="flex w-full max-w-6xl mx-auto gap-8 mt-10 relative"
+      style={{ minHeight: "200vh" }}
+    >
+      {/* Left product images */}
+      <div className="w-2/3 space-y-8">
+        <img src="https://via.placeholder.com/800x600" alt="Product 1" />
+        <img src="https://via.placeholder.com/800x600" alt="Product 2" />
+        <img src="https://via.placeholder.com/800x600" alt="Product 3" />
+        <img src="https://via.placeholder.com/800x600" alt="Product 4" />
+      </div>
+
+      {/* Right product details */}
+      <div className="w-1/3 relative">
+        <div
+          className={`bg-white p-6 shadow-lg rounded-xl transition-transform duration-500 ease-out`}
+          style={{
+            transform: `translateY(${translateY}px)`,
+            position: isAtEnd ? "absolute" : "fixed",
+            top: isAtEnd ? "auto" : "20px", // thoda gap dene ke liye
+          }}
+        >
+          <h2 className="text-2xl font-bold mb-4">Athletic Shirt</h2>
+          <p className="mb-4">
+            High-quality athletic shirt with modern fit.
+          </p>
+          <p className="text-xl font-semibold mb-4">$49.99</p>
+          <button className="bg-black text-white px-6 py-3 rounded-lg">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+                <Row>
+                  <Col md={6} > 
+                    <div className="product-gallery d-flex gap-4"> 
+                    {getCurrentImages().length > 1 && (
                         <div
                           className="product-thumbnails-slider flex-shrink-0"
                           ref={setImageSliderRef}
@@ -1006,7 +1092,7 @@ const ProductView = () => {
                           {getCurrentImages().map((image, index) => (
                             <div
                               key={index}
-                              className={`thumbnail-item ${
+                              className={`thumbnail-slide ${
                                 currentImageIndex === index ? "active" : ""
                               }`}
                               onClick={() => setCurrentImageIndex(index)}
@@ -1026,51 +1112,37 @@ const ProductView = () => {
                           }`}
                         >
                           {/* Main Image */}
-                          {getCurrentImages().length > 1 ? (
-                            getCurrentImages().map((image, index) => (
-                              <div
-                                key={index}
-                                className={`slide ${
-                                  currentImageIndex === index ? "active" : ""
-                                }`}
-                                onClick={() => setCurrentImageIndex(index)}
-                              >
-                                <img
-                                  src={image}
-                                  alt={`${productData?.name} ${index + 1}`}
-                                />
-                              </div>
-                            ))
-                          ) : (
+                          {getCurrentImages().length > 1 && (
+                        
+                          getCurrentImages().map((image, index) => (
+                            <div key={index} className={`slide ${
+                              currentImageIndex === index ? "active" : ""
+                            }`}
+                            onClick={() => setCurrentImageIndex(index)}>
                             <img
-                              src={productData?.image}
-                              alt={productData?.name || "Product"}
-                              className="main-product-image"
-                            />
-                          )}
+                                src={image}
+                                alt={`${productData?.name} ${index + 1}`}
+                              />
+                          </div>
+                          ))
+                        
+                      )}
+
+
+                          
+                          
+                          {/* Image Thumbnails Slider */}
+                        
                         </div>
                       </div>
-                    </div>
-                  </div>
 
-                  {/* Right column (details) */}
-                  <div
-                    style={{
-                      flex: "1 1 40%",
-                      padding: "20px",
-                      position: "relative",
-                    }}
-                  >
-                    <div
-                      ref={rightRef}
-                      style={{
-                        ...stickyStyle,
-                        background: "white",
-                        padding: "20px",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                        borderRadius: "8px",
-                      }}
-                    >
+
+                    </div>
+
+                  </Col>
+
+                  <Col md={6} className="d-flex" style={{ flex: "1 1 40%", padding: "20px", position: "relative" }}>
+                    <div className="product-view__wrapperalign-self-start flex-grow-1" ref={rightRef} style={{ ...stickyStyle, background: "white", padding: "20px", boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}>
                       <div className="product-view__info">
                         <div className="product-view__title mb-2">
                           <h3 className="fw-light">{productData?.name}</h3>
@@ -1101,10 +1173,50 @@ const ProductView = () => {
                         {/* Variants/Color Selector */}
                         {console.log("Product Varient", productData?.variants)}
 
+                        {/* Size Selector */}
+                        {/* {productData?.sizes && productData.sizes.length > 0 && (
+                                            <div className="mb-4">
+                                                <strong>Size:</strong> <span>{selectedSize || 'Select a size'}</span>
+                                                <div className="d-flex gap-2 mt-2">
+                                                    {productData.sizes.map((size) => (
+                                                        <button 
+                                                            key={size} 
+                                                            className={`size-button ${selectedSize === size ? "active" : ""}`} 
+                                                            onClick={() => setSelectedSize(size)}
+                                                        >
+                                                            {sizeDisplayMap[size.toLowerCase()] || size.charAt(0).toUpperCase()}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                          )} */}
                         {/* Color Selector - Only show if product has colors */}
                         {productData?.colors &&
                           productData.colors.length > 0 && (
                             <div className="color-selector">
+                              {/* <div className="color-selector-header">
+                                                <h6 className="color-selector-title">
+                                                  Select Colors
+                                                </h6>
+                                                <div className="selected-color-info">
+                                                  {selectedColor ? (
+                                                    <div className="selected-color-display">
+                                                      <div
+                                                        className="selected-color-swatch"
+                                                        style={{ backgroundColor: selectedColor }}
+                                                      ></div>
+                                                      <span className="selected-color-name">
+                                                        {getColorName(selectedColor)}
+                                                      </span>
+                                                    </div>
+                                                  ) : (
+                                                    <span className="no-color-selected">
+                                                      Select a color
+                                                    </span>
+                                                  )}
+                                                </div>
+                                              </div> */}
+
                               <div className="color-options">
                                 {productData.colors.map((color, index) => (
                                   <div
@@ -1210,8 +1322,8 @@ const ProductView = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </Col>
+                </Row>
               </Container>
             </section>
 
