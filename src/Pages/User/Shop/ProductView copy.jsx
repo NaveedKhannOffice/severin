@@ -562,7 +562,7 @@ const ProductView = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isScrollingImages, setIsScrollingImages] = useState(false);
   const [imageSliderRef, setImageSliderRef] = useState(null);
-  const [isHeaderScrolled, setIsHeaderScrolled] = useState(false);
+  const [isoffsetHeightoffsetHeightScrolled, setIsHeaderScrolled] = useState(false);
   const leftRef = useRef(null);
   const rightRef = useRef(null);
   const [stickyStyle, setStickyStyle] = useState({});

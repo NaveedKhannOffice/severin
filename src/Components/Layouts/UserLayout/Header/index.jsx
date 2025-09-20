@@ -55,7 +55,7 @@ export const Header = () => {
   const [profilePic, setProfilePic] = useState(images.userImage);
  
   const cart = useSelector(cartItems);
-  console.log("cart", cart);
+  // console.log("cart", cart);
 
   // Search functionality
   const handleSearchChange = (e) => {
