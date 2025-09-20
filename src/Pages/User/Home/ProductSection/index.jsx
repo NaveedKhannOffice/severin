@@ -71,8 +71,7 @@ const ProductSection = ({ data, loading, error }) => {
                 key={product.id}
                 xs={12}
                 sm={6}
-                md={4}
-                lg={3}
+                xl={3}
                 className="mb-4"
                 data-aos="fade-up"
                 data-aos-delay={index * 100}
@@ -90,8 +89,8 @@ const ProductSection = ({ data, loading, error }) => {
                   </div>
 
                   <Card.Body className="position-relative px-0 pb-0">
-                    <div className="d-flex">
-                      <div className="flex-grow-1 mb-3">
+                    <div className="d-flex flex-column flex-md-row gap-2 mb-3">
+                      <div className="flex-grow-1">
                         <Card.Title className="mb-0">
                           <Link
                             to={`/product/${product.id}/${slugify(product.name || 'product')}`}
@@ -111,7 +110,7 @@ const ProductSection = ({ data, loading, error }) => {
                     <div className="product-attributes-wrapper d-flex gap-2 flex-column">
                     {/* Color options */}
                     {product.colors && (
-                      <div className="d-flex gap-4 align-items-center">
+                      <div className="d-flex gap-2 gap-xxl-4 align-items-center">
                         <small className="attribute-name flex-shrink-0">Colors:</small>
                         <div className="d-flex gap-1 mt-1">
                           {product.colors
@@ -136,7 +135,7 @@ const ProductSection = ({ data, loading, error }) => {
 
                     {/* Size options */}
                     {product.sizes && (
-                        <div className="mb-0 d-flex gap-4 align-items-center">
+                        <div className="mb-0 d-flex gap-2 gap-xxl-4 align-items-center">
                           <small className="attribute-name flex-shrink-0">Sizes:</small>
                           <div className="flex-grow-1 mb-0">
                             {product.sizes.join(" / ")}

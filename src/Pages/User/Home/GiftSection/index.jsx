@@ -9,7 +9,7 @@ const GiftSection = ({ title, description, giftImage }) => {
         <Row>
           <Col xs={12} xl={11} className='mx-auto'>
             <Row>    
-              <Col xs={12} xl={8} className='align-self-center'>
+              <Col xs={12} lg={8} className='align-self-center mb-0 mb-md-4'>
                 <h2 className="fw-normal mb-2 text-capitalize"
                 data-aos="flip-up"
                 data-aos-delay="150"
@@ -21,7 +21,7 @@ const GiftSection = ({ title, description, giftImage }) => {
                 </div>  
               <Button className="btn btn-primary">Gift a Card</Button>
               </Col>
-              <Col xs={12} xxl={4} className='align-self-end'>
+              <Col xs={12} lg={4} className='align-self-end d-none d-md-block'>
                 <img src={giftImage} alt="Gift Image" className="img-fluid" />
               </Col>
             </Row>

@@ -8,12 +8,12 @@ export const UserAuthLayout = (props) => {
    return (
       <>
          <section className={`user-login`}>
-            <Container fluid className="mw-100 g-0">
+            <Container fluid className="mw-100 g-0 px-0">
                <Row className="justify-content-center g-0">
                   <Col
                      xs={12}
-                     lg={6}
-                     className="d-flex align-items-stretch d-lg-block d-none left"
+                     md={6}
+                     className="align-items-stretch d-none d-md-flex left"
                   >
                      <div className="position-relative w-100 h-100">
                         <img
@@ -24,13 +24,13 @@ export const UserAuthLayout = (props) => {
                      </div>
                   </Col>
 
-                  <Col xs={12} lg={12} xl={6} className="align-self-center">
+                  <Col xs={12}  md={6} className="align-self-center">
                      <Row className="row justify-content-start authBox align-items-center">
                         <Col xs={12}>
                            <div className="authFormWrapper">
                               <div className="authForm">
                                  {props?.authBack && <BackButton2 />}
-                                 <div className="authFormHeader mb-sm-5 mb-3 text-start">
+                                 <div className="authFormHeader mb-md-5 mb-3 text-start">
                                     <h2 className="authTitle">{props?.authTitle}</h2>
                                     {props?.authMain && (
                                        <p className="authPara ">{props?.authPara}</p>

@@ -78,7 +78,7 @@ const Header = (props) => {
                   <FontAwesomeIcon className="me-2 yellow-text" icon={faUser} />{" "}
                   Profile
                 </Link>
-                <Link className="userMenuItem" to={`/${role}/mybank-detail`}>
+                {/* <Link className="userMenuItem" to={`/${role}/mybank-detail`}>
                   <FontAwesomeIcon
                     className="me-2 yellow-text"
                     icon={faMoneyCheck}
@@ -91,7 +91,7 @@ const Header = (props) => {
                     icon={faDollarSign}
                   />
                   Payment Logs
-                </Link>
+                </Link> */}
                 <Link
                   onClick={() => setShowModal(true)}
                   className="userMenuItem"

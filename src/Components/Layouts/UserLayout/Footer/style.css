@@ -9,8 +9,8 @@ Footer
 }
 
 #footer .footer-widgets {
-  padding-top: 70px;
-  padding-bottom: 70px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 
@@ -82,7 +82,7 @@ Footer
 
 .newsletter-widget {
   background-color: #fff;
-  padding: 50px 20px;
+  padding: 30px 20px;
 
 }
 
@@ -108,9 +108,33 @@ Footer
   color: #fff;
 }
 
+@media (max-width:1666px) {
+  #footer .newsletter-widget h3.widget-title{
+    font-size: 35px;
+    line-height: 1;
+  }
+}
+@media (max-width:1399px) {
+  #footer .widget ul.nav{
+    font-size: 18px;
+  }
+  #footer .newsletter-widget h3.widget-title{
+    font-size: 32px;
+  }
+  #footer .widget li{
+    margin: 5px 0;
+  }
+  #footer .newsletter-widget .sub-title{
+    font-size: 16px;
+  }
+}
 @media (max-width:1199px) {
   #footer .image-widget img {
     max-width: 220px;
+  }
+  #footer .footer-widgets{
+    padding-top: 30px;
+    padding-bottom: 30px;
   }
 }
 
@@ -122,7 +146,7 @@ Footer
 
 @media (max-width:767px) {
   #footer .footer-widgets {
-    padding: 0px 15px;
+    padding: 30px 15px 0 15px;
   }
 
   #footer .widget li {
@@ -131,5 +155,16 @@ Footer
 
   #footer .widget li a {
     padding: 3px 0px;
+  }
+}
+@media (max-width:767px) {
+  .newsletter-widget{
+    padding: 20px 15px;
+  }
+  #footer .widget h3.widget-title{
+    font-size: 25px;
+  }
+  #footer .newsletter-widget .sub-title{
+    font-size: 15px;
   }
 }

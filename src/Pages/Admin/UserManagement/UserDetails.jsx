@@ -6,8 +6,8 @@ import { DashboardLayout } from "../../../Components/Layouts/AdminLayout/Dashboa
 // import MedicalImage from "../../../Assets/images/medical-health.png";
 import { FaEye } from "react-icons/fa";
 import { images } from "../../../Assets";
-import CustomTable from "../../../Components/CustomTable";
-import { Select } from "../../../Components/Common/FormElements/SelectInput";
+import CustomTable from "../../../Components/Common/CustomTable";
+import SelectInput from "../../../Components/Common/FormElements/SelectInput";
 import { orderLogsHeader } from "../../../Config/TableHeaders";
 import { orderStatus, statusOptions } from "../../../Config/TableStatus";
 import withFilters from "../../../HOC/withFilters";
@@ -158,7 +158,7 @@ const UserDetails = ({
               <div className="flex-grow-1 d-flex justify-content-start justify-content-sm-end">
                 <div className="profile-status d-flex  align-items-end flex-column gap-3">
                   <div className="status-action">
-                    <Select
+                    <SelectInput
                       className={`tabel-select status${profileData?.status}`}
                       id={`status${profileData?.id}`}
                       name="status"
@@ -168,7 +168,7 @@ const UserDetails = ({
                       isInputNeeded={false}
                     >
                       {statusOptions}
-                    </Select>
+                    </SelectInput>
                   </div>
                 </div>
               </div>

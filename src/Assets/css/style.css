@@ -41,6 +41,11 @@
 
 }
 
+html,
+body {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
 body {
   font-family: "Epilogue", sans-serif;
   font-size: 16px;
@@ -1153,12 +1158,38 @@ h2.page-title {
 
 /***** Status Text End *******/
 
+.tabel-select + .chevron-icon {
+  right: 0px;
+  left: 90%;
+  top: 4px;
+}
+.form-select.tabel-select {
+  background-color: unset;
+  appearance: none !important;
+  border: none;
+  padding: 0px 30px;
+  width: auto;
+}
+.status1 , .status1 + .chevron-icon{
+  color: #00B612;
+}
+.status2,
+.status2+.chevron-icon {
+  color: #D10000;
+}
+.status0 , .status0 + .chevron-icon{
+  color: #D10000;
+}
+.tabel-select:focus-visible {
+  outline: none;
+}
+
 /************ User Css END
 *****************************************/
 
 @media (max-width: 1666px) {
   h2.section-title {
-    font-size: 46px;
+    font-size: 42px;
   }
 }
 

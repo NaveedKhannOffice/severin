@@ -66,13 +66,38 @@ p.story-description {
 }
 
 /* Responsive Design */
-@media (max-width: 1200px) {
+@media (max-width: 1666px) {
   .story-content-col {
-    padding: 60px 30px;
+    position: relative;
+    z-index: 3;
+    padding: 60px 60px;
+    background-color: #2B2B2B;
+  }
+}
+@media screen and (max-width: 1600px) {
+  .story-title, .story-subtitle{
+    font-size: 52px;
+  }
+  .story-content-col{
+    padding: 50px 40px;
+  }
+}
+@media (max-width: 1399px) {
+  /* .story-title, .story-subtitle{
+    font-size: 52px;
+  } */
+
+}
+@media (max-width: 1199px) {
+  .story-content-col {
+    padding: 50px 30px;
   }
   
-  .story-title-line {
-    font-size: 2.2rem;
+  .story-title {
+    font-size: 2.7rem;
+  }
+  p.story-description{
+    font-size: 1.3rem;
   }
   
   .story-subtitle {
@@ -80,7 +105,11 @@ p.story-description {
   }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 991px) {
+
+  .our-story-section{
+    min-height: 550px;
+  }
   .story-content-col {
     padding: 50px 25px;
   }
@@ -98,26 +127,36 @@ p.story-description {
   }
 }
 
-@media (max-width: 768px) {
+
+
+@media (max-width: 767px) {
   .our-story-section {
-    min-height: 80vh;
+    min-height: 500px;
   }
-  
+  .story-background{
+    width: 100%;
+  }  
+  .story-content{
+    max-width: 100%;
+  }
   .story-content-col {
     padding: 40px 20px;
     text-align: center;
+    background-color: #2b2b2bb8;
   }
+  
+
   
   .story-title-line {
     font-size: 1.8rem;
   }
-  
   .story-subtitle {
     font-size: 2.2rem;
   }
   
-  .story-description {
-    font-size: 1rem;
+  p.story-description {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
   }
   
   .story-tagline {
@@ -125,30 +164,27 @@ p.story-description {
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 575px) {
   .story-content-col {
     padding: 30px 15px;
   }
+  .our-story-section{
+    min-height: auto;
+  }
   
-  .story-title-line {
-    font-size: 1.5rem;
+  .story-title {
+    font-size: 2rem;
   }
   
   .story-subtitle {
     font-size: 1.8rem;
   }
   
-  .story-description {
-    font-size: 0.95rem;
-  }
-  
+  p.story-description {
+    font-size: 1rem;
+}
   .story-tagline {
     font-size: 0.85rem;
-  }
-  
-  .story-btn {
-    padding: 10px 20px;
-    font-size: 0.9rem;
   }
 }
 
@@ -181,4 +217,9 @@ p.story-description {
   background-color: rgba(220, 53, 69, 0.9);
   border: none;
   color: white;
+}
+@media (max-width: 480px) {
+  .story-title {
+    font-size: 1.5rem;
+  }
 }

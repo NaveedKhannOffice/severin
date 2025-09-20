@@ -57,9 +57,15 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+@media screen and (max-width: 1666px) {
   .new-arrivals-sec {
-    padding: 40px 0;
+    padding: 50px 0;
+  } 
+}
+
+@media (max-width: 767px) {
+  .new-arrivals-sec {
+    padding: 30px 0;
   }
 
   /* .new-arrivals-sec .section-title {
@@ -67,17 +73,14 @@
   } */
 
   .new-arrivals-sec .card-image {
-    height: 180px;
+    height: 210px;
   }
 }
 
-@media (max-width: 576px) {
-  /* .new-arrivals-sec .section-title {
-    font-size: 1.75rem;
-  } */
-
+@media (max-width: 575px) {
+  
   .new-arrivals-sec .card-image {
-    height: 160px;
+    height: 200px;
   }
 
   .new-arrivals-sec .wishlist-btn {

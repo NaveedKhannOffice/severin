@@ -53,7 +53,7 @@ const OurStorySection = ({ data, loading, error }) => {
 
       <Container fluid className="mw-100">
         <Row className="align-items-center justify-content-end">
-          <Col lg={5} md={6} className="story-content-col">
+          <Col  md={8} lg={6} className="story-content-col">
             <div className="story-content">
               <div className="story-text">
                 <h2 className="story-title">

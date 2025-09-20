@@ -194,7 +194,11 @@ const Home = () => {
           />
           <div className="slide-content-wrap container-fluid">
             <div className="slide-content">
-              <h4 className="hero-description">#{homeData.homeBanner.tag}</h4>
+              <h4 className="hero-description"
+                data-aos="fade-in"
+                data-aos-offset="100"
+                data-aos-delay="200"
+                >#{homeData.homeBanner.tag}</h4>
               <h2
                 className="section-title mb-2 mb-md-3 mb-lg-2 text-white text-capitalize"
                 data-aos="fade-up"
@@ -203,12 +207,23 @@ const Home = () => {
               >
                 {homeData.homeBanner.title}
               </h2>
-              <h3 className="hero-subtitle">{homeData.homeBanner.subtitle}</h3>
-              <p className="hero-price">{homeData.homeBanner.price}</p>
+              <h3 className="hero-subtitle"
+                data-aos="fade-up"
+                data-aos-offset="100"
+                data-aos-delay="230"
+                >{homeData.homeBanner.subtitle}</h3>
+              <p className="hero-price"
+                data-aos="fade-up"
+                data-aos-offset="100"
+                data-aos-delay="260"
+                >{homeData.homeBanner.price}</p>
               <div className="hero-actions mt-5">
                 <Link
                   to={homeData.homeBanner.buttonLink}
                   className="btn btn-primary"
+                  data-aos="fade-in"
+                  data-aos-offset="100"
+                  data-aos-delay="200"
                 >
                   Explore Now
                 </Link>

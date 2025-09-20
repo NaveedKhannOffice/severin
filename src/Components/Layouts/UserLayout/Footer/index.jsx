@@ -35,8 +35,8 @@ export const Footer = () => {
       <footer id="footer" className="position-relative">
           <Container fluid>
             <Row>
-              <Col xs={12} md={12} lg={9} className="">
-                <div className="footer-widgets">
+              <Col xs={12} xl={9} className="d-flex">
+                <div className="footer-widgets align-self-center flex-grow-1">
                   <Row>
                     <Col col={12} md={4} lg={4} className="align-items-center mb-4 mb-md-0 align-items-stretch">
                       <div className="widget image-widget text-left w-100">
@@ -58,7 +58,7 @@ export const Footer = () => {
                         </Nav>
                       </div>
                     </Col>
-                    <Col col={12} md={6} lg={8} className="mt-lg-0 mt-4">
+                    <Col col={12} md={8}>
                       <Row>
                         <Col xs={12} md={6} xxl={6}>
                           <div className="widget">
@@ -72,7 +72,7 @@ export const Footer = () => {
                             </Nav>
                           </div>
                         </Col>
-                        <Col xs={12} md={6} xxl={6}>
+                        <Col xs={12} md={6} xxl={6} className="mt-md-0 mt-4">
                           <div className="widget">
                             <h3 className="widget-title fw-bold mb-2 mb-lg-2">Information</h3>
                             <Nav as="ul" className="">
@@ -89,8 +89,8 @@ export const Footer = () => {
                   </Row>
                 </div>
               </Col>
-              <Col col={12} md={6} lg={3} className="mt-lg-0 mt-4 d-flex">
-                <div className="widget newsletter-widget align-self-center">
+              <Col col={12} md={12} lg={8} xl={3} className="mt-lg-0 mt-4 mb-4 mb-lg-0 d-flex mx-auto">
+                <div className="widget newsletter-widget align-self-center w-100">
                   <h3 className="widget-title text-center mb-3 pb-1">Subscribe To our
                   Newsletter</h3>
                   <p className="sub-title text-center">Be the first to get exclusive offers and
@@ -109,7 +109,7 @@ export const Footer = () => {
                   />
                   <CustomButton
                     variant="primary"
-                    className="px-5 w-100"
+                    className="px-0 w-100"
                     text="submit now"
                     loadingText="Loading..."
                     // isPending={isSubmitting}
@@ -122,7 +122,7 @@ export const Footer = () => {
         <div className="footer-info py-3">
           <Container fluid>
             <Row>
-              <Col col={12} className="text-center info d-flex justify-content-between align-items-center">
+              <Col col={12} className="text-center info d-flex flex-column gap-2  flex-sm-row justify-content-between align-items-center">
                   <address>Copyright &copy;  2025 - HQS. All Rights Reserved.</address>
                   <div className="payment-logos">
                     <img src={images.paymentLogo} alt="payment logo" />

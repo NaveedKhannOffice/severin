@@ -105,7 +105,7 @@ const TestimonialSection = ({ data, loading, error }) => {
           <Col xs={12}>
             <div className="testimonial-container">
               {/* Section Title */}
-              <h2 className="section-title text-center mb-4 pb-3">
+              <h2 className="section-title text-center mb-4 pb-0 pb-lg-3">
                 What Our Clients Say
               </h2>
 

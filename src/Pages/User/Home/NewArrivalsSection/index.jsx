@@ -71,8 +71,7 @@ const NewArrivalsSection = ({ data, loading, error, animate = true }) => {
                 key={product.id}
                 xs={12}
                 sm={6}
-                md={4}
-                lg={3}
+                xl={3}
                 className="mb-4"
                 data-aos={animate ? "fade-up" : "none"}
                 data-aos-delay={index * 100}
@@ -99,7 +98,7 @@ const NewArrivalsSection = ({ data, loading, error, animate = true }) => {
                     {/* <div className="category-name mb-2 text-capitalize">
                       {product.category}
                     </div> */}
-                    <div className="d-flex mb-3">
+                    <div className="d-flex flex-column flex-md-row gap-2 mb-3">
                       <div className="flex-grow-1">
                         <Card.Title className="mb-0">
                           <Link
@@ -138,11 +137,11 @@ const NewArrivalsSection = ({ data, loading, error, animate = true }) => {
                       </p>
                     </div> */}
 
-                    <div className="product-attributes-wrapper d-flex gap-3 flex-column">
+                    <div className="product-attributes-wrapper d-flex gap-2 flex-column">
 
                       {/* Color options */}
                       {product.colors && (
-                        <div className="d-flex gap-4 align-items-center">
+                        <div className="d-flex gap-2 gap-xxl-4 align-items-center">
                           <small className="attribute-name flex-shrink-0">Colors:</small>
                           <div className="d-flex gap-1">
                             {product.colors
@@ -167,7 +166,7 @@ const NewArrivalsSection = ({ data, loading, error, animate = true }) => {
 
                       {/* Size options */}
                       {product.sizes && (
-                        <div className="mb-0 d-flex gap-4 align-items-center">
+                        <div className="mb-0 d-flex gap-2 gap-xxl-4 align-items-center">
                           <small className="attribute-name flex-shrink-0">Sizes:</small>
                           <div className="flex-grow-1 mb-0">
                             {product.sizes.join(" / ")}

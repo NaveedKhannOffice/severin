@@ -2,7 +2,9 @@
   margin: 1rem 0;
   font-size: 15px;
 }
-
+.tableFilters  .table-entries label{
+  flex-shrink: 0;
+}
 .entries-input {
   width: 70px !important;
   height: 33px;

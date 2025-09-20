@@ -7,7 +7,6 @@ import ProtectedRoutes from "./ProtectedRoutes";
 /* User Routes */
 import Home from "../Pages/User/Home";
 
-
 // import AboutUs from "../Pages/User/AboutUs";
 import PreventUser from "./PreventUser";
 
@@ -26,7 +25,6 @@ import Search from "../Pages/User/Search";
 // import UserEditProfile from "../Pages/User/Profile/UserEditProfile";
 // import Wishlist from "../Pages/User/Shop/Wishlist";
 
-
 import ScrollToTop from "../Components/ScrollToTop";
 import ErrorPage from "../Pages/User/ErrorPage";
 import MainLayout from "../Components/Layouts/UserLayout/MainLayout";
@@ -37,12 +35,20 @@ import ForgetPassword from "../Pages/Admin/Auth/ForgetPassword";
 import ForgetPassword2 from "../Pages/Admin/Auth/ForgetPassword2";
 import ForgetPassword3 from "../Pages/Admin/Auth/ForgetPassword3";
 import PreventAdmin from "./PreventAdmin";
-import Dashboard from "../Pages/Admin/Dashboard";
-// import Profile from "../Pages/Admin/Profile";
-// import EditProfile from "../Pages/Admin/Profile/EditProfile";
-// import ChangePassword from "../Pages/Admin/Profile/ChangePassword";
-// import UserManagement from "../Pages/Admin/UserManagement";
-// import UserDetails from "../Pages/Admin/UserManagement/UserDetails";
+import { Dashboard } from "../Pages/Admin/Dashboard";
+import UserManagement from "../Pages/Admin/UserManagement";
+import UserDetails from "../Pages/Admin/UserManagement/UserDetails";
+import UserOrderDetails from "../Pages/Admin/UserManagement/OrderDetails";
+import ProductsManagement from "../Pages/Admin/ProductManagement";
+import AddProducts from "../Pages/Admin/ProductManagement/AddProduct";
+import EditProducts from "../Pages/Admin/ProductManagement/EditProduct";
+import ViewProductsDetail from "../Pages/Admin/ProductManagement/ViewProduct";
+
+
+import Profile from "../Pages/Admin/Profile";
+import EditProfile from "../Pages/Admin/Profile/EditProfile";
+import ChangePassword from "../Pages/Admin/Profile/ChangePassword";
+
 // import UserOrderDetail from "../Pages/Admin/UserManagement/OrderDetail";
 // import UserPosts from "../Pages/Admin/UserManagement/UserPosts";
 // import ServiceDetails from "../Pages/Admin/ServiceProviderManagement/ServiceDetails";
@@ -125,11 +131,6 @@ import Dashboard from "../Pages/Admin/Dashboard";
 // import EditChallenge from "../Pages/Admin/ChallengeManagement/EditChallenge";
 // import ChallengeDetail from "../Pages/Admin/ChallengeManagement/ChallengeDetail";
 
-
-
-
-
-
 // import ScrollToTop from "../Components/UserComponents/ScrollToTop";
 
 const roles = {
@@ -158,7 +159,38 @@ const routes = [
         element: <ProtectedRoutes admin roles={[roles.admin]} />,
         children: [
           { path: "admin/*", element: <PreventAdmin /> },
+          { path: "admin/profile", element: <Profile /> },
+          { path: "admin/edit-profile", element: <EditProfile /> },
+          { path: "admin/change-password", element: <ChangePassword /> },
+
           { path: "admin/dashboard", element: <Dashboard /> },
+
+          {
+            path: "admin/products-management",
+            element: <ProductsManagement />,
+          },
+          {
+            path: "admin/products-management/add-product",
+            element: <AddProducts />,
+          },
+          {
+            path: "admin/products-management/:id/edit",
+            element: <EditProducts />,
+          },
+          {
+            path: "admin/products-management/:id",
+            element: <ViewProductsDetail />,
+          },
+
+
+
+        ],
+      },
+      // {
+      //   element: <ProtectedRoutes admin roles={[roles.admin]} />,
+      //   children: [
+      //     { path: "admin/*", element: <PreventAdmin /> },
+      //     { path: "admin/dashboard", element: <Dashboard /> },
       //     { path: "admin/profile", element: <Profile /> },
       //     { path: "admin/edit-profile", element: <EditProfile /> },
       //     { path: "admin/change-password", element: <ChangePassword /> },
@@ -167,7 +199,6 @@ const routes = [
       //     { path: "admin/user-management", element: <UserManagement /> },
       //     { path: "admin/user-management/:id", element: <UserDetails /> },
       //     {
-      //       path: "admin/user-management/:id/order/:orderid",
       //       element: <UserOrderDetail />,
       //     },
       //     { path: "/admin/order/:orderid", element: <UserOrderDetail /> },
@@ -229,7 +260,6 @@ const routes = [
       //       element: <EditServiceCategory />,
       //     },
       //     // --- End --- //
-
 
       //     // Content Mangement //
       //     { path: "admin/content-management", element: <ContentManagement /> },
@@ -442,16 +472,16 @@ const routes = [
       //     { path: "admin/challenge-management/:id/edit", element: <EditChallenge /> },
       //     { path: "admin/challenge-management/:id", element: <ChallengeDetail /> },
 
-        ],
-      },
-      
+      //   ],
+      // },
+
       {
         element: <GuestRoutes user />,
         children: [
           {
             element: <MainLayout />,
             children: [
-              { path: "", element: <Home /> },
+              { path: "/", element: <Home /> },
               { path: "shop", element: <Shop /> },
               { path: "product/:id/:slug", element: <ProductView /> },
               { path: "cart", element: <Cart /> },
@@ -500,7 +530,6 @@ const routes = [
     ],
   },
 ];
-
 
 const Routers = () => {
   const element = useRoutes(routes);

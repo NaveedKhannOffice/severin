@@ -1,7 +1,7 @@
 import React from "react";
 import CustomFilters from "../../Common/CustomFilters";
 import CustomPagination from "../../Common/CustomPagination";
-import LoadingSpinner from "../../Common/Loader";
+import LoadingSpinner from "../Loader";
 import "./style.css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";

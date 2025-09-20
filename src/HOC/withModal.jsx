@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CustomModal from "../Components/CustomModal";
+import CustomModal from "../Components/Common/CustomModal";
 
 const MODAL_STEPS = {
   INITIAL: 0,
