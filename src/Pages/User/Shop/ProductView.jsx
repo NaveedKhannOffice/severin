@@ -165,14 +165,14 @@ const ProductView = () => {
       const headerHeight = header ? header.offsetHeight : 0;
       const topOffset = headerHeight + 90; // header offset
 
-console.log(topOffset, "topOffset")
-console.log(rightHeight, "right Height")
-console.log(left.offsetTop, "left Height")
-console.log(window.scrollY, "window.scrollY")
+      console.log(topOffset, "topOffset")
+      console.log(rightHeight, "right Height")
+      console.log(left.offsetTop, "left Height")
+      console.log(window.scrollY, "window.scrollY")
 
       if (
         window.scrollY > left.offsetTop - topOffset &&
-        window.scrollY < left.offsetTop + left.offsetHeight - rightHeight - topOffset 
+        window.scrollY < left.offsetTop + left.offsetHeight - rightHeight - topOffset
       ) {
         // fixed state - smooth transition
         setStickyStyle({
@@ -265,33 +265,40 @@ console.log(window.scrollY, "window.scrollY")
     }
   };
 
-  // API call for New Arrivals
-  const getNewArrivals = async () => {
-    setNewArrivalsLoading(true);
-    setNewArrivalsError(null);
+// API call for New Arrivals
+const getNewArrivals = async () => {
+  setNewArrivalsLoading(true);
+  setNewArrivalsError(null);
 
-    try {
-      // Try API first
-      const res = await axios.get("/user/new-arrivals");
-      const data = res?.data?.data || res?.data;
+  try {
+    // Fetch products from API
+    const productsResponseNew = await getAll('/user/products?is_new_arrival=1');
 
-      if (data) {
-        setNewArrivals(Array.isArray(data) ? data : []);
-      } else {
-        // Fallback to static data
-        setNewArrivals(
-          newArrivalsData.status ? newArrivalsData.detail.data : []
-        );
+    let productsListNew = [];
+    if (productsResponseNew?.data) {
+      if (Array.isArray(productsResponseNew.data)) {
+        productsListNew = productsResponseNew.data;
+      } else if (Array.isArray(productsResponseNew.data.data)) {
+        productsListNew = productsResponseNew.data.data;
       }
-    } catch (error) {
-      // console.log("Error fetching new arrivals: ", error);
-      setNewArrivalsError("Failed to load new arrivals");
-      // Fallback to static data
-      setNewArrivals(newArrivalsData.status ? newArrivalsData.detail.data : []);
-    } finally {
-      setNewArrivalsLoading(false);
     }
-  };
+
+    // Map the products
+    const newArrivalsData = productsListNew.map(mapProduct).filter(Boolean);
+
+    // Update state
+    setNewArrivals(Array.isArray(newArrivalsData) ? newArrivalsData : []);
+  } catch (error) {
+    console.error("Error fetching new arrivals: ", error);
+    setNewArrivalsError("Failed to load new arrivals");
+
+    // Fallback to empty array
+    setNewArrivals([]);
+  } finally {
+    setNewArrivalsLoading(false);
+  }
+};
+
 
   useEffect(() => {
     if (id) {
@@ -350,9 +357,8 @@ console.log(window.scrollY, "window.scrollY")
   // Get current cart quantity
   const getCartQuantity = () => {
     if (!cart?.cartItems) return 0;
-    const cartItemId = `${id}_${selectedColor || "no-color"}_${
-      selectedSize || "no-size"
-    }`;
+    const cartItemId = `${id}_${selectedColor || "no-color"}_${selectedSize || "no-size"
+      }`;
     const cartItem = cart.cartItems.find(
       (item) => item.cartItemId === cartItemId
     );
@@ -402,7 +408,7 @@ console.log(window.scrollY, "window.scrollY")
     const productDataForCart = {
       id: Number(id),
       name: productData?.name,
-      price: parseFloat(productData?.price) || 0,
+      price: productData?.price || 0,
       image: getCurrentImages()[currentImageIndex] || productData?.image,
       color: selectedColor || null,
       size: selectedSize || null,
@@ -467,19 +473,18 @@ console.log(window.scrollY, "window.scrollY")
         {!loading && !error && productData && (
           <>
             <section className="position-relative">
-             {/* Color Selector - Only show if product has colors */}
-             {productData?.variants &&
+              {/* Color Selector - Only show if product has colors */}
+              {productData?.variants &&
                 productData.variants.length > 0 && (
                   <div className="color-selector">
                     <div className="color-options">
                       {productData.variants.map((variants, index) => (
                         <div
                           key={variants.name || variants}
-                          className={`color-option ${
-                            selectedColor === (variants.name || variants)
+                          className={`color-option ${selectedColor === (variants.name || variants)
                               ? "selected"
                               : ""
-                          }`}
+                            }`}
                           onClick={() =>
                             handleColorSelect(variants.name || variants)
                           }
@@ -493,10 +498,10 @@ console.log(window.scrollY, "window.scrollY")
                           <div className="color-option-content">
                             {selectedColor ===
                               (variants.name || variants) && (
-                              <span className="color-selected-label">
-                                Select Colors
-                              </span>
-                            )}
+                                <span className="color-selected-label">
+                                  Select Colors
+                                </span>
+                              )}
                             <span className="color-option-name">
                               {variants.name ||
                                 getColorName(variants.name || variants)}
@@ -540,18 +545,16 @@ console.log(window.scrollY, "window.scrollY")
                       )} */}
                       <div className="product-slider flex-grow-1">
                         <div
-                          className={`${
-                            isHeaderScrolled ? "fixed-position" : ""
-                          }`}
+                          className={`${isHeaderScrolled ? "fixed-position" : ""
+                            }`}
                         >
                           {/* Main Image */}
                           {getCurrentImages().length > 1 ? (
                             getCurrentImages().map((image, index) => (
                               <div
                                 key={index}
-                                className={`slide ${
-                                  currentImageIndex === index ? "active" : ""
-                                }`}
+                                className={`slide ${currentImageIndex === index ? "active" : ""
+                                  }`}
                                 onClick={() => setCurrentImageIndex(index)}
                               >
                                 <img
@@ -604,9 +607,9 @@ console.log(window.scrollY, "window.scrollY")
                         )}
                         <div className="product-view__price mb-4">
                           <div className="price fw-semibold">
-                            <span className="currency-code">
+                            {/* <span className="currency-code">
                               {productData?.currency || "CHF"}
-                            </span>
+                            </span> */}
                             {typeof productData?.price === "string"
                               ? productData.price
                               : productData?.price?.toFixed(2) || "0.00"}
@@ -616,7 +619,7 @@ console.log(window.scrollY, "window.scrollY")
                         {/* Variants/Color Selector */}
                         {/* {console.log("Product Varient", productData?.variants)} */}
 
-                       
+
 
                         {productData?.description && (
                           <div className="product-description">

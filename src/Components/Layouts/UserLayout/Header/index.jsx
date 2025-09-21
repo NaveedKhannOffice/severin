@@ -328,7 +328,7 @@ export const Header = () => {
                                           <Link to={`/product/${item.id}/${slugify(item.name)}`}>{item.name || `Item ${item.id}`}</Link>
                                         </div>
                                       <div className="product-quantity-price">
-                                        <span className="quantity">{item.qty} x <span className="currency-code">CHF</span> {item.price}</span>
+                                        <span className="quantity">{item.qty} x <span className="currency-code"></span> {item.price}</span>
                                       </div>
                                     </div>
                                     <div className="product-actions flex-shrink-0 align-self-center">

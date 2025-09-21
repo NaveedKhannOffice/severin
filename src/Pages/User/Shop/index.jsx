@@ -337,8 +337,8 @@ const Shop = () => {
             // Replace with your actual API endpoint
             const apiUrl = '/user/products'; // Update this to your actual API endpoint
             const data = await fetchData(apiUrl);
-      console.log(data, 'response');
             const raw = data?.data;
+            
             let list = [];
             if (Array.isArray(raw)) list = raw;
             else if (Array.isArray(raw?.data)) list = raw.data;

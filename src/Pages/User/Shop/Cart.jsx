@@ -29,7 +29,8 @@ const Cart = () => {
   const calculateSubtotal = () => {
     if (!cart?.cartItems) return 0;
     return cart.cartItems.reduce((total, item) => {
-      return total + (item.price * item.qty);
+      const numericPrice = parseFloat(item.price.replace(/[^0-9.]/g, ""));
+      return total + (numericPrice * item.qty);
     }, 0);
   };
 
@@ -178,7 +179,7 @@ const Cart = () => {
                       
                       <div className="d-flex justify-content-between align-items-center">
                         <div className="product-price">
-                          <span className='currency-code'>CHF</span> {item.price || 0}
+                          <span className='currency-code'></span> {item.price || 0}
                         </div>
                         
                         {/* Quantity Controls */}
@@ -243,7 +244,7 @@ const Cart = () => {
               <Card.Body className="px-3 py-3">   
                 <div className="checkout-item sub-total">
                   <h6 className="item-title mb-0">Subtotal</h6>
-                  <span className="item-value"><span className='currency-code'>CHF</span> {subtotal.toFixed(2)}</span>
+                  <span className="item-value"><span className='currency-code'>USD</span> {subtotal}</span>
                 </div>
                 <div className="checkout-item sub-total">
                   <h6 className="item-title mb-0">Shipping (under CHF 50)</h6>
