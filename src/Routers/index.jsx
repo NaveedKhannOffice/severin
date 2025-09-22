@@ -50,6 +50,8 @@ import ThemeSettings from "../Pages/Admin/ThemeSettings";
 import Profile from "../Pages/Admin/Profile";
 import EditProfile from "../Pages/Admin/Profile/EditProfile";
 import ChangePassword from "../Pages/Admin/Profile/ChangePassword";
+import ViewOrder from "../Pages/Admin/OrderManagement/ViewOrder";
+import OrdersManagement from "../Pages/Admin/OrderManagement";
 
 // import UserOrderDetail from "../Pages/Admin/UserManagement/OrderDetail";
 // import UserPosts from "../Pages/Admin/UserManagement/UserPosts";
@@ -136,414 +138,422 @@ import ChangePassword from "../Pages/Admin/Profile/ChangePassword";
 // import ScrollToTop from "../Components/UserComponents/ScrollToTop";
 
 const roles = {
-  user: "user",
-  admin: "admin",
+    user: "user",
+    admin: "admin",
 };
 
 // Refactor code - Change layout implementation
 const routes = [
-  {
-    path: "/",
-    element: <ScrollToTop />,
-    children: [
-      {
-        element: <GuestRoutes admin />,
+    {
+        path: "/",
+        element: <ScrollToTop />,
         children: [
-          { path: "admin", element: <AdminLogin /> },
-          { path: "admin/login", element: <AdminLogin /> },
-          { path: "admin/forget-password", element: <ForgetPassword /> },
-          { path: "admin/forget-password2", element: <ForgetPassword2 /> },
-          { path: "admin/forget-password3", element: <ForgetPassword3 /> },
-          { path: "admin/*", element: <PreventAdmin /> },
-        ],
-      },
-      {
-        element: <ProtectedRoutes admin roles={[roles.admin]} />,
-        children: [
-          { path: "admin/*", element: <PreventAdmin /> },
-          { path: "admin/profile", element: <Profile /> },
-          { path: "admin/edit-profile", element: <EditProfile /> },
-          { path: "admin/change-password", element: <ChangePassword /> },
-
-          { path: "admin/dashboard", element: <Dashboard /> },
-          { path: "admin/theme-settings", element: <ThemeSettings /> },
-
-          {
-            path: "admin/products-management",
-            element: <ProductsManagement />,
-          },
-          {
-            path: "admin/products-management/add-product",
-            element: <AddProducts />,
-          },
-          {
-            path: "admin/products-management/:id/edit",
-            element: <EditProducts />,
-          },
-          {
-            path: "admin/products-management/:id",
-            element: <ViewProductsDetail />,
-          },
-
-          { path: "admin/products/:id", element: <AdminProductDetails /> },
-
-          // User Management
-          { path: "admin/user-management", element: <UserManagement /> },
-          { path: "admin/user-management/:id", element: <UserDetails /> },
-
-
-
-        ],
-      },
-      // {
-      //   element: <ProtectedRoutes admin roles={[roles.admin]} />,
-      //   children: [
-      //     { path: "admin/*", element: <PreventAdmin /> },
-      //     { path: "admin/dashboard", element: <Dashboard /> },
-      //     { path: "admin/profile", element: <Profile /> },
-      //     { path: "admin/edit-profile", element: <EditProfile /> },
-      //     { path: "admin/change-password", element: <ChangePassword /> },
-
-      //     // User Mangement //
-      //     { path: "admin/user-management", element: <UserManagement /> },
-      //     { path: "admin/user-management/:id", element: <UserDetails /> },
-      //     {
-      //       element: <UserOrderDetail />,
-      //     },
-      //     { path: "/admin/order/:orderid", element: <UserOrderDetail /> },
-      //     { path: "admin/posts/:userId", element: <UserPosts /> },
-      //     // --- End --- //
-
-      //     // Service Provider Mangement //
-      //     {
-      //       path: "admin/service-provider-management",
-      //       element: <ServiceProviderManagement />,
-      //     },
-      //     {
-      //       path: "admin/service-provider-management/requests",
-      //       element: <ServiceProviderRequests />,
-      //     },
-      //     {
-      //       path: "admin/service-provider-management/requests/:id",
-      //       element: <ServiceProviderProfile />,
-      //     },
-      //     {
-      //       path: "admin/service-provider-management/:id",
-      //       element: <ServiceProviderDetails />,
-      //     },
-      //     {
-      //       path: "admin/service-provider-management/:id/shop",
-      //       element: <ShopDetails />,
-      //     },
-      //     {
-      //       path: "admin/service-provider-management/:id/services",
-      //       element: <ServiceProviderServices />,
-      //     },
-      //     {
-      //       path: "admin/service-provider-management/:id/services/:serviceId",
-      //       element: <ServiceDetails />,
-      //     },
-      //     {
-      //       path: "admin/service-provider-management/appointments/:id",
-      //       element: <AppointmentDetails />
-      //     },
-      //     { path: "admin/service-provider-management/products/:productId", element: <Product /> },
-
-      //     // --- End --- //
-
-      //     // Service Category Mangement //
-      //     {
-      //       path: "admin/service-category-management",
-      //       element: <ServiceCategoryManagement />,
-      //     },
-      //     {
-      //       path: "admin/service-category-management/add",
-      //       element: <AddServiceCategory />,
-      //     },
-      //     {
-      //       path: "admin/service-category-management/:id",
-      //       element: <ViewServiceCategory />,
-      //     },
-      //     {
-      //       path: "admin/service-category-management/:id/edit",
-      //       element: <EditServiceCategory />,
-      //     },
-      //     // --- End --- //
-
-      //     // Content Mangement //
-      //     { path: "admin/content-management", element: <ContentManagement /> },
-      //     {
-      //       path: "admin/content-management/blogs/:id",
-      //       element: <ViewBlogs />,
-      //     },
-      //     {
-      //       path: "admin/content-management/articles/:id",
-      //       element: <ViewArticles />,
-      //     },
-      //     {
-      //       path: "admin/content-management/videos/:id",
-      //       element: <ViewVideo />,
-      //     },
-      //     {
-      //       path: "admin/content-management/e-books/:id",
-      //       element: <ViewEBooks />,
-      //     },
-      //     { path: "admin/content-management/add-video", element: <AddVideo /> },
-      //     { path: "admin/content-management/add-blog", element: <AddBlog /> },
-      //     {
-      //       path: "admin/content-management/add-article",
-      //       element: <AddArticle />,
-      //     },
-      //     {
-      //       path: "admin/content-management/add-e-book",
-      //       element: <AddEBook />,
-      //     },
-      //     {
-      //       path: "admin/content-management/videos/:id/edit",
-      //       element: <EditVideo />,
-      //     },
-      //     {
-      //       path: "admin/content-management/blogs/:id/edit",
-      //       element: <EditBlog />,
-      //     },
-      //     {
-      //       path: "admin/content-management/articles/:id/edit",
-      //       element: <EditArticle />,
-      //     },
-      //     {
-      //       path: "admin/content-management/e-books/:id/edit",
-      //       element: <EditEBook />,
-      //     },
-      //     // --- End --- //
-
-      //     // Appointments //
-      //     { path: "admin/appointments", element: <AppointmentLogs /> },
-      //     { path: "admin/appointments/:id", element: <AppointmentDetails /> },
-      //     // --- End --- //
-
-      //     // Product Category Management //
-      //     {
-      //       path: "admin/product-category-management",
-      //       element: <ProductCategoryManagement />,
-      //     },
-      //     {
-      //       path: "admin/product-category-management/add-product",
-      //       element: <AddProductCategory />,
-      //     },
-      //     {
-      //       path: "admin/product-category-management/:id",
-      //       element: <ViewProductCategoryDetail />,
-      //     },
-      //     {
-      //       path: "admin/product-category-management/:id/edit",
-      //       element: <EditProductCategory />,
-      //     },
-      //     { path: "admin/product-category-management/products/:productId", element: <Product /> },
-
-      //     // --- End --- //
-
-      //     // Subscription Logs //
-      //     { path: "admin/subscription-logs", element: <SubscriptionLogs /> },
-      //     {
-      //       path: "admin/subscription-logs/user/management",
-      //       element: <SubscriptionPlansManagementUser />,
-      //     },
-      //     {
-      //       path: "admin/subscription-logs/user/management/add-plan",
-      //       element: <AddNewPlanUser />,
-      //     },
-      //     {
-      //       path: "admin/subscription-logs/user/management/:id/edit",
-      //       element: <EditSubscriptionPlanUser />,
-      //     },
-      //     {
-      //       path: "admin/subscription-logs/user/management/:id",
-      //       element: <ViewSubscriptionPlanUser />,
-      //     },
-      //     {
-      //       path: "admin/subscription-logs/provider/management",
-      //       element: <SubscriptionPlansManagementProvider />,
-      //     },
-      //     {
-      //       path: "admin/subscription-logs/provider/management/add-plan",
-      //       element: <AddNewPlanProvider />,
-      //     },
-      //     {
-      //       path: "admin/subscription-logs/provider/management/:id",
-      //       element: <ViewSubscriptionPlanProvider />,
-      //     },
-      //     {
-      //       path: "admin/subscription-logs/provider/management/:id/edit",
-      //       element: <EditSubscriptionPlanProvider />,
-      //     },
-      //     // --- End --- //
-
-      //     // Queries Management //
-      //     { path: "admin/queries-management", element: <QueriesManagement /> },
-      //     { path: "admin/queries-management/:id", element: <QueriesDetails /> },
-      //     // --- End --- //
-
-      //     // Payment Logs //
-      //     { path: "admin/payment-logs", element: <PaymentLogs /> },
-      //     // --- End --- //
-
-      //     // Reports Management //
-      //     { path: "admin/reports-management", element: <ReportsManagement /> },
-      //     {
-      //       path: "admin/reports-management/view-report/:id",
-      //       element: <ViewReport />,
-      //     },
-      //     {
-      //       path: "admin/reports-management/report/:id",
-      //       element: <ReportDetails />,
-      //     },
-      //     {
-      //       path: "admin/reports-management/report/:id/post",
-      //       element: <ReportedPost />,
-      //     },
-      //     { path: "admin/reports-management/user-management/:id", element: <UserDetails /> },
-      //     {
-      //       path: "admin/reports-management/service-provider-management/:id",
-      //       element: <ServiceProviderDetails />,
-      //     },
-
-      //     // --- End --- //
-
-      //     // Payment Logs //
-      //     { path: "admin/banner-ads", element: <BannerAdsManagement /> },
-      //     { path: "admin/banner-ads/:id", element: <BannerAdDetails /> },
-      //     { path: "admin/banner-ads/:id/edit", element: <EditBanner /> },
-      //     { path: "admin/banner-ads/add", element: <AddBanner /> },
-      //     // --- End --- //
-
-      //     // InApp Purchase Management //
-      //     {
-      //       path: "admin/in-app-purchase-management",
-      //       element: <InAppPurchaseManagement />,
-      //     },
-      //     {
-      //       path: "admin/in-app-purchase-management/:id",
-      //       element: <InAppPurchaseDetail />,
-      //     },
-      //     {
-      //       path: "admin/in-app-purchase-management/add-product",
-      //       element: <AddInAppPurchase />,
-      //     },
-      //     {
-      //       path: "admin/in-app-purchase-management/:id/edit",
-      //       element: <EditInAppPurchase />,
-      //     },
-      //     // --- End --- //
-
-      //     // Bank Details //
-      //     { path: "admin/mybank-detail", element: <MyBankDetail /> },
-      //     { path: "admin/add-bank-details", element: <AddBankDetail /> },
-      //     { path: "admin/mybank-detail/edit", element: <EditBankDetail /> },
-      //     // --- End --- //
-
-      //     // Emergency Contact Management //
-      //     {
-      //       path: "admin/emergency-contact-management",
-      //       element: <EmergencyContactsManagement />,
-      //     },
-      //     {
-      //       path: "admin/emergency-contact-management/add",
-      //       element: <AddEmergencyContacts />,
-      //     },
-      //     {
-      //       path: "admin/emergency-contact-management/:id/edit",
-      //       element: <EditEmergencyContacts />,
-      //     },
-      //     // --- End --- //
-
-      //     // FAQs Management Management //
-      //     { path: "admin/faqs", element: <FAQsManagement /> },
-      //     { path: "admin/faqs/add", element: <AddFaqs /> },
-      //     { path: "admin/faqs/edit/:id", element: <EditFaqs /> },
-      //     // --- End --- //
-
-      //     { path: "admin/notifications", element: <NotificationsAdmin /> },
-      //     {
-      //       path: "admin/commission-management",
-      //       element: <CommissionManagement />,
-      //     },
-      //     { path: "admin/payout-management", element: <PayoutsManagement /> },
-      //     { path: "admin/*", element: <AdminErrorPage /> },
-      //     // Refer Management//
-      //     { path: "admin/refer-management", element: <ReferManagement /> },
-      //     { path: "admin/refer-management/refer-logs", element: <ReferLogs /> },
-      //     { path: "admin/refer-management/add-refer-rewards", element: <AddReferReward /> },
-      //     { path: "admin/refer-management/:id/edit", element: <EditReferReward /> },
-      //     { path: "admin/refer-management/:id", element: <ReferDetail /> },
-      //     // Challenge Management//
-      //     { path: "admin/challenge-management", element: <ChallengeManagement /> },
-      //     { path: "admin/challenge-management/add-challenge", element: <AddNewChallenge /> },
-      //     { path: "admin/challenge-management/:id/edit", element: <EditChallenge /> },
-      //     { path: "admin/challenge-management/:id", element: <ChallengeDetail /> },
-
-      //   ],
-      // },
-
-      {
-        element: <GuestRoutes user />,
-        children: [
-          {
-            element: <MainLayout />,
-            children: [
-              { path: "/", element: <Home /> },
-              { path: "shop", element: <Shop /> },
-              { path: "product/:id/:slug", element: <ProductView /> },
-              { path: "cart", element: <Cart /> },
-              { path: "checkout", element: <Checkout /> },
-              { path: "search", element: <Search /> },
-              { path: "our-story", element: <OurStory /> },
-              { path: "faqs", element: <Faqs /> },
-            ],
-          },
-          {
-            element: <MainLayout />,
-            children: [
-              {
-                element: <PreventUser />,
+            {
+                element: <GuestRoutes admin />,
                 children: [
-                  { path: "signup", element: <UserSignup /> },
-                  { path: "login", element: <UserLogin /> },
+                    { path: "admin", element: <AdminLogin /> },
+                    { path: "admin/login", element: <AdminLogin /> },
+                    { path: "admin/forget-password", element: <ForgetPassword /> },
+                    { path: "admin/forget-password2", element: <ForgetPassword2 /> },
+                    { path: "admin/forget-password3", element: <ForgetPassword3 /> },
+                    { path: "admin/*", element: <PreventAdmin /> },
                 ],
-              },
-            ],
-          },
-          { path: "*", element: <ErrorPage /> },
+            },
+            {
+                element: <ProtectedRoutes admin roles={[roles.admin]} />,
+                children: [
+                    { path: "admin/*", element: <PreventAdmin /> },
+                    { path: "admin/profile", element: <Profile /> },
+                    { path: "admin/edit-profile", element: <EditProfile /> },
+                    { path: "admin/change-password", element: <ChangePassword /> },
+
+                    { path: "admin/dashboard", element: <Dashboard /> },
+                    { path: "admin/theme-settings", element: <ThemeSettings /> },
+
+                    {
+                        path: "admin/products-management",
+                        element: <ProductsManagement />,
+                    },
+                    {
+                        path: "admin/products-management/add-product",
+                        element: <AddProducts />,
+                    },
+                    {
+                        path: "admin/products-management/:id/edit",
+                        element: <EditProducts />,
+                    },
+                    {
+                        path: "admin/products-management/:id",
+                        element: <ViewProductsDetail />,
+                    },
+                    {
+                        path: "admin/orders-management",
+                        element: <OrdersManagement />,
+                    },
+                    {
+                        path: "admin/orders-management/:id",
+                        element: <ViewOrder />,
+                    },
+
+                    { path: "admin/orders/:id", element: <AdminProductDetails /> },
+
+                    // User Management
+                    { path: "admin/user-management", element: <UserManagement /> },
+                    { path: "admin/user-management/:id", element: <UserDetails /> },
+
+
+
+                ],
+            },
+            // {
+            //   element: <ProtectedRoutes admin roles={[roles.admin]} />,
+            //   children: [
+            //     { path: "admin/*", element: <PreventAdmin /> },
+            //     { path: "admin/dashboard", element: <Dashboard /> },
+            //     { path: "admin/profile", element: <Profile /> },
+            //     { path: "admin/edit-profile", element: <EditProfile /> },
+            //     { path: "admin/change-password", element: <ChangePassword /> },
+
+            //     // User Mangement //
+            //     { path: "admin/user-management", element: <UserManagement /> },
+            //     { path: "admin/user-management/:id", element: <UserDetails /> },
+            //     {
+            //       element: <UserOrderDetail />,
+            //     },
+            //     { path: "/admin/order/:orderid", element: <UserOrderDetail /> },
+            //     { path: "admin/posts/:userId", element: <UserPosts /> },
+            //     // --- End --- //
+
+            //     // Service Provider Mangement //
+            //     {
+            //       path: "admin/service-provider-management",
+            //       element: <ServiceProviderManagement />,
+            //     },
+            //     {
+            //       path: "admin/service-provider-management/requests",
+            //       element: <ServiceProviderRequests />,
+            //     },
+            //     {
+            //       path: "admin/service-provider-management/requests/:id",
+            //       element: <ServiceProviderProfile />,
+            //     },
+            //     {
+            //       path: "admin/service-provider-management/:id",
+            //       element: <ServiceProviderDetails />,
+            //     },
+            //     {
+            //       path: "admin/service-provider-management/:id/shop",
+            //       element: <ShopDetails />,
+            //     },
+            //     {
+            //       path: "admin/service-provider-management/:id/services",
+            //       element: <ServiceProviderServices />,
+            //     },
+            //     {
+            //       path: "admin/service-provider-management/:id/services/:serviceId",
+            //       element: <ServiceDetails />,
+            //     },
+            //     {
+            //       path: "admin/service-provider-management/appointments/:id",
+            //       element: <AppointmentDetails />
+            //     },
+            //     { path: "admin/service-provider-management/products/:productId", element: <Product /> },
+
+            //     // --- End --- //
+
+            //     // Service Category Mangement //
+            //     {
+            //       path: "admin/service-category-management",
+            //       element: <ServiceCategoryManagement />,
+            //     },
+            //     {
+            //       path: "admin/service-category-management/add",
+            //       element: <AddServiceCategory />,
+            //     },
+            //     {
+            //       path: "admin/service-category-management/:id",
+            //       element: <ViewServiceCategory />,
+            //     },
+            //     {
+            //       path: "admin/service-category-management/:id/edit",
+            //       element: <EditServiceCategory />,
+            //     },
+            //     // --- End --- //
+
+            //     // Content Mangement //
+            //     { path: "admin/content-management", element: <ContentManagement /> },
+            //     {
+            //       path: "admin/content-management/blogs/:id",
+            //       element: <ViewBlogs />,
+            //     },
+            //     {
+            //       path: "admin/content-management/articles/:id",
+            //       element: <ViewArticles />,
+            //     },
+            //     {
+            //       path: "admin/content-management/videos/:id",
+            //       element: <ViewVideo />,
+            //     },
+            //     {
+            //       path: "admin/content-management/e-books/:id",
+            //       element: <ViewEBooks />,
+            //     },
+            //     { path: "admin/content-management/add-video", element: <AddVideo /> },
+            //     { path: "admin/content-management/add-blog", element: <AddBlog /> },
+            //     {
+            //       path: "admin/content-management/add-article",
+            //       element: <AddArticle />,
+            //     },
+            //     {
+            //       path: "admin/content-management/add-e-book",
+            //       element: <AddEBook />,
+            //     },
+            //     {
+            //       path: "admin/content-management/videos/:id/edit",
+            //       element: <EditVideo />,
+            //     },
+            //     {
+            //       path: "admin/content-management/blogs/:id/edit",
+            //       element: <EditBlog />,
+            //     },
+            //     {
+            //       path: "admin/content-management/articles/:id/edit",
+            //       element: <EditArticle />,
+            //     },
+            //     {
+            //       path: "admin/content-management/e-books/:id/edit",
+            //       element: <EditEBook />,
+            //     },
+            //     // --- End --- //
+
+            //     // Appointments //
+            //     { path: "admin/appointments", element: <AppointmentLogs /> },
+            //     { path: "admin/appointments/:id", element: <AppointmentDetails /> },
+            //     // --- End --- //
+
+            //     // Product Category Management //
+            //     {
+            //       path: "admin/product-category-management",
+            //       element: <ProductCategoryManagement />,
+            //     },
+            //     {
+            //       path: "admin/product-category-management/add-product",
+            //       element: <AddProductCategory />,
+            //     },
+            //     {
+            //       path: "admin/product-category-management/:id",
+            //       element: <ViewProductCategoryDetail />,
+            //     },
+            //     {
+            //       path: "admin/product-category-management/:id/edit",
+            //       element: <EditProductCategory />,
+            //     },
+            //     { path: "admin/product-category-management/products/:productId", element: <Product /> },
+
+            //     // --- End --- //
+
+            //     // Subscription Logs //
+            //     { path: "admin/subscription-logs", element: <SubscriptionLogs /> },
+            //     {
+            //       path: "admin/subscription-logs/user/management",
+            //       element: <SubscriptionPlansManagementUser />,
+            //     },
+            //     {
+            //       path: "admin/subscription-logs/user/management/add-plan",
+            //       element: <AddNewPlanUser />,
+            //     },
+            //     {
+            //       path: "admin/subscription-logs/user/management/:id/edit",
+            //       element: <EditSubscriptionPlanUser />,
+            //     },
+            //     {
+            //       path: "admin/subscription-logs/user/management/:id",
+            //       element: <ViewSubscriptionPlanUser />,
+            //     },
+            //     {
+            //       path: "admin/subscription-logs/provider/management",
+            //       element: <SubscriptionPlansManagementProvider />,
+            //     },
+            //     {
+            //       path: "admin/subscription-logs/provider/management/add-plan",
+            //       element: <AddNewPlanProvider />,
+            //     },
+            //     {
+            //       path: "admin/subscription-logs/provider/management/:id",
+            //       element: <ViewSubscriptionPlanProvider />,
+            //     },
+            //     {
+            //       path: "admin/subscription-logs/provider/management/:id/edit",
+            //       element: <EditSubscriptionPlanProvider />,
+            //     },
+            //     // --- End --- //
+
+            //     // Queries Management //
+            //     { path: "admin/queries-management", element: <QueriesManagement /> },
+            //     { path: "admin/queries-management/:id", element: <QueriesDetails /> },
+            //     // --- End --- //
+
+            //     // Payment Logs //
+            //     { path: "admin/payment-logs", element: <PaymentLogs /> },
+            //     // --- End --- //
+
+            //     // Reports Management //
+            //     { path: "admin/reports-management", element: <ReportsManagement /> },
+            //     {
+            //       path: "admin/reports-management/view-report/:id",
+            //       element: <ViewReport />,
+            //     },
+            //     {
+            //       path: "admin/reports-management/report/:id",
+            //       element: <ReportDetails />,
+            //     },
+            //     {
+            //       path: "admin/reports-management/report/:id/post",
+            //       element: <ReportedPost />,
+            //     },
+            //     { path: "admin/reports-management/user-management/:id", element: <UserDetails /> },
+            //     {
+            //       path: "admin/reports-management/service-provider-management/:id",
+            //       element: <ServiceProviderDetails />,
+            //     },
+
+            //     // --- End --- //
+
+            //     // Payment Logs //
+            //     { path: "admin/banner-ads", element: <BannerAdsManagement /> },
+            //     { path: "admin/banner-ads/:id", element: <BannerAdDetails /> },
+            //     { path: "admin/banner-ads/:id/edit", element: <EditBanner /> },
+            //     { path: "admin/banner-ads/add", element: <AddBanner /> },
+            //     // --- End --- //
+
+            //     // InApp Purchase Management //
+            //     {
+            //       path: "admin/in-app-purchase-management",
+            //       element: <InAppPurchaseManagement />,
+            //     },
+            //     {
+            //       path: "admin/in-app-purchase-management/:id",
+            //       element: <InAppPurchaseDetail />,
+            //     },
+            //     {
+            //       path: "admin/in-app-purchase-management/add-product",
+            //       element: <AddInAppPurchase />,
+            //     },
+            //     {
+            //       path: "admin/in-app-purchase-management/:id/edit",
+            //       element: <EditInAppPurchase />,
+            //     },
+            //     // --- End --- //
+
+            //     // Bank Details //
+            //     { path: "admin/mybank-detail", element: <MyBankDetail /> },
+            //     { path: "admin/add-bank-details", element: <AddBankDetail /> },
+            //     { path: "admin/mybank-detail/edit", element: <EditBankDetail /> },
+            //     // --- End --- //
+
+            //     // Emergency Contact Management //
+            //     {
+            //       path: "admin/emergency-contact-management",
+            //       element: <EmergencyContactsManagement />,
+            //     },
+            //     {
+            //       path: "admin/emergency-contact-management/add",
+            //       element: <AddEmergencyContacts />,
+            //     },
+            //     {
+            //       path: "admin/emergency-contact-management/:id/edit",
+            //       element: <EditEmergencyContacts />,
+            //     },
+            //     // --- End --- //
+
+            //     // FAQs Management Management //
+            //     { path: "admin/faqs", element: <FAQsManagement /> },
+            //     { path: "admin/faqs/add", element: <AddFaqs /> },
+            //     { path: "admin/faqs/edit/:id", element: <EditFaqs /> },
+            //     // --- End --- //
+
+            //     { path: "admin/notifications", element: <NotificationsAdmin /> },
+            //     {
+            //       path: "admin/commission-management",
+            //       element: <CommissionManagement />,
+            //     },
+            //     { path: "admin/payout-management", element: <PayoutsManagement /> },
+            //     { path: "admin/*", element: <AdminErrorPage /> },
+            //     // Refer Management//
+            //     { path: "admin/refer-management", element: <ReferManagement /> },
+            //     { path: "admin/refer-management/refer-logs", element: <ReferLogs /> },
+            //     { path: "admin/refer-management/add-refer-rewards", element: <AddReferReward /> },
+            //     { path: "admin/refer-management/:id/edit", element: <EditReferReward /> },
+            //     { path: "admin/refer-management/:id", element: <ReferDetail /> },
+            //     // Challenge Management//
+            //     { path: "admin/challenge-management", element: <ChallengeManagement /> },
+            //     { path: "admin/challenge-management/add-challenge", element: <AddNewChallenge /> },
+            //     { path: "admin/challenge-management/:id/edit", element: <EditChallenge /> },
+            //     { path: "admin/challenge-management/:id", element: <ChallengeDetail /> },
+
+            //   ],
+            // },
+
+            {
+                element: <GuestRoutes user />,
+                children: [
+                    {
+                        element: <MainLayout />,
+                        children: [
+                            { path: "/", element: <Home /> },
+                            { path: "shop", element: <Shop /> },
+                            { path: "product/:id/:slug", element: <ProductView /> },
+                            { path: "cart", element: <Cart /> },
+                            { path: "checkout", element: <Checkout /> },
+                            { path: "search", element: <Search /> },
+                            { path: "our-story", element: <OurStory /> },
+                            { path: "faqs", element: <Faqs /> },
+                        ],
+                    },
+                    {
+                        element: <MainLayout />,
+                        children: [
+                            {
+                                element: <PreventUser />,
+                                children: [
+                                    { path: "signup", element: <UserSignup /> },
+                                    { path: "login", element: <UserLogin /> },
+                                ],
+                            },
+                        ],
+                    },
+                    { path: "*", element: <ErrorPage /> },
+                ],
+            },
+            {
+                element: <ProtectedRoutes user roles={[roles.user]} />,
+                children: [
+                    {
+                        element: <MainLayout />,
+                        children: [
+                            { path: "user/dashboard", element: <UserProfile /> },
+                            { path: "profile", element: <UserProfile /> },
+                            { path: "edit-profile", element: <UserEditProfile /> },
+                            { path: "change-password", element: <UserChangePassword /> },
+                            // { path: "wishlist", element: <Wishlist /> },
+                            { path: "order-logs", element: <OrderLogs /> },
+                            { path: "order-logs/:id", element: <OrderLogsDetail /> },
+                        ],
+                    },
+                    { path: "*", element: <ErrorPage /> },
+                ],
+            },
+            {
+                path: "*",
+                element: <h2>404</h2>,
+            },
         ],
-      },
-      {
-        element: <ProtectedRoutes user roles={[roles.user]} />,
-        children: [
-          {
-            element: <MainLayout />,
-            children: [
-              { path: "user/dashboard", element: <UserProfile /> },
-              { path: "profile", element: <UserProfile /> },
-              { path: "edit-profile", element: <UserEditProfile /> },
-              { path: "change-password", element: <UserChangePassword /> },
-              // { path: "wishlist", element: <Wishlist /> },
-              { path: "order-logs", element: <OrderLogs /> },
-              { path: "order-logs/:id", element: <OrderLogsDetail /> },
-            ],
-          },
-          { path: "*", element: <ErrorPage /> },
-        ],
-      },
-      {
-        path: "*",
-        element: <h2>404</h2>,
-      },
-    ],
-  },
+    },
 ];
 
 const Routers = () => {
-  const element = useRoutes(routes);
-  return element;
+    const element = useRoutes(routes);
+    return element;
 };
 
 export default Routers;

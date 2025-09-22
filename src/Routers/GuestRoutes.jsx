@@ -12,7 +12,7 @@ const GuestRoutes = (props) => {
 
   if (token) {
     if (isAdmin || role === "admin") {
-      return <Navigate to="/" />;
+        return <Outlet />;
       // } else if (isUser || role === "user") {
     } else if (isUser) {
       return <Outlet />;
