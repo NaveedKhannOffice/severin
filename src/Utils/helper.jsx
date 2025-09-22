@@ -658,7 +658,14 @@ export const generateLinks = (role) => {
           name: "Products",
           link: "/admin/products-management",
           image: () => <i className="fas fa-box"></i>,
-        },
+          },
+          {
+              path: "/admin/order-management",
+              label: "Order Management",
+              name: "Orders",
+              link: "/admin/order-management",
+              image: () => <i className="fas fa-box"></i>,
+          },
       ];
       break;
     default: // No role case or fallback links
