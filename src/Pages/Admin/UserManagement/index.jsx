@@ -28,16 +28,15 @@ const UserManagement = ({
     try {
       startSubmitting(true);
       const url = `/admin/users`;
-      // const response = await getAll(url, filters);
-      const response = userManagementData;
-      if (response.status) {
-        const { total, per_page, current_page, to } = response.detail;
-        setUserData(response.detail.data);
+      const response = await getAll(url, filters);
+      if (response?.status) {
+        const { total, per_page, current_page, to } = response.meta || {};
+        setUserData(response.data || []);
         updatePagination({
-          showData: to,
-          currentPage: current_page,
-          totalRecords: total,
-          totalPages: Math.ceil(total / per_page),
+          showData: to || 0,
+          currentPage: current_page || 1,
+          totalRecords: total || 0,
+          totalPages: Math.ceil((total || 0) / (per_page || filters.per_page || 10)),
         });
       }
     } catch (error) {
@@ -128,7 +127,7 @@ const UserManagement = ({
                           <td>{item?.email}</td>
                           <td>{dateFormat(item?.created_at)}</td>
                           {/* Status column with Select dropdown */}
-                          <td>
+                          {/* <td>
                             <SelectInput
                               className={`tabel-select status${item?.status}`}
                               required
@@ -139,7 +138,7 @@ const UserManagement = ({
                               isInputNeeded={false}
                               options={statusOptions}
                             />
-                          </td>
+                          </td> */}
                           <td>
                             <div className="d-flex cp gap-3 tableAction align-items-center justify-content-center">
                               <span

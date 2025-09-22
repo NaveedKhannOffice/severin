@@ -23,6 +23,7 @@ import productImage7 from "../assets/images/product-7.png";
 import heroBannerbg from "../assets/images/banner-bg.png";
 
 import authLeftImg from "../assets/images/auth-left-img.png";
+import uploadIcon from "../assets/images/svg-1/uploadIcon.svg";
 
 
 export const images = {
@@ -48,6 +49,7 @@ export const images = {
   authLeftImg,
   GridIcon,
   GridIconV,
+  uploadIcon,
 
 
 };

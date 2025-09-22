@@ -18,13 +18,13 @@ import { useDispatch } from "react-redux";
 import { setData } from "../../../Store/actions";
 import { parsePhoneNumber } from "libphonenumber-js";
 import { post } from "../../../Services/Api";
-import { showToast } from "../../../Components/Toast";
+import { showToast } from "../../../Components/Common/Toast";
 import {
   genderOptions,
   language,
   stateOptions,
 } from "../../../Config/TableStatus";
-import { Select } from "../../../Components/Common/FormElements/SelectInput";
+import SelectInput from "../../../Components/Common/FormElements/SelectInput";
 
 const UserEditProfile = ({ showModal }) => {
   usePageTitle("Edit Profile", true);
@@ -309,25 +309,23 @@ const UserEditProfile = ({ showModal }) => {
                                                                     onBlur={handleBlur}
                                                                     error={touched.language && errors.language}
                                                                 /> */}
-                                <Select
+                                <SelectInput
                                   className="mainInput selectInput w-100"
                                   label="Language"
-                                  labelclass="mainLabel"
+                                  labelClassName="mainLabel"
                                   required
                                   id="language"
                                   name="language"
-                                  wrapperClass="d-block mb-3"
+                                  options={language}
                                   value={values.language}
                                   onChange={(value) =>
                                     handleChange({
                                       target: { name: "language", value },
                                     })
-                                  } // Adapting to Formik
+                                  }
                                   onBlur={handleBlur}
                                   error={touched.language && errors.language}
-                                >
-                                  {language}
-                                </Select>
+                                />
                               </Col>
                               <Col xs={12}>
                                 <CustomButton

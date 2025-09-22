@@ -5,7 +5,7 @@ import { usePageTitle } from '../../../Hooks/usePageTitle';
 import './style.css';
 
 import { useLogout } from '../../../Hooks/useLogout';
-import CustomModal from '../../../Components/CustomModal';
+import CustomModal from '../../../Components/Common/CustomModal';
 import useUserStore from '../../../Stores/UserStore';
 
 const AssistantCoachSettings = () => {

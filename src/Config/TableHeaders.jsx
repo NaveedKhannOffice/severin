@@ -19,10 +19,10 @@ export const userHeaders = [
     key: "status",
     title: "Status",
   },
-  {
-    key: "actions",
-    title: "Actions",
-  },
+//   {
+//     key: "actions",
+//     title: "Actions",
+//   },
 ];
 export const userOrderHeaders = [
   {
@@ -324,17 +324,17 @@ export const shopProductsHeaders = [
     title: "Product Name",
   },
   {
-    key: "addedOn",
-    title: "Added On",
+    key: "price",
+    title: "Price",
   },
-  {
-    key: "category",
-    title: "Category",
-  },
-  {
-    key: "status",
-    title: "Status",
-  },
+//   {
+//     key: "category",
+//     title: "Category",
+//   },
+//   {
+//     key: "status",
+//     title: "Status",
+//   },
   {
     key: "action",
     title: "Action",

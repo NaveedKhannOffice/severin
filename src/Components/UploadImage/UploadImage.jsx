@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import { HiOutlineUpload } from "react-icons/hi";
 import Styles from "./UploadAndDisplayImage.module.css";
-import { imgUploadIcon } from "../../Assets/images";
+import { images } from "../../Assets";
 import "./style.css";
 
 const UploadImages = ({
@@ -17,6 +17,7 @@ const UploadImages = ({
   errorFromParent = "",
   id = "0",
   imgId,
+  previewHeight,
 }) => {
   const [files, setFiles] = useState([]);
   const [error, setError] = useState("");
@@ -138,7 +139,7 @@ const UploadImages = ({
           {(Array.isArray(files) ? files : [files]).map((image, index) => (
             <div key={index} style={{ position: "relative" }}>
               <img
-                style={{ height: height }}
+                style={{ height: previewHeight ? `${previewHeight}px` : undefined }}
                 src={
                   typeof image === "string" ? image : URL.createObjectURL(image)
                 }
@@ -164,7 +165,7 @@ const UploadImages = ({
         <label htmlFor={`myImage${id}`} className={`imageUploadArea`}>
           <div>
             <div className="d-flex flex-column justify-content-center align-items-center gap-2 UploadArea">
-              <img src={imgUploadIcon} alt="" />
+              <img src={images.uploadIcon} alt="" />
               <p>Upload Images</p>
             </div>
             {numberOfFiles > 1 && showNumberOfImagesText ? (

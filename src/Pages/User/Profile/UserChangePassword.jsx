@@ -6,7 +6,7 @@ import { useFormStatus } from "../../../Hooks/useFormStatus";
 import withModal from "../../../HOC/withModal";
 import "./style.css";
 import BackButton2 from "../../../Components/Common/BackButton/BackButton2";
-import { showToast } from "../../../Components/Toast";
+import { showToast } from "../../../Components/Common/Toast";
 import { post } from "../../../Services/Api";
 
 const UserChangePassword = ({ showModal }) => {

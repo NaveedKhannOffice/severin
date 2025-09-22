@@ -18,11 +18,11 @@ import Cart from "../Pages/User/Shop/Cart";
 import Checkout from "../Pages/User/Shop/Checkout";
 import Search from "../Pages/User/Search";
 // import ContactUs from "../Pages/User/ContactUs";
-// import OrderLogs from "../Pages/User/OrderLogs";
-// import OrderLogsDetail from "../Pages/User/OrderLogs/OrderLogsDetail";
-// import UserProfile from "../Pages/User/Profile";
-// import UserChangePassword from "../Pages/User/Profile/UserChangePassword";
-// import UserEditProfile from "../Pages/User/Profile/UserEditProfile";
+import OrderLogs from "../Pages/User/OrderLogs";
+import OrderLogsDetail from "../Pages/User/OrderLogs/OrderLogsDetail";
+import UserProfile from "../Pages/User/Profile";
+import UserChangePassword from "../Pages/User/Profile/UserChangePassword";
+import UserEditProfile from "../Pages/User/Profile/UserEditProfile";
 // import Wishlist from "../Pages/User/Shop/Wishlist";
 
 import ScrollToTop from "../Components/ScrollToTop";
@@ -43,6 +43,8 @@ import ProductsManagement from "../Pages/Admin/ProductManagement";
 import AddProducts from "../Pages/Admin/ProductManagement/AddProduct";
 import EditProducts from "../Pages/Admin/ProductManagement/EditProduct";
 import ViewProductsDetail from "../Pages/Admin/ProductManagement/ViewProduct";
+import AdminProductDetails from "../Pages/Admin/Product/Product";
+import ThemeSettings from "../Pages/Admin/ThemeSettings";
 
 
 import Profile from "../Pages/Admin/Profile";
@@ -164,6 +166,7 @@ const routes = [
           { path: "admin/change-password", element: <ChangePassword /> },
 
           { path: "admin/dashboard", element: <Dashboard /> },
+          { path: "admin/theme-settings", element: <ThemeSettings /> },
 
           {
             path: "admin/products-management",
@@ -181,6 +184,12 @@ const routes = [
             path: "admin/products-management/:id",
             element: <ViewProductsDetail />,
           },
+
+          { path: "admin/products/:id", element: <AdminProductDetails /> },
+
+          // User Management
+          { path: "admin/user-management", element: <UserManagement /> },
+          { path: "admin/user-management/:id", element: <UserDetails /> },
 
 
 
@@ -512,12 +521,13 @@ const routes = [
           {
             element: <MainLayout />,
             children: [
-              // { path: "profile", element: <UserProfile /> },
-              // { path: "edit-profile", element: <UserEditProfile /> },
-              // { path: "change-password", element: <UserChangePassword /> },
+              { path: "user/dashboard", element: <UserProfile /> },
+              { path: "profile", element: <UserProfile /> },
+              { path: "edit-profile", element: <UserEditProfile /> },
+              { path: "change-password", element: <UserChangePassword /> },
               // { path: "wishlist", element: <Wishlist /> },
-              // { path: "order-logs", element: <OrderLogs /> },
-              // { path: "order-logs/:id", element: <OrderLogsDetail /> },
+              { path: "order-logs", element: <OrderLogs /> },
+              { path: "order-logs/:id", element: <OrderLogsDetail /> },
             ],
           },
           { path: "*", element: <ErrorPage /> },

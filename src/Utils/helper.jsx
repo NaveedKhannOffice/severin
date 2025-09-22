@@ -639,6 +639,13 @@ export const generateLinks = (role) => {
           image: () => <i className="fas fa-tachometer-alt"></i>,
         },
         {
+          path: "/admin/theme-settings",
+          label: "Theme Settings",
+          name: "Theme",
+          link: "/admin/theme-settings",
+          image: () => <i className="fas fa-palette"></i>,
+        },
+        {
           path: "/admin/user-management",
           label: "User Management",
           name: "Users",
@@ -652,20 +659,6 @@ export const generateLinks = (role) => {
           link: "/admin/products-management",
           image: () => <i className="fas fa-box"></i>,
         },
-        // {
-        //   path: "/admin/orders-management",
-        //   label: "Order Management",
-        //   name: "Orders",
-        //   link: "/admin/orders-management",
-        //   image: () => <i className="fas fa-shopping-cart"></i>,
-        // },
-        // {
-        //   path: "/admin/settings",
-        //   label: "Settings",
-        //   name: "Settings",
-        //   link: "/admin/settings",
-        //   image: () => <i className="fas fa-cog"></i>,
-        // },
       ];
       break;
     default: // No role case or fallback links

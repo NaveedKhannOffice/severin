@@ -155,23 +155,6 @@ const UserDetails = ({
                   alt="User"
                 />
               </div>
-              <div className="flex-grow-1 d-flex justify-content-start justify-content-sm-end">
-                <div className="profile-status d-flex  align-items-end flex-column gap-3">
-                  <div className="status-action">
-                    <SelectInput
-                      className={`tabel-select status${profileData?.status}`}
-                      id={`status${profileData?.id}`}
-                      name="status"
-                      label="Status:"
-                      value={profileData?.status}
-                      onChange={(e) => handleStatusChange(e, profileData?.id)}
-                      isInputNeeded={false}
-                    >
-                      {statusOptions}
-                    </SelectInput>
-                  </div>
-                </div>
-              </div>
             </div>
             <div className="row">
               <div className="col-md-10">
@@ -190,8 +173,6 @@ const UserDetails = ({
                           ? dialing_code + phone
                           : "N/A",
                     },
-                    { label: "Language", value: language ?? "N/A" },
-                    { label: "relationship", value: relation ?? "N/A" },
                   ].map(({ label, value }) => (
                     <div className="col-lg-4 col-md-6 mb-3" key={label}>
                       <h4 className="secondaryLabel">{label}</h4>
@@ -204,114 +185,12 @@ const UserDetails = ({
                     </div>
                   ))}
                 </div>
-                {/* <div className="row">
-                  <div className="col-12">
-
-                    <Link to={`/admin/posts/${id}`} className="site-btn primary-btn text-decoration-none">
-                      View Posts
-                    </Link>
-                  </div>
-                </div> */}
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="dashCard mt-3">
-        <div className="row">
-          <div className="col-md-6">
-            <div className="d-flex justify-content-between flex-wrap mx-width">
-              <div className="text-wrapper">
-                <h4 className="secondaryLabel">Total Refers:</h4>
-                <p className="secondaryText wrapText mb-0">15</p>
-              </div>
-              <div className="text-wrapper">
-                <h4 className="secondaryLabel">Total Gain vouchers:</h4>
-                <p className="secondaryText wrapText mb-0">02</p>
-              </div>
-            </div>
-            <div className="image-wrapper my-3">
-              <ImageGallery images={[images.Gift]} maxWidth={200} />
-            </div>
-          </div>
-          <div className="col-md-6 mt-md-0 mt-3">
-            <div className="text-wrapper">
-              <h4 className="secondaryLabel">
-                total gain in-app purchase gifts:
-              </h4>
-              <p className="secondaryText wrapText mb-0">01</p>
-            </div>
-            <div className="image-wrapper my-3 mx-width text-center">
-              {/* <img className="my-2" src={MedicalImage} alt="" /> */}
-              <h5 className="text-center text-capitalize">
-                medical health document
-              </h5>
-              <p className="mb-0 text-center">
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout...
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* <div className="dashCard mt-4">
-        <div className="row mb-3">
-          <div className="col-12">
-            <h2 className="mainTitle">appointment Logs</h2>
-          </div>
-          <div className="col-12">
-            <CustomTable
-              filters={filters}
-              setFilters={setFilters}
-              loading={isSubmitting}
-              headers={appointmentHeader}
-              pagination={pagination}
-              // if you want multiple date filters
-              dateFilters={[
-                {
-                  title: "date",
-                  from: "from",
-                  to: "to"
-                }
-              ]}
-              selectOptions={[
-                {
-                  title: "appointment type",
-                  options: AppointmentType
-                },
-                {
-                  title: "status",
-                  options: appointmentStatus
-                }
-              ]}
-            >
-              <tbody>
-                {appointmentLogs?.map((item, index) => (
-                  <tr key={item?.id}>
-                    <td>{serialNum((filters.page - 1) * filters.per_page + index + 1)}</td>
-                    <td>{item?.booking_id}</td>
-                    <td>{item?.service?.service_mode}</td>
-                    <td>{dateFormat(item?.created_at)}</td>
-                    <td>${item?.service?.service_mode == "online" ? item?.service?.final_online_charges : item?.service?.final_onsite_charges}</td>
-                    <td className={statusClassMap[item?.status]}>{item?.status}</td>
-                    <td>
-                      <div className="d-flex cp gap-3 tableAction align-items-center justify-content-center">
-                        <span className="tooltip-toggle" aria-label="View">
-                          <Link to={`/admin/appointments/${item.id}`}>
-                            <FaEye size={20} color="#1819ff" />
-                          </Link>
-                        </span>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </CustomTable>
-          </div>
-        </div>
-      </div> */}
-      <div className="dashCard mt-4">
         <div className="row mb-3">
           <div className="col-12">
             <h2 className="mainTitle">orders Logs</h2>
@@ -368,7 +247,7 @@ const UserDetails = ({
             </CustomTable>
           </div>
         </div>
-      </div>
+      </div> */}
     </DashboardLayout>
   );
 };

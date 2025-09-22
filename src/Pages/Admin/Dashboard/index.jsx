@@ -144,17 +144,6 @@ const Dashboard = () => {
       isNullOrEmpty(defaultData.users) &&
       isNullOrEmpty(defaultData.providers);
 
-   if (isAllDataEmpty) {
-      return (
-         <DashboardLayout pageTitle="Dashboard">
-            <div className="d-flex justify-content-center align-items-center py-5">
-               <Spinner animation="border" />
-               <span className="ms-2">Loading dashboard...</span>
-            </div>
-         </DashboardLayout>
-      );
-   }
-
    return (
       <DashboardLayout pageTitle="Dashboard">
          {/* Date Picker */}
@@ -189,8 +178,14 @@ const Dashboard = () => {
                <Row>
                   {cardsToRender.map((card) =>
                      card ? (
-                        <Col key={card.id} md={6} className="mb-3">
-                           {/* <StatCard item={card} /> */}
+                        <Col key={card.id} md={6} lg={3} className="mb-3">
+                           <div className="dashCard p-3 h-100">
+                              <div className="d-flex flex-column">
+                                 <span className="secondaryLabel text-capitalize">{card.text}</span>
+                                 <h3 className="mainTitle mt-2 mb-0">{card.number}</h3>
+                                 <small className="text-muted">{card.total_post}</small>
+                              </div>
+                           </div>
                         </Col>
                      ) : null
                   )}
@@ -203,19 +198,17 @@ const Dashboard = () => {
                   return (
                      <Row key={key} className="mb-3">
                         <Col xs={12}>
-                           {/* <Graph
-                              type={info.graphType}
-                              item={{
-                                 heading: info.graphText,
-                                 label: info.graphText,
-                                 fill: true,
-                                 data: d[info.dataKey],
-                              }}
-                              options={chartStatus}
-                              text={info.graphText}
-                              backgroundColor="#1A8C1A"
-                              borderColor="#1A8C1A"
-                           /> */}
+                           <div className="dashCard p-3">
+                              <h5 className="mb-3">{info.graphText}</h5>
+                              <div className="d-flex flex-wrap gap-3">
+                                 {d[info.dataKey].map((item, idx) => (
+                                    <div key={idx} className="border rounded px-3 py-2">
+                                       <div className="text-muted small">{item?.month || item?.label || `#${idx+1}`}</div>
+                                       <div className="fw-bold">{item?.count ?? item?.value ?? item}</div>
+                                    </div>
+                                 ))}
+                              </div>
+                           </div>
                         </Col>
                      </Row>
                   );

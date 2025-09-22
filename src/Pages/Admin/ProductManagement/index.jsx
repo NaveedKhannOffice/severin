@@ -3,9 +3,8 @@ import { FaEdit, FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { DashboardLayout } from "../../../Components/Layouts/AdminLayout/DashboardLayout";
 import CustomTable from "../../../Components/Common/CustomTable";
-import  SelectInput  from "../../../Components/Common/FormElements/SelectInput";
-import { productCategoryManagementData } from "../../../Config/data";
-import { productCategoryManagementHeaders } from "../../../Config/TableHeaders";
+import SelectInput from "../../../Components/Common/FormElements/SelectInput";
+import { shopProductsHeaders } from "../../../Config/TableHeaders";
 import { normalStatus, statusOptions } from "../../../Config/TableStatus";
 import withFilters from "../../../HOC/withFilters";
 import withModal from "../../../HOC/withModal";
@@ -20,26 +19,28 @@ const ProductsManagement = ({
   updatePagination,
   showModal,
 }) => {
-  const [productCategory, setProductCategory] = useState([]);
+  const [products, setProducts] = useState([]);
   const { isSubmitting, startSubmitting, stopSubmitting } = useFormStatus();
 
-  const fetchProductCategory = async () => {
+  const fetchProducts = async () => {
     try {
       startSubmitting(true);
-      const url = `/admin/categories/product`;
+      const url = `/user/products`;
       const response = await getAll(url, filters);
-      if (response.status) {
-        const { total, per_page, current_page, to } = response.meta;
-        setProductCategory(response.data);
-        updatePagination({
-          showData: to,
-          currentPage: current_page,
-          totalRecords: total,
-          totalPages: Math.ceil(total / per_page),
-        });
+      if (response?.status) {
+        const { total, per_page, current_page, to } = response.meta || {};
+        setProducts(response.data || []);
+        if (typeof total !== "undefined") {
+          updatePagination({
+            showData: to || 0,
+            currentPage: current_page || 1,
+            totalRecords: total || 0,
+            totalPages: Math.ceil((total || 0) / (per_page || filters.per_page || 10)),
+          });
+        }
       }
     } catch (error) {
-      console.error("Error fetching users:", error);
+      console.error("Error fetching products:", error);
     } finally {
       stopSubmitting(false);
     }
@@ -59,14 +60,14 @@ const ProductsManagement = ({
   };
 
   // Confirm status change and update the state
-  const onConfirmStatusChange = async (userId, newStatusValue) => {
-    // Update the status in the productCategory state
-    const response = await post(`/admin/categories/${userId}/status`);
-    if (response.status) {
-      fetchProductCategory();
+  const onConfirmStatusChange = async (productId, newStatusValue) => {
+    // Toggle product status
+    const response = await post(`/admin/providers/product/${productId}/toggle-status`);
+    if (response?.status) {
+      fetchProducts();
       showModal(
         "Successful",
-        `Category status has been changed to ${
+        `Product status has been changed to ${
           newStatusValue === "1" ? "Active" : "Inactive"
         } successfully.`,
         null,
@@ -76,21 +77,15 @@ const ProductsManagement = ({
   };
 
   useEffect(() => {
-    fetchProductCategory();
+    fetchProducts();
   }, [filters]);
 
   return (
-    <DashboardLayout pageTitle="Product Category Management">
+    <DashboardLayout pageTitle="Products Management">
       <div className="container-fluid">
         <>
           <div className="my-4 d-flex flex-wrap gap-3 gap-md-0 align-items-center justify-content-between">
             <h2 className="mainTitle mb-0">Product Management</h2>
-            <Link
-              to={"/admin/products-management/add-product"}
-              className="btn btn-primary text-decoration-none"
-            >
-              add Product
-            </Link>
           </div>
           <div className="dashCard">
             <div className="row mb-3">
@@ -99,11 +94,11 @@ const ProductsManagement = ({
                   filters={filters}
                   setFilters={setFilters}
                   loading={isSubmitting}
-                  headers={productCategoryManagementHeaders}
+                  headers={shopProductsHeaders}
                   pagination={pagination}
                   dateFilters={[
                     {
-                      title: "Creation Date",
+                      title: "Added On",
                       from: "from",
                       to: "to",
                     },
@@ -117,17 +112,17 @@ const ProductsManagement = ({
                   ]}
                 >
                   <tbody>
-                    {productCategory?.map((item, index) => (
+                    {products?.map((item, index) => (
                       <tr key={item?.id}>
                         <td>
                           {serialNum(
                             (filters.page - 1) * filters.per_page + index + 1
                           )}
                         </td>
-                        <td>{item?.category_title}</td>
+                        <td>{item?.title || item?.name || `Product ${item?.id}`}</td>
                         <td>{dateFormat(item?.created_at)}</td>
-                        <td>{item?.total_products}</td>
-                        <td>
+                        {/* <td>{item?.category?.category_title || item?.category || "N/A"}</td> */}
+                        {/* <td>
                           <SelectInput
                             className={`tabel-select status${item?.status}`}
                             required
@@ -139,16 +134,16 @@ const ProductsManagement = ({
                           >
                             {statusOptions}
                           </SelectInput>
-                        </td>
+                        </td> */}
                         <td>
                           <div className="d-flex cp gap-3 tableAction align-items-center justify-content-center">
                             <span className="tooltip-toggle" aria-label="View">
-                              <Link to={`${item.id}`}>
+                              <Link to={`/admin/products/${item.id}`}>
                                 <FaEye size={20} color="#1819ff" />
                               </Link>
                             </span>
                             <span className="tooltip-toggle" aria-label="Edit">
-                              <Link to={`${item.id}/edit`}>
+                              <Link to={`/admin/products-management/${item.id}/edit`}>
                                 <FaEdit size={20} color="#1819ff" />
                               </Link>
                             </span>

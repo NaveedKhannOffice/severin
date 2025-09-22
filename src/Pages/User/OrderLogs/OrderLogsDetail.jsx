@@ -3,12 +3,12 @@ import { images } from "../../../Assets";
 import { Container, Row, Col, Table } from "react-bootstrap";
 import { Formik, Form, Field } from "formik";
 import { useFormStatus } from "../../../Hooks/useFormStatus";
-import { orderLogsData, productData } from "../../../Config/data";
+// import { orderLogsData } from "../../../Config/data";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CustomButton from "../../../Components/Common/CustomButton";
 import BackButton2 from "../../../Components/Common/BackButton/BackButton2";
 import { dateFormat, usePageTitle } from "../../../Utils/helper";
-import CustomModal from "../../../Components/CustomModal";
+import CustomModal from "../../../Components/Common/CustomModal";
 import {
   addOtpSchema,
   ratingValidationSchema,

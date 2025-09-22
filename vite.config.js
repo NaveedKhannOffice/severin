@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   const base = mode === 'development' ? env.REACT_APP_BASE_NAME : env.REACT_APP_BASE_NAME;
   return {
-    base,
+    base : "/",
     define: {
       'process.env': env
     },

@@ -4,11 +4,11 @@ import { dateFormat, serialNum, usePageTitle } from "../../../Utils/helper";
 import BackButton2 from "../../../Components/Common/BackButton/BackButton2";
 import withFilters from "../../../HOC/withFilters";
 import { normalStatus, orderStatus } from "../../../Config/TableStatus";
-import CustomTable from "../../../Components/CustomTable";
+import CustomTable from "../../../Components/Common/CustomTable";
 import { useFormStatus } from "../../../Hooks/useFormStatus";
 import { orderLogHeaders } from "../../../Config/TableHeaders";
 import { orderLogsData } from "../../../Config/data";
-import TableDropdownUser from "../../../Components/TableDropdown/TableDropdownUser";
+import { Link } from "react-router-dom";
 import { getAll } from "../../../Services/Api";
 
 const OrderLogs = ({ filters, setFilters, pagination, updatePagination }) => {
@@ -113,12 +113,9 @@ const OrderLogs = ({ filters, setFilters, pagination, updatePagination }) => {
                         </span>
                       </td>
                       <td>
-                        <TableDropdownUser
-                          view
-                          itemId={item.id}
-                          linkPath="/order-logs"
-                          statusDetail={item.status_detail}
-                        />
+                        <Link className="btn btn-link p-0" to={`/order-logs/${item.id}`}>
+                          View
+                        </Link>
                       </td>
                     </tr>
                   ))}

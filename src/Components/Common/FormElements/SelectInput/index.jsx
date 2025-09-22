@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import Form from 'react-bootstrap/Form';
+import ReactSelect from 'react-select';
 import './styles.css';
 
 const SelectInput = forwardRef(
@@ -176,7 +177,7 @@ const SelectInput = forwardRef(
             })}
           </Form.Select>
         ) : (
-          <Select
+          <ReactSelect
             ref={ref}
             inputId={id || name}
             name={name}
@@ -211,6 +212,35 @@ const SelectInput = forwardRef(
 SelectInput.displayName = 'SelectInput';
 
 export default SelectInput;
+
+// Backward-compatible wrapper used as `{ Select }` in legacy code
+export const Select = ({
+  labelclass,
+  selectClass,
+  wrapperClass,
+  children,
+  options,
+  ...rest
+}) => {
+  const resolvedOptions = Array.isArray(options)
+    ? options
+    : Array.isArray(children)
+    ? children
+    : [];
+
+  const mappedProps = {
+    labelClassName: labelclass || rest.labelClassName,
+    className: rest.className || selectClass,
+    options: resolvedOptions,
+    ...rest,
+  };
+
+  return (
+    <div className={wrapperClass || ''}>
+      <SelectInput {...mappedProps} />
+    </div>
+  );
+};
 
 
 /* Usage Examples

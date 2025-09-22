@@ -64,12 +64,12 @@ const Header = (props) => {
               >
                 <div className="userImage d-flex align-items-center">
                   <img
-                    src={user?.["photo-path"]}
+                    src={user?.photo}
                     alt=""
                     className="img-fluid"
                   />
                   <h6 className="ms-2 mb-0 whiteColor">
-                    {user?.["full_name"]}
+                    {user?.first_name}
                   </h6>
                 </div>
               </Dropdown.Toggle>

@@ -275,6 +275,15 @@ export const Header = () => {
                               <span className="user-name fw-semibold">{fullName(user)}</span>
                               <span className="user-name fw-light fst-italic">View Profile</span>
                             </Dropdown.Item>
+                            <Dropdown.Item onClick={() => navigate("/order-logs")}>
+                              My Orders
+                            </Dropdown.Item>
+                            <Dropdown.Item onClick={() => navigate("/edit-profile")}>
+                              Edit Profile
+                            </Dropdown.Item>
+                            <Dropdown.Item onClick={() => navigate("/change-password")}>
+                              Change Password
+                            </Dropdown.Item>
                             <Dropdown.Item
                               className="logout"
                               onClick={() => setShowModal(true)}
