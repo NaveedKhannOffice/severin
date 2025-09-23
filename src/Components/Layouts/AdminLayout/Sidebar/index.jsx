@@ -6,54 +6,59 @@ import "./style.css";
 import { images } from "../../../../Assets";
 
 const Sidebar = (props) => {
-  const [user, setUser] = useState({});
-  const urlPath = window.location.pathname;
-  const { role } = useAuth();
-  const [headerLogo, setHeaderLogo] = useState(images.HeaderLogo);
-  useEffect(() => {
-    setUser(role);
-  }, []);
+    const [user, setUser] = useState({});
+    const urlPath = window.location.pathname;
+    const { role } = useAuth();
+    const [headerLogo, setHeaderLogo] = useState(images.HeaderLogo);
+    useEffect(() => {
+        setUser(role);
+    }, []);
 
-  useEffect(() => {
-    if (props.sideclassName === "collapsed")
-      setHeaderLogo(images.HeaderLogoMobile);
-    else setHeaderLogo(images.HeaderLogo);
-  }, [props.sideclassName]);
+    useEffect(() => {
+        if (props.sideclassName === "collapsed")
+            setHeaderLogo(images.HeaderLogoMobile);
+        else setHeaderLogo(images.HeaderLogo);
+    }, [props.sideclassName]);
 
-  let Links = generateLinks(role);
+    let Links = generateLinks(role);
 
-  return (
-    <>
-      <div className={`sidebar ${props.sideclassName}`} id="sidebar">
-        {/* <div className="logoWrapper p-3 px-2 order-2 order-lg-1">
+    return (
+        <>
+            <div className={`sidebar ${props.sideclassName}`} id="sidebar">
+                {/* <div className="logoWrapper p-3 px-2 order-2 order-lg-1">
           <Link to={"/admin/dashboard"} className="siteLogo">
             <img src={headerLogo} alt="" />
           </Link>
         </div> */}
-        <ul className="list-unstyled mt-4">
-          {Links.map((element, index) => (
-            <li className="sidebar-li" key={index}>
-              <Link
-                className={`sideLink ${
-                  urlPath.includes(element.path || element.link || "")
-                    ? "active"
-                    : ""
-                }`}
-                to={element.path || element.link || "/"}
-              >
-                <span className="sideIcon">
-                  {element.image && <element.image />}
-                </span>
-                <span className="sideLinkText">
-                  {element.name || element.label || "Link"}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </>
-  );
+                <ul className="list-unstyled mt-4">
+                    {Links.map((element, index) => (
+                        <li className="sidebar-li" key={index}>
+                            <Link
+                                // className={`sideLink ${urlPath.includes(element.path || element.link || element.name || "")
+                                //         ? "active"
+                                //         : ""
+                                //     }`}
+                                className={`sideLink ${[element.path, element.link, element.name]
+                                        .filter(Boolean)
+                                        .some(val => urlPath.includes(val))
+                                        ? "active"
+                                        : ""
+                                    }`}
+                                to={element.path || element.link || "/"}
+                            >
+                                <span className="sideIcon">
+                                    {element.image && <element.image />}
+                                </span>
+                                <span className="sideLinkText">
+                                    {element.name || element.label || "Link"}
+                                </span>
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </>
+    );
 };
 
 export { Sidebar };

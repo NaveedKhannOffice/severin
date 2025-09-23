@@ -195,7 +195,7 @@ const routes = [
                         element: <ViewOrder />,
                     },
 
-                    { path: "admin/orders/:id", element: <AdminProductDetails /> },
+                    { path: "admin/orders/:id", element: <ViewOrder /> },
 
                     // User Management
                     { path: "admin/user-management", element: <UserManagement /> },

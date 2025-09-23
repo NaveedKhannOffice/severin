@@ -340,6 +340,37 @@ export const shopProductsHeaders = [
     title: "Action",
   },
 ];
+
+export const shopOrderHeaders = [
+    {
+        key: "id",
+        title: "S.No",
+    },
+    {
+        key: "OrderId",
+        title: "Order Id",
+    },
+    {
+        key: "customerName",
+        title: "Customer Name",
+    },
+    {
+        key: "customerPhone",
+        title: "Customer Phone",
+    },
+      {
+        key: "submittedDate",
+        title: "Submitted Date",
+      },
+    //   {
+    //     key: "status",
+    //     title: "Status",
+    //   },
+    {
+        key: "action",
+        title: "Action",
+    },
+];
 export const serviceProvidersRequestHeaders = [
   {
     key: "id",

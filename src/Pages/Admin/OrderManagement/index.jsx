@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { DashboardLayout } from "../../../Components/Layouts/AdminLayout/DashboardLayout";
 import CustomTable from "../../../Components/Common/CustomTable";
 import SelectInput from "../../../Components/Common/FormElements/SelectInput";
-import { shopProductsHeaders } from "../../../Config/TableHeaders";
+import { shopOrderHeaders, shopProductsHeaders } from "../../../Config/TableHeaders";
 import { normalStatus, statusOptions } from "../../../Config/TableStatus";
 import withFilters from "../../../HOC/withFilters";
 import withModal from "../../../HOC/withModal";
@@ -92,7 +92,7 @@ const OrdersManagement = ({
                                     filters={filters}
                                     setFilters={setFilters}
                                     loading={isSubmitting}
-                                    headers={shopProductsHeaders}
+                                    headers={shopOrderHeaders}
                                     pagination={pagination}
                                     dateFilters={[
                                         {
@@ -117,8 +117,10 @@ const OrdersManagement = ({
                                                         (filters.page - 1) * filters.per_page + index + 1
                                                     )}
                                                 </td>
-                                                <td>{item?.title || item?.name || `Order ${item?.id}`}</td>
-                                                <td>{dateFormat(item?.created_at)}</td>
+                                                <td>{item?.order_id || `Order ${item?.id}`}</td>
+                                                <td>{item?.logistics_address?.contact_person}</td>
+                                                <td>{item?.logistics_address?.phone_country + " " + item?.logistics_address?.mobile_no}</td>
+                                                <td>{dateFormat(item?.submitted_at)}</td>
                                                 
                                                 <td>
                                                     <div className="d-flex cp gap-3 tableAction align-items-center justify-content-center">
@@ -127,11 +129,11 @@ const OrdersManagement = ({
                                                                 <FaEye size={20} color="#1819ff" />
                                                             </Link>
                                                         </span>
-                                                        <span className="tooltip-toggle" aria-label="Edit">
+                                                        {/* <span className="tooltip-toggle" aria-label="Edit">
                                                             <Link to={`/admin/orders-management/${item.id}/edit`}>
                                                                 <FaEdit size={20} color="#1819ff" />
                                                             </Link>
-                                                        </span>
+                                                        </span> */}
                                                     </div>
                                                 </td>
                                             </tr>
