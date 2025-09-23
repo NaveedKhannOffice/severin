@@ -24,6 +24,7 @@ const EditProduct = ({ showModal }) => {
             const response = await getDetails(`/user/product/${id}`);
             if (response) {
                 setData(response?.data || {});
+                console.log(response?.data)
             }
         };
         getProduct();
