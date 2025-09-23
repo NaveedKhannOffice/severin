@@ -123,7 +123,7 @@ const OrdersManagement = ({
                                                 <td>
                                                     <div className="d-flex cp gap-3 tableAction align-items-center justify-content-center">
                                                         <span className="tooltip-toggle" aria-label="View">
-                                                            <Link to={`/admin/orders/${item.id}`}>
+                                                            <Link to={`/admin/orders/${item.order_id}`}>
                                                                 <FaEye size={20} color="#1819ff" />
                                                             </Link>
                                                         </span>

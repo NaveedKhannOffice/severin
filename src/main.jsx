@@ -6,6 +6,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter } from "react-router-dom";
 import ApiConfig from "./Config/ApiConfig";
 import { persistor, store } from "./Store/store.jsx";
+import 'antd/dist/reset.css';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
