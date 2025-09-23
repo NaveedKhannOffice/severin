@@ -41,8 +41,8 @@ const EditProduct = ({ showModal }) => {
         startSubmitting();
         // Prepare plain object, let productPost handle FormData
         const payload = {
-            product_id: data.product_id || id,
-            sku_id: data?.sku_id || data?.product_meta?.sku_id,
+            product_id: id,
+            sku_id: data?.product_meta?.sku_id || data?.sku_id,
             title: values.title || "",
             description: values.description || "",
             additional_information: values.additional_information || "",
