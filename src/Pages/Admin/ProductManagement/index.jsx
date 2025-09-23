@@ -138,7 +138,7 @@ const ProductsManagement = ({
                         <td>
                           <div className="d-flex cp gap-3 tableAction align-items-center justify-content-center">
                             <span className="tooltip-toggle" aria-label="View">
-                              <Link to={`/admin/products/${item.id}`}>
+                                        <Link to={`/admin/products-management/${item.id}`}>
                                 <FaEye size={20} color="#1819ff" />
                               </Link>
                             </span>

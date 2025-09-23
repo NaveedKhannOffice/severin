@@ -1,236 +1,136 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { DashboardLayout } from "../../../Components/Layouts/AdminLayout/DashboardLayout";
 import BackButton from "../../../Components/Common/BackButton";
-// import { getDetails } from "../../../Services/Api";
-import { FaEdit, FaEye } from "react-icons/fa";
-import CustomTable from "../../../Components/Common/CustomTable";
-import  SelectInput  from "../../../Components/Common/FormElements/SelectInput";
-import { productCategoryManagementData } from "../../../Config/data";
-import { ProductsCategoryDetailHeader } from "../../../Config/TableHeaders";
-import { normalStatus, statusOptions } from "../../../Config/TableStatus";
-import withFilters from "../../../HOC/withFilters";
-import withModal from "../../../HOC/withModal";
-import { useFormStatus } from "../../../Hooks/useFormStatus";
-import { dateFormat, serialNum, statusClassMap } from "../../../Utils/helper";
-import { getAll, getDetails, post } from "../../../Services/Api";
+import { FaEdit } from "react-icons/fa";
+import { getDetails } from "../../../Services/Api";
 
-const ViewProduct = ({
-  showModal,
-  filters,
-  setFilters,
-  pagination,
-  updatePagination,
-}) => {
+
+const ViewProduct = () => {
   const { id } = useParams();
-  const [data, setData] = useState({});
-  const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState(null);
 
-  const { isSubmitting, startSubmitting, stopSubmitting } = useFormStatus();
-
-  const fetchProductDetailTableData = async () => {
-    try {
-      startSubmitting(true);
-      const url = `/admin/categories/${id}/products`;
-      const response = await getAll(url, filters);
-      if (response.status) {
-        console.log("api res", response?.data);
-
-        const { total, per_page, current_page, to } = response.meta;
-        setProducts(response.data);
-        updatePagination({
-          showData: to,
-          currentPage: current_page,
-          totalRecords: total,
-          totalPages: Math.ceil(total / per_page),
-        });
+  useEffect(() => {
+    const fetchProduct = async () => {
+      // Replace with your actual API endpoint
+      const response = await getDetails(`/user/product/${id}`);
+      if (response && response.status) {
+        setProduct(response.data);
       }
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    } finally {
-      stopSubmitting(false);
-    }
-  };
-  const getProductCategoryDetail = async () => {
-    const response = await getDetails(`/admin/categories/${id}`);
-    if (response) {
-      setData(response?.data);
-    }
-  };
-  useEffect(() => {
-    getProductCategoryDetail();
+    };
+    fetchProduct();
   }, [id]);
-  useEffect(() => {
-    fetchProductDetailTableData();
-  }, [filters]);
 
-  // Handle status change
-  const handleStatusChange = (e, userId) => {
-    const newStatusValue = e;
-    // Open the modal for confirmation
-    showModal(
-      `${newStatusValue === "1" ? "Active" : "Inactive"} Category`,
-      `Are you sure you want to change this Category to ${
-        newStatusValue === "1" ? "Active" : "Inactive"
-      }?`,
-      () => onConfirmStatusChange(userId, newStatusValue)
-    );
-  };
-  // Confirm status change and update the state
-  const onConfirmStatusChange = async (userId, newStatusValue) => {
-    // Update the status in the appointmentLogs state
-    setData({ ...data, status: newStatusValue });
-    showModal(
-      "Successful",
-      `Category status has been changed to ${
-        newStatusValue === "1" ? "Active" : "Inactive"
-      } successfully.`,
-      null,
-      true
-    );
-  };
-  // Handle status change
-  const handleStatusChangeTwo = (e, userId) => {
-    const newStatusValue = e;
-    // Open the modal for confirmation
-    showModal(
-      `Mark as ${newStatusValue === "1" ? "Active" : "Inactive"}`,
-      `Are you sure you want to change this product status to ${
-        newStatusValue === "1" ? "Active" : "Inactive"
-      }?`,
-      () => onConfirmStatusChangeTwo(userId, newStatusValue)
-    );
-  };
+  if (!product) {
+    return <div>Loading...</div>;
+  }
 
-  // Confirm status change and update the state
-  const onConfirmStatusChangeTwo = async (userId, newStatusValue) => {
-    const response = await post(`/admin/categories/${id}/status`);
-    if (response.status) {
-      getProductCategoryDetail();
-      showModal(
-        "Successful",
-        `Product status has been changed to ${
-          newStatusValue === "1" ? "Active" : "Inactive"
-        } successfully.`,
-        null,
-        true
-      );
-    }
-  };
-  const { category_title } = data;
   return (
-    <DashboardLayout pageTitle="Product Category Detail">
+    <DashboardLayout pageTitle="Product Detail">
       <div className="row my-3">
-        <div className="col-12 ">
+        <div className="col-12">
           <div className="d-flex justify-content-between align-items-center my-3 my-md-0 flex-wrap">
             <div className="flex-grow-1 d-flex my-3">
               <BackButton />
-              <h2 className="mainTitle mb-0">View Product Category Detail</h2>
+              <h2 className="mainTitle mb-0">View Product Detail</h2>
             </div>
             <div className="flex-shrink-0 ms-sm-0 ms-2">
-              <Link to={`edit`} className="site-btn primary-btn">
-                Edit category
-              </Link>
+              <button className="site-btn primary-btn">
+                <FaEdit /> Edit Product
+              </button>
             </div>
           </div>
         </div>
       </div>
-      <div className="dashCard ">
-        <div className="row ">
-          <div className="col-12">
-            <div className="profile-status d-flex justify-content-between flex-wrap gap-3">
-              <div>
-                <h4 className="secondaryLabel">category title</h4>
-                <p className="secondaryText wrapText mb-0">{category_title}</p>
-              </div>
-              <div className="status-action">
-                <SelectInput
-                  className={`tabel-select status${data?.status}`}
-                  id={`status${data?.id}`}
-                  name="status"
-                  label="Status:"
-                  value={data?.status}
-                  onChange={(e) => handleStatusChange(e, data?.id)}
-                  isInputNeeded={false}
-                >
-                  {statusOptions}
-                </SelectInput>
-              </div>
-            </div>
+      <div className="dashCard">
+        <div className="row">
+          <div className="col-md-6">
+            <h4 className="secondaryLabel">Title</h4>
+            <p className="secondaryText wrapText mb-0">{product.title}</p>
+            <h4 className="secondaryLabel mt-3">Description</h4>
+            <p className="secondaryText wrapText mb-0">{product.description}</p>
+            <h4 className="secondaryLabel mt-3">Slug</h4>
+            <p className="secondaryText wrapText mb-0">{product.slug}</p>
+            <h4 className="secondaryLabel mt-3">Price</h4>
+            <p className="secondaryText wrapText mb-0">{product.price} {product.currency}</p>
+            <h4 className="secondaryLabel mt-3">AliExpress Product ID</h4>
+            <p className="secondaryText wrapText mb-0">{product.ae_product_id}</p>
+          </div>
+          <div className="col-md-6">
+            <h4 className="secondaryLabel">Main Image</h4>
+            {product.main_image ? (
+              <img src={product.main_image} alt="Main" style={{maxWidth: '100%', height: 'auto'}} />
+            ) : (
+              <span>No image</span>
+            )}
           </div>
         </div>
       </div>
+
+      {/* SKUs Section */}
       <div className="dashCard mt-4">
-        <div className="row mb-3">
-          <div className="col-12">
-            <h2 className="mainTitle">Products</h2>
-          </div>
-          <div className="col-12">
-            <CustomTable
-              filters={filters}
-              setFilters={setFilters}
-              loading={isSubmitting}
-              headers={ProductsCategoryDetailHeader}
-              pagination={pagination}
-              // if you want multiple date filters
-              dateFilters={[
-                {
-                  title: "date",
-                  from: "from",
-                  to: "to",
-                },
-              ]}
-              selectOptions={[
-                {
-                  title: "status",
-                  key: "status",
-                  options: normalStatus,
-                },
-              ]}
-            >
-              <tbody>
-                {products?.map((item, index) => (
-                  <tr key={item?.id}>
-                    <td>
-                      {serialNum(
-                        (filters.page - 1) * filters.per_page + index + 1
-                      )}
-                    </td>
-                    <td>{item?.shop?.name}</td>
-                    <td>{item?.title}</td>
-                    <td>{dateFormat(item?.created_at)}</td>
-                    <td>
-                      <Select
-                        className={`tabel-select status${item?.status}`}
-                        required
-                        id={`status${item?.id}`}
-                        name="status"
-                        value={item?.status}
-                        onChange={(e) => handleStatusChangeTwo(e, item?.id)}
-                        isInputNeeded={false}
-                      >
-                        {statusOptions}
-                      </Select>
-                    </td>
-                    <td>
-                      <div className="d-flex cp gap-3 tableAction align-items-center justify-content-center">
-                        <span className="tooltip-toggle" aria-label="View">
-                          <Link
-                            to={`/admin/product-category-management/products/${item.id}`}
-                          >
-                            <FaEye size={20} color="#1819ff" />
-                          </Link>
-                        </span>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </CustomTable>
-          </div>
+        <h3 className="mainTitle">SKUs</h3>
+        <div className="row">
+          {product.skus && product.skus.length > 0 ? (
+            product.skus.map((sku) => (
+              <div className="col-md-4 mb-3" key={sku.sku_id}>
+                <div className="card p-2">
+                  <h5>SKU: {sku.sku_id}</h5>
+                  <p>Price: {sku.price} {sku.currency}</p>
+                  <p>Stock: {sku.stock}</p>
+                  <div>
+                    <strong>Attributes:</strong>
+                    <ul>
+                      {sku.attrs && sku.attrs.map((attr, idx) => (
+                        <li key={idx}>{attr.name}: {attr.value} ({attr.definition})</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <strong>Image:</strong><br />
+                    {sku.image ? (
+                      <img src={sku.image} alt="SKU" style={{maxWidth: '100px', height: 'auto'}} />
+                    ) : 'No image'}
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="col-12">No SKUs found.</div>
+          )}
+        </div>
+      </div>
+
+      {/* Product Meta Section */}
+      <div className="dashCard mt-4">
+        <h3 className="mainTitle">Product Meta</h3>
+        <div className="row">
+          {product.product_meta && product.product_meta.length > 0 ? (
+            product.product_meta.map((meta) => (
+              <div className="col-md-4 mb-3" key={meta.id}>
+                <div className="card p-2">
+                  <h5>SKU: {meta.sku_id}</h5>
+                  <p>Price: {meta.price} {product.currency}</p>
+                  <p>Status: {meta.is_active ? 'Active' : 'Inactive'}</p>
+                  <p>Created At: {meta.created_at}</p>
+                  <div>
+                    <strong>Images:</strong><br />
+                    {meta.images && meta.images.length > 0 ? (
+                      meta.images.map((img, idx) => (
+                        <img key={idx} src={img.path} alt="Meta" style={{maxWidth: '100px', height: 'auto', marginRight: '5px'}} />
+                      ))
+                    ) : 'No images'}
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="col-12">No product meta found.</div>
+          )}
         </div>
       </div>
     </DashboardLayout>
   );
 };
-export default withModal(withFilters(ViewProduct));
+
+export default ViewProduct;
