@@ -2036,3 +2036,37 @@ export const addChallengeSchema = Yup.object().shape({
       }
     ),
 });
+const sanitizeHtmlToText = (value = "") =>
+  (value || "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .trim();
+
+const optionalUrlField = (label) =>
+  Yup.string()
+    .trim()
+    .transform((val) => (val === "" ? null : val))
+    .nullable()
+    .url(`${label} must be a valid URL starting with http or https.`)
+    .max(2048, `${label} is too long.`);
+
+const requiredRichText = (label) =>
+  Yup.string().test(
+    `${label.toLowerCase().replace(/\s+/g, "_")}_required`,
+    `${label} content is required.`,
+    (value) => sanitizeHtmlToText(value).length > 0
+  );
+
+export const shopInformationSchema = Yup.object().shape({
+  copyright_text: Yup.string()
+    .trim()
+    .required("Please provide the copyright text for your shop.")
+    .max(160, "Keep the copyright text within 160 characters."),
+  facebook_url: optionalUrlField("Facebook URL"),
+  twitter_url: optionalUrlField("Twitter URL"),
+  instagram_url: optionalUrlField("Instagram URL"),
+  about_us: requiredRichText("About Us"),
+  our_story: requiredRichText("Our Story"),
+  privacy_policy: requiredRichText("Privacy Policy"),
+  terms_of_service: requiredRichText("Terms of Service"),
+});

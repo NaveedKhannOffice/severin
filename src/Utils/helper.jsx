@@ -645,6 +645,13 @@ export const generateLinks = (role) => {
                     image: () => <i className="fas fa-palette"></i>,
                 },
                 {
+                    path: "/admin/shop-information",
+                    label: "Shop Information",
+                    name: "Shop Information",
+                    link: "/admin/shop-information",
+                    image: () => <i className="fas fa-store"></i>,
+                },
+                {
                     path: "/admin/user-management",
                     label: "User Management",
                     name: "Users",
