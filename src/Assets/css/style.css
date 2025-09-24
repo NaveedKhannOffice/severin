@@ -1,4 +1,4 @@
-/*----- General Css Start -----*/
+﻿/*----- General Css Start -----*/
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap');
 
@@ -753,20 +753,35 @@ h2.page-title {
   min-height: 400px;
 }
 
-.user-layout .back-button {
-  font-size: 25px;
+.back-button {
   border: none;
   background: transparent;
-  height: auto;
-  width: auto;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  color: var(--bs-secondary);
+  transition: color 0.3s ease;
 }
 
-.user-layout .back-button:hover svg path {
-  color: #1a8c1a;
-  transition: all 0.6s ease 0s;
+.back-button svg {
+  display: block;
 }
+
+.back-button:hover {
+  color: var(--bs-primary);
+}
+
+.user-layout .back-button {
+  font-size: 25px;
+  height: auto;
+  width: auto;
+}
+
+.user-layout .back-button:hover {
+  color: #1a8c1a;
+  transition: color 0.6s ease 0s;
+}
+
 
 /******** Inner Page END
 **************************/
@@ -1341,3 +1356,6 @@ h2.page-title {
 }
 
 @media screen and (max-width: 360px) {}
+
+
+

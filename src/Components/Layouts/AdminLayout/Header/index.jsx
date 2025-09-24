@@ -42,7 +42,7 @@ const Header = (props) => {
         </Navbar.Toggle>
         <div className="logoWrapper px-2 order-2 order-lg-1">
           <Link to={"/admin/dashboard"} className="siteLogo">
-            <img src={images.adminAuthLogo} alt="" />
+            <img src={images.HeaderLogo} alt="" />
           </Link>
         </div>
         <Navbar.Collapse

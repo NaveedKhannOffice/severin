@@ -1,26 +1,17 @@
-import { useEffect, useState } from "react";
-import { getAll } from "../../../Services/Api";
-
-// import Stats1 from "../../../Assets/images/stats1.svg?react";
-// import Stats2 from "../../../Assets/images/stats2.svg?react";
-// import Stats3 from "../../../Assets/images/stats3.svg?react";
-// import Stats4 from "../../../Assets/images/stats4.svg?react";
-
-// import { Graph } from "../../../Components/Graph";
-import { DashboardLayout } from "../../../Components/Layouts/AdminLayout/DashboardLayout";
-// import StatCard from "../../../Components/StatsCard";
-// import { chartStatus } from "../../../Config/TableStatus";
-
+import { useEffect, useMemo, useState } from "react";
 import moment from "moment";
-import { Col, Container, Form, Row, Spinner } from "react-bootstrap";
+import { Container, Form, Spinner } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
+import { getAll } from "../../../Services/Api";
+import { DashboardLayout } from "../../../Components/Layouts/AdminLayout/DashboardLayout";
 import { isNullOrEmpty } from "../../../Utils/helper";
+import "./style.css";
 
 const cardsInfo = {
    earning: {
       id: 1,
-      // image: Stats1,
       text: "total earning",
       graphText: "Total Earning",
       graphType: "bar",
@@ -30,7 +21,6 @@ const cardsInfo = {
    },
    booking: {
       id: 2,
-      // image: Stats2,
       text: "new bookings",
       graphText: "New Bookings Received",
       graphType: "line",
@@ -40,7 +30,6 @@ const cardsInfo = {
    },
    users: {
       id: 3,
-      // image: Stats3,
       text: "new users",
       graphText: "New Users Registered",
       graphType: "bar",
@@ -50,9 +39,8 @@ const cardsInfo = {
    },
    providers: {
       id: 4,
-      // image: Stats4,
       text: "new service provider",
-      graphText: "New Service Provider Registered",
+      graphText: "New Service Providers Registered",
       graphType: "bar",
       apiPath: "/admin/dashboard/stats",
       dataKey: "monthsProviders",
@@ -127,16 +115,38 @@ const Dashboard = () => {
 
       return {
          id: info.id,
-         image: info.image,
          number,
          text: info.text,
-         change: number,
-         increase: true,
-         arrowIcon: true,
          total_post: "Since last week",
          key,
       };
    });
+
+   const summaryCards = cardsToRender.filter(Boolean);
+
+   const metricSections = useMemo(
+      () =>
+         Object.entries(cardsInfo).reduce((acc, [key, info]) => {
+            const dataSource = dataToUse[key];
+            const metricList = dataSource?.[info.dataKey];
+            if (!Array.isArray(metricList) || metricList.length === 0) {
+               return acc;
+            }
+
+            acc.push({
+               key,
+               info,
+               items: metricList,
+            });
+            return acc;
+         }, []),
+      [dataToUse]
+   );
+
+   const hasCustomRange = Boolean(dateRange[0] && dateRange[1]);
+   const selectedRangeLabel = hasCustomRange
+      ? `${moment(dateRange[0]).format("DD MMM YYYY")} - ${moment(dateRange[1]).format("DD MMM YYYY")}`
+      : "Performance overview";
 
    const isAllDataEmpty =
       isNullOrEmpty(defaultData.earning) &&
@@ -144,77 +154,86 @@ const Dashboard = () => {
       isNullOrEmpty(defaultData.users) &&
       isNullOrEmpty(defaultData.providers);
 
+   const showEmptyState = !loading && summaryCards.length === 0 && metricSections.length === 0 && isAllDataEmpty;
+
    return (
       <DashboardLayout pageTitle="Dashboard">
-         {/* Date Picker */}
-         <Container fluid className="mb-3 d-flex align-items-center gap-3 justify-content-end">
-            <Form.Group className="d-flex align-items-center gap-2 mb-2 inputWrapper">
-               <Form.Label className="mb-0 mainLabel">Select Date Range:</Form.Label>
-               <DatePicker
-                  selectsRange
-                  startDate={dateRange[0]}
-                  endDate={dateRange[1]}
-                  onChange={(update) => setDateRange(update)}
-                  isClearable
-                  placeholderText="Select date range"
-                  disabled={loading}
-                  dateFormat="yyyy-MM-dd"
-                  className="mainInput statdate-picker"
-               />
-            </Form.Group>
-         </Container>
+         <div className="admin-dashboard">
+            <Container fluid className="admin-dashboard__container">
+               <div className="admin-dashboard__toolbar">
+                  <Form.Group className="dashboard-date-filter__group">
+                     <Form.Label className="dashboard-date-filter__label mb-0">Select Date Range</Form.Label>
+                     <DatePicker
+                        selectsRange
+                        startDate={dateRange[0]}
+                        endDate={dateRange[1]}
+                        onChange={(update) => setDateRange(update)}
+                        isClearable
+                        placeholderText="Choose a date range"
+                        disabled={loading}
+                        dateFormat="yyyy-MM-dd"
+                        className="mainInput statdate-picker dashboard-date-filter__picker"
+                     />
+                  </Form.Group>
+                  <span className="dashboard-date-filter__range">{selectedRangeLabel}</span>
+               </div>
 
-         {/* Loader */}
-         {loading && (
-            <div className="text-center my-4">
-               <Spinner animation="border" role="status" />
-               <span className="ms-2">Loading data...</span>
-            </div>
-         )}
+               {loading && (
+                  <div className="admin-dashboard__loader">
+                     <Spinner animation="border" role="status" />
+                     <span className="ms-2">Fetching the latest metrics...</span>
+                  </div>
+               )}
 
-         {/* Cards & Graphs */}
-         {!loading && (
-            <Container fluid>
-               <Row>
-                  {cardsToRender.map((card) =>
-                     card ? (
-                        <Col key={card.id} md={6} lg={3} className="mb-3">
-                           <div className="dashCard p-3 h-100">
-                              <div className="d-flex flex-column">
-                                 <span className="secondaryLabel text-capitalize">{card.text}</span>
-                                 <h3 className="mainTitle mt-2 mb-0">{card.number}</h3>
-                                 <small className="text-muted">{card.total_post}</small>
-                              </div>
+               {!loading && summaryCards.length > 0 && (
+                  <div className="dashboard-summary-grid">
+                     {summaryCards.map((card) => (
+                        <article key={card.id} className="dashCard dashboard-summary-card">
+                           <span className="dashboard-summary-card__label text-capitalize">{card.text}</span>
+                           <span className="dashboard-summary-card__value">{card.number}</span>
+                           <span className="dashboard-summary-card__meta">
+                              {hasCustomRange ? "Within selected range" : card.total_post}
+                           </span>
+                        </article>
+                     ))}
+                  </div>
+               )}
+
+               {!loading && metricSections.length > 0 && (
+                  <div className="dashboard-metric-grid">
+                     {metricSections.map(({ key, info, items }) => (
+                        <section key={key} className="dashCard dashboard-metric-card">
+                           <header className="dashboard-metric-card__header">
+                              <h5>{info.graphText}</h5>
+                              <span>{selectedRangeLabel}</span>
+                           </header>
+                           <div className="dashboard-metric-card__body">
+                              {items.map((item, idx) => (
+                                 <div key={`${key}-${idx}`} className="dashboard-metric-pill">
+                                    <span className="dashboard-metric-pill__label">
+                                       {item?.month || item?.label || `Entry ${idx + 1}`}
+                                    </span>
+                                    <span className="dashboard-metric-pill__value">
+                                       {item?.count ?? item?.value ?? item}
+                                    </span>
+                                 </div>
+                              ))}
                            </div>
-                        </Col>
-                     ) : null
-                  )}
-               </Row>
+                        </section>
+                     ))}
+                  </div>
+               )}
 
-               {Object.entries(cardsInfo).map(([key, info]) => {
-                  const d = dataToUse[key];
-                  if (!d || !Array.isArray(d[info.dataKey])) return null;
-
-                  return (
-                     <Row key={key} className="mb-3">
-                        <Col xs={12}>
-                           <div className="dashCard p-3">
-                              <h5 className="mb-3">{info.graphText}</h5>
-                              <div className="d-flex flex-wrap gap-3">
-                                 {d[info.dataKey].map((item, idx) => (
-                                    <div key={idx} className="border rounded px-3 py-2">
-                                       <div className="text-muted small">{item?.month || item?.label || `#${idx+1}`}</div>
-                                       <div className="fw-bold">{item?.count ?? item?.value ?? item}</div>
-                                    </div>
-                                 ))}
-                              </div>
-                           </div>
-                        </Col>
-                     </Row>
-                  );
-               })}
+               {showEmptyState && (
+                  <div className="admin-dashboard__empty">
+                     <h4>No insights to display just yet</h4>
+                     <p>
+                        As soon as your shop begins collecting activity, this dashboard will surface trends and highlights automatically.
+                     </p>
+                  </div>
+               )}
             </Container>
-         )}
+         </div>
       </DashboardLayout>
    );
 };

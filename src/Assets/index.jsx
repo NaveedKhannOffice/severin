@@ -1,8 +1,10 @@
-// Brach
+// Global image exports
 import Logo from "./images/logo.png";
+import HeaderLogo from "./images/header-logo.png";
+import HeaderLogoMobile from "./images/header-logo-mobile.png";
 import UserImage from "./images/user-img.png";
 import question from "./images/question.png";
-import FooterLogo from "../Assets/images/footer-logo.png";;
+import FooterLogo from "../Assets/images/footer-logo.png";
 import CameraIconOutline from "../Assets/images/camera-icon-outline.svg?react";
 import GridIcon from "../Assets/images/svg/grid-icon.svg?react";
 import GridIconV from "../Assets/images/svg/gridV-icon.svg?react";
@@ -25,11 +27,12 @@ import heroBannerbg from "../assets/images/banner-bg.png";
 import authLeftImg from "../assets/images/auth-left-img.png";
 import uploadIcon from "../assets/images/svg-1/uploadIcon.svg";
 
-
 export const images = {
   gifthqs,
   paymentLogo,
   Logo,
+  HeaderLogo,
+  HeaderLogoMobile,
   question,
   UserImage,
   FooterLogo,
@@ -50,8 +53,5 @@ export const images = {
   GridIcon,
   GridIconV,
   uploadIcon,
-
-
+  adminAuthLogo: Logo,
 };
-
-

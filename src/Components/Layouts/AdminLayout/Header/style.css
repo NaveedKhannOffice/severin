@@ -1,4 +1,4 @@
-.customHeader {
+﻿.customHeader {
   position: fixed !important;
   /* width: calc(100% - 310px); */
   width: 100%;
@@ -7,7 +7,7 @@
   justify-content: space-between !important;
   align-items: center !important;
   padding: 0px 10px !important;
-  background: #15355E;
+  background: var(--bs-secondary);
   box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.1);
   height: 84px;
   top: 0;
@@ -67,7 +67,7 @@
 
 .bellIcon:hover {
   path {
-    fill: #C5E4F6;
+    fill: var(--bs-primary);
   }
 }
 
@@ -116,7 +116,7 @@
 }
 
 .newNotificationCount {
-  background: #15355e;
+  background: var(--bs-primary);
   padding-inline: 8px;
   border-radius: 4px;
 }
@@ -124,7 +124,7 @@
 .newNotificationCount p {
   margin-bottom: 0;
   font-weight: 600;
-  color: #15355E;
+  color: var(--whiteColor);
 }
 
 .singleNoti {
@@ -160,7 +160,7 @@
 .notiIcon {
   font-size: 18px;
   color: var(--whiteColor);
-  background: #15355E;
+  background: var(--bs-secondary);
   padding: 7px;
   border-radius: 7px;
 }
@@ -231,7 +231,7 @@
   text-align: right;
   text-decoration-line: none;
   text-transform: capitalize;
-  color: #15355E;
+  color: var(--bs-primary);
 }
 
 .navbar-toggler {
@@ -272,8 +272,8 @@
 }
 
 .userMenuItem:hover {
-  color: #15355E;
-  background-color: #C5E4F6;
+  color: var(--bs-primary);
+  background-color: rgba(189, 124, 102, 0.14);
 }
 
 /* @media screen and (max-width: 991px) {
@@ -288,7 +288,7 @@
   }
 
   .customCollapse {
-    background: #15355E;
+    background: var(--bs-secondary);
     position: absolute;
     top: 84px;
     left: 0;
@@ -352,3 +352,6 @@
     right: -140px;
   }
 }
+
+
+

@@ -9,38 +9,44 @@ const Sidebar = (props) => {
     const [user, setUser] = useState({});
     const urlPath = window.location.pathname;
     const { role } = useAuth();
-    const [headerLogo, setHeaderLogo] = useState(images.HeaderLogo);
+
+    const defaultLogo = images.HeaderLogo || images.Logo;
+    const compactLogo = images.HeaderLogoMobile || defaultLogo;
+    const [headerLogo, setHeaderLogo] = useState(defaultLogo);
+
     useEffect(() => {
         setUser(role);
-    }, []);
+    }, [role]);
 
     useEffect(() => {
-        if (props.sideclassName === "collapsed")
-            setHeaderLogo(images.HeaderLogoMobile);
-        else setHeaderLogo(images.HeaderLogo);
-    }, [props.sideclassName]);
+        if (props.sideclassName === "collapsed") {
+            setHeaderLogo(compactLogo);
+        } else {
+            setHeaderLogo(defaultLogo);
+        }
+    }, [props.sideclassName, compactLogo, defaultLogo]);
 
-    let Links = generateLinks(role);
+    const Links = generateLinks(role);
 
     return (
         <>
             <div className={`sidebar ${props.sideclassName}`} id="sidebar">
-                {/* <div className="logoWrapper p-3 px-2 order-2 order-lg-1">
-          <Link to={"/admin/dashboard"} className="siteLogo">
-            <img src={headerLogo} alt="" />
-          </Link>
-        </div> */}
-                <ul className="list-unstyled mt-4">
+                <div className="sidebarBrand">
+                    <Link to={"/admin/dashboard"} className="sidebarBrand__logo">
+                        <img src={headerLogo || defaultLogo} alt="Severin Admin" />
+                    </Link>
+                    <div className="sidebarBrand__meta">
+                        <span className="sidebarBrand__title">Severin</span>
+                        <span className="sidebarBrand__subtitle">Admin Panel</span>
+                    </div>
+                </div>
+                <ul className="sidebar__nav list-unstyled">
                     {Links.map((element, index) => (
                         <li className="sidebar-li" key={index}>
                             <Link
-                                // className={`sideLink ${urlPath.includes(element.path || element.link || element.name || "")
-                                //         ? "active"
-                                //         : ""
-                                //     }`}
                                 className={`sideLink ${[element.path, element.link, element.name]
                                         .filter(Boolean)
-                                        .some(val => urlPath.includes(val))
+                                        .some((val) => urlPath.includes(val))
                                         ? "active"
                                         : ""
                                     }`}

@@ -1,4 +1,4 @@
-.customPagination {
+﻿.customPagination {
     margin: 1rem 0;
 }
 
@@ -16,7 +16,7 @@ p.paginationText {
     font-size: 14px;
     color: #5D5D5D;
     background: #fff;
-    border: 1px solid var(--primaryColor);
+    border: 1px solid var(--bs-primary);
     border-radius: 0;
     outline: none;
     box-shadow: none;
@@ -24,12 +24,16 @@ p.paginationText {
     transition: 0.3s linear
 }
 
-.customPagination .page-item:first-child .page-link, .customPagination .page-item:last-child .page-link {
+.customPagination .page-item:first-child .page-link,
+.customPagination .page-item:last-child .page-link {
     border-radius: 0;
 }
 
-.customPagination .page-item.active .page-link, .customPagination .page-item:hover .page-link {
-    color: #15355E !important;
-    background: #C5E4F6;
+.customPagination .page-item.active .page-link,
+.customPagination .page-item:hover .page-link {
+    color: var(--whiteColor) !important;
+    background: var(--bs-primary);
+    border-color: var(--bs-primary);
     box-shadow: none;
 }
+

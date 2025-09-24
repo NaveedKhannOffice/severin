@@ -1,4 +1,4 @@
-.customTable {
+﻿.customTable {
   overflow-x: auto;
   position: relative;
 }
@@ -343,8 +343,8 @@ User Table Styling ***************/
 .admin-layout .customTable .dropdown a.dropdown-item:hover .svg-inline--fa,
 .admin-layout .customTable .dropdown a.dropdown-item:focus,
 .admin-layout .customTable .dropdown a.dropdown-item:focus .svg-inline--fa {
-  color: #15355E;
-  background-color: #DFDFDF;
+  color: var(--bs-primary);
+  background-color: rgba(189, 124, 102, 0.15);
 }
 
 .user-layout .customTable::-webkit-scrollbar {

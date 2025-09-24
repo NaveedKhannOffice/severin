@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+﻿import { useNavigate } from "react-router";
 import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -15,7 +15,7 @@ const BackButton2 = ({ url = "", className }) => {
   };
 
   return (
-    <button className={`back-button ${className || ""}`} onClick={goBack}>
+    <button type="button" className={`back-button ${className || ""}`} onClick={goBack} aria-label="Go back">
       {/* <FontAwesomeIcon icon={faArrowLeft} /> */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -26,7 +26,7 @@ const BackButton2 = ({ url = "", className }) => {
       >
         <path
           d="M13.8541 1L1 13.8541L13.8541 26.7082"
-          stroke="#15355E"
+          stroke="currentColor"
           strokeWidth="2"
           strokeMiterlimit="10"
           strokeLinecap="round"
@@ -34,7 +34,7 @@ const BackButton2 = ({ url = "", className }) => {
         />
         <path
           d="M37.0002 13.8543H1.36035"
-          stroke="#15355E"
+          stroke="currentColor"
           strokeWidth="2"
           strokeMiterlimit="10"
           strokeLinecap="round"
@@ -46,3 +46,4 @@ const BackButton2 = ({ url = "", className }) => {
 };
 
 export default BackButton2;
+

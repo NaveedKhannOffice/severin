@@ -1,4 +1,4 @@
-.tableFilters {
+﻿.tableFilters {
   margin: 1rem 0;
   font-size: 15px;
 }
@@ -208,7 +208,7 @@
 
 .user-layout .filter-dropdown .dropdown-menu .fiter-main::-webkit-scrollbar-thumb,
 .admin-layout .filter-dropdown .dropdown-menu .fiter-main::-webkit-scrollbar-thumb {
-  background-color: #15355E;
+  background-color: var(--bs-primary);
 }
 
 .user-layout .tableFilters {
@@ -218,7 +218,7 @@
 .user-layout .tableFilters .btn_filter,
 .admin-layout .tableFilters .btn_filter {
   padding: 0px;
-  background: #15355E;
+  background: var(--bs-primary);
   width: 45px;
   height: 45px;
   border-radius: 50px;
