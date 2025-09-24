@@ -1,15 +1,14 @@
 import React from "react";
-import "./style.css";
 import { Col, Container, Row } from "react-bootstrap";
 import PageHeader from "../../../Components/Common/PageHeader";
 import LoadingSpinner from "../../../Components/Common/Loader";
 import { useShopInformation } from "../../../Hooks/useShopInformation";
 
-const OurStory = () => {
-  const breadcrumbPaths = [["Home", "/"], ["Our Story"]];
+const TermsOfService = () => {
+  const breadcrumbPaths = [["Home", "/"], ["Terms of Service"]];
   const { data: shopInfo, isLoading, error } = useShopInformation();
 
-  const storyHtml = shopInfo?.our_story?.trim();
+  const termsHtml = shopInfo?.terms_of_service?.trim();
 
   let content;
   if (isLoading) {
@@ -17,20 +16,20 @@ const OurStory = () => {
   } else if (error) {
     content = (
       <p className="text-danger mb-0">
-        Unable to load our story right now. Please try again later.
+        Unable to load the terms of service right now. Please try again later.
       </p>
     );
-  } else if (storyHtml) {
+  } else if (termsHtml) {
     content = (
       <div
         className="rich-text-content"
-        dangerouslySetInnerHTML={{ __html: storyHtml }}
+        dangerouslySetInnerHTML={{ __html: termsHtml }}
       />
     );
   } else {
     content = (
       <p className="text-muted mb-0">
-        Our story content will be published soon.
+        Terms of service details will be available soon.
       </p>
     );
   }
@@ -38,11 +37,11 @@ const OurStory = () => {
   return (
     <>
       <PageHeader
-        pageHeading="Our Story"
+        pageHeading="Terms of Service"
         breadcrumb
         breadcrumbPaths={breadcrumbPaths}
       />
-      <section className="page-content our-story-page">
+      <section className="page-content terms-of-service-page">
         <Container fluid>
           <Row>
             <Col xs={12}>{content}</Col>
@@ -53,4 +52,4 @@ const OurStory = () => {
   );
 };
 
-export default OurStory;
+export default TermsOfService;

@@ -34,6 +34,7 @@ const ShopInformation = ({ showModal }) => {
         }
         try {
             const response = await getDetails("/admin/shop-information");
+            console.log("Fetched shop information:", response);
             const payload =
                 response?.data?.shopInformation || response?.data || response || {};
             setInitialValues({
@@ -55,6 +56,7 @@ const ShopInformation = ({ showModal }) => {
 
     const handleSubmit = async (values, formikHelpers) => {
         startSubmitting();
+        console.log("Submitting values:", values);
         try {
             const sanitizedValues = {
                 ...values,
@@ -69,7 +71,7 @@ const ShopInformation = ({ showModal }) => {
             };
 
             const response = await post("/admin/shop-information", sanitizedValues);
-
+            console.log("Update response:", response);
             if (response?.status) {
                 await fetchInformation(false);
                 formikHelpers.resetForm({ values: sanitizedValues });
@@ -146,7 +148,7 @@ const ShopInformation = ({ showModal }) => {
                                         </p>
                                     </div>
                                     <div className="d-flex gap-2">
-                                        <CustomButton
+                                        {/* <CustomButton
                                             type="button"
                                             variant="outline-secondary"
                                             className="px-4"
@@ -154,7 +156,7 @@ const ShopInformation = ({ showModal }) => {
                                             disabled={isSubmitting}
                                         >
                                             Reset Changes
-                                        </CustomButton>
+                                        </CustomButton> */}
                                         <CustomButton
                                             type="submit"
                                             variant="primary"
@@ -296,7 +298,7 @@ const ShopInformation = ({ showModal }) => {
                             </div>
 
                             <div className="d-flex justify-content-end gap-2">
-                                <CustomButton
+                                {/* <CustomButton
                                     type="button"
                                     variant="outline-secondary"
                                     className="px-4"
@@ -304,7 +306,7 @@ const ShopInformation = ({ showModal }) => {
                                     disabled={isSubmitting}
                                 >
                                     Reset Changes
-                                </CustomButton>
+                                </CustomButton> */}
                                 <CustomButton
                                     type="submit"
                                     variant="primary"

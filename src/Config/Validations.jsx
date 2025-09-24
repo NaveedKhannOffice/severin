@@ -2058,13 +2058,13 @@ const requiredRichText = (label) =>
   );
 
 export const shopInformationSchema = Yup.object().shape({
-  copyright_text: Yup.string()
+  copy_right: Yup.string()
     .trim()
     .required("Please provide the copyright text for your shop.")
     .max(160, "Keep the copyright text within 160 characters."),
-  facebook_url: optionalUrlField("Facebook URL"),
-  twitter_url: optionalUrlField("Twitter URL"),
-  instagram_url: optionalUrlField("Instagram URL"),
+  facebook_link: optionalUrlField("Facebook URL"),
+  twitter_link: optionalUrlField("Twitter URL"),
+  instagram_link: optionalUrlField("Instagram URL"),
   about_us: requiredRichText("About Us"),
   our_story: requiredRichText("Our Story"),
   privacy_policy: requiredRichText("Privacy Policy"),

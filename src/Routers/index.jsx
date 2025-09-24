@@ -7,7 +7,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 /* User Routes */
 import Home from "../Pages/User/Home";
 
-// import AboutUs from "../Pages/User/AboutUs";
+import AboutUs from "../Pages/User/AboutUs";
 import PreventUser from "./PreventUser";
 
 import UserLogin from "../Pages/User/Auth/Login";
@@ -29,6 +29,8 @@ import ScrollToTop from "../Components/ScrollToTop";
 import ErrorPage from "../Pages/User/ErrorPage";
 import MainLayout from "../Components/Layouts/UserLayout/MainLayout";
 import OurStory from "../Pages/User/OurStory";
+import PrivacyPolicy from "../Pages/User/PrivacyPolicy";
+import TermsOfService from "../Pages/User/TermsOfService";
 import Faqs from "../Pages/User/Faqs";
 import AdminLogin from "../Pages/Admin/Auth/Login";
 import ForgetPassword from "../Pages/Admin/Auth/ForgetPassword";
@@ -221,6 +223,9 @@ const routes = [
                             { path: "checkout", element: <Checkout /> },
                             { path: "search", element: <Search /> },
                             { path: "our-story", element: <OurStory /> },
+                            { path: "about-us", element: <AboutUs /> },
+                            { path: "privacy-policy", element: <PrivacyPolicy /> },
+                            { path: "terms-of-service", element: <TermsOfService /> },
                             { path: "faqs", element: <Faqs /> },
                         ],
                     },
