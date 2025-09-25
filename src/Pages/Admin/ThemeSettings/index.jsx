@@ -3,363 +3,74 @@ import { DashboardLayout } from "../../../Components/Layouts/AdminLayout/Dashboa
 import UploadImages from "../../../Components/UploadImage/UploadImage";
 import TextInput from "../../../Components/Common/FormElements/TextInput";
 import CustomButton from "../../../Components/Common/CustomButton";
+import LoadingSpinner from "../../../Components/Common/Loader";
+import { getDetails, post } from "../../../Services/Api";
+import {
+  THEME_COLOR_SECTIONS,
+  DEFAULT_THEME_STATE,
+  mergeThemeState as composeThemeState,
+  normalizeColorValue,
+  normalizeImageList,
+  mapApiDataToForm,
+  prepareThemePayload,
+  applyThemeToRoot,
+  isHexColor,
+  isValidColorValue,
+  THEME_SETTINGS_ROUTE,
+} from "../../../Config/themeSettings";
+import { useThemeSettings } from "../../../Context/ThemeContext";
 import "./style.css";
-
-const THEME_COLOR_SECTIONS = [
-  {
-    key: "brandPalette",
-    title: "Brand Palette",
-    description: "Primary brand colors that drive buttons, highlights, and immersive surfaces across the storefront.",
-    fields: [
-      {
-        key: "primaryColor",
-        label: "Primary Brand",
-        cssVariables: ["--bs-primary", "--bs-primary-color"],
-        fallback: "#BD7C66",
-        helper: "Used for primary CTAs, badges, and highlight accents.",
-      },
-      {
-        key: "secondaryColor",
-        label: "Secondary",
-        cssVariables: ["--bs-secondary", "--bs-secondary-color"],
-        fallback: "#2B2B2B",
-        helper: "Secondary accents and tab highlights.",
-      },
-      {
-        key: "accentColor",
-        label: "Accent",
-        cssVariables: ["--yellowColor"],
-        fallback: "#E5BB45",
-        helper: "Badges, callouts, and subtle accent strokes.",
-      },
-      {
-        key: "highlightColor",
-        label: "Link / CTA",
-        cssVariables: ["--blueColor"],
-        fallback: "#1819FF",
-        helper: "Inline links and tertiary CTAs.",
-      },
-    ],
-  },
-  {
-    key: "surfaces",
-    title: "Surfaces & Structure",
-    description: "Base colors that control backgrounds, cards, and neutral layers.",
-    fields: [
-      {
-        key: "surfaceColor",
-        label: "Surface",
-        cssVariables: ["--whiteColor"],
-        fallback: "#FFFFFF",
-        helper: "Card backgrounds and elevated surfaces.",
-      },
-      {
-        key: "backgroundColor",
-        label: "App Background",
-        cssVariables: ["--lightWhiteColor"],
-        fallback: "#F0F0F0",
-        helper: "Global page background and section fills.",
-      },
-      {
-        key: "mutedSurfaceColor",
-        label: "Muted Surface",
-        cssVariables: ["--lightGreyColor"],
-        fallback: "#262626",
-        helper: "Overlays, muted panels, and hover states.",
-      },
-      {
-        key: "borderColor",
-        label: "Default Border",
-        cssVariables: ["--bs-border-color"],
-        fallback: "#6C7275",
-        helper: "Card outlines, dividers, and table borders.",
-      },
-      {
-        key: "paginationBorderColor",
-        label: "Pagination Border",
-        cssVariables: ["--pagiBorderColor"],
-        fallback: "#DCDCDC",
-        helper: "Pagination and chip outlines.",
-      },
-    ],
-  },
-  {
-    key: "typography",
-    title: "Typography Colors",
-    description: "Heading, body, and muted text colors applied throughout the experience.",
-    fields: [
-      {
-        key: "headingColor",
-        label: "Heading Text",
-        cssVariables: ["--section-heading-color"],
-        fallback: "#2B2B2B",
-        helper: "Page titles and section headings.",
-      },
-      {
-        key: "bodyTextColor",
-        label: "Body Text",
-        cssVariables: ["--lightblackColor"],
-        fallback: "#333333",
-        helper: "Paragraph copy and long-form content.",
-      },
-      {
-        key: "baseTextColor",
-        label: "Base Text",
-        cssVariables: ["--blackColor"],
-        fallback: "#000000",
-        helper: "Critical text on light backgrounds.",
-      },
-      {
-        key: "mutedTextColor",
-        label: "Muted Text",
-        cssVariables: ["--grayColor"],
-        fallback: "#666666",
-        helper: "Secondary labels and descriptive copy.",
-      },
-      {
-        key: "subtleTextColor",
-        label: "Subtle Text",
-        cssVariables: ["--grayLightColor"],
-        fallback: "#999999",
-        helper: "Helper text, placeholders, and meta data.",
-      },
-    ],
-  },
-  {
-    key: "forms",
-    title: "Inputs & Controls",
-    description: "Color tokens for form controls, focus states, and toggle accents.",
-    fields: [
-      {
-        key: "inputBackground",
-        label: "Input Background",
-        cssVariables: ["--input-bg-color"],
-        fallback: "#FFFFFF",
-      },
-      {
-        key: "inputTextColor",
-        label: "Input Text",
-        cssVariables: ["--input-text-color"],
-        fallback: "#6C7275",
-      },
-      {
-        key: "inputLabelColor",
-        label: "Input Label",
-        cssVariables: ["--input-label-color"],
-        fallback: "#6C7275",
-      },
-      {
-        key: "inputBorderColor",
-        label: "Input Border",
-        cssVariables: ["--bs-input-border-color"],
-        fallback: "#6C7275",
-      },
-      {
-        key: "inputFocusBorderColor",
-        label: "Input Focus",
-        cssVariables: ["--bs-input-focus-border-color"],
-        fallback: "#BD7C66",
-      },
-      {
-        key: "navbarTogglerBorderColor",
-        label: "Navbar Toggle",
-        cssVariables: ["--navbar-toggler-border-color"],
-        fallback: "#000000",
-      },
-    ],
-  },
-  {
-    key: "buttons",
-    title: "Buttons",
-    description: "Primary button tokens with hover accents.",
-    fields: [
-      {
-        key: "buttonPrimaryColor",
-        label: "Primary Button",
-        cssVariables: ["--bs-primary-btn"],
-        fallback: "#BD7C66",
-      },
-      {
-        key: "buttonPrimaryHover",
-        label: "Primary Button Hover",
-        cssVariables: ["--bs-primary-btn-hover"],
-        fallback: "#6C7275",
-      },
-    ],
-  },
-  {
-    key: "feedback",
-    title: "Feedback States",
-    description: "Semantic colors for success, danger, and informational messaging.",
-    fields: [
-      {
-        key: "successColor",
-        label: "Success",
-        cssVariables: ["--greenColor"],
-        fallback: "#42C900",
-      },
-      {
-        key: "successDeepColor",
-        label: "Success (Deep)",
-        cssVariables: ["--darkGreen"],
-        fallback: "#2C8109",
-      },
-      {
-        key: "infoColor",
-        label: "Info",
-        cssVariables: ["--lightPrimaryColor"],
-        fallback: "#80BDFF",
-      },
-      {
-        key: "dangerColor",
-        label: "Danger",
-        cssVariables: ["--redColor"],
-        fallback: "#D70000",
-      },
-    ],
-  },
-];
-
-const COLOR_FIELDS = THEME_COLOR_SECTIONS.flatMap((section) => section.fields);
-const COLOR_FIELD_KEYS = COLOR_FIELDS.map((field) => field.key);
-const CSS_VARIABLE_BINDINGS = COLOR_FIELDS.reduce((acc, field) => {
-  acc[field.key] = field.cssVariables || [];
-  return acc;
-}, {});
-
-const DEFAULT_TEXT_VALUES = {
-  brandName: "Severin",
-  brandTagline: "",
-  brandDescription: "",
-};
-
-const DEFAULT_THEME_STATE = COLOR_FIELDS.reduce(
-  (acc, field) => ({ ...acc, [field.key]: field.fallback }),
-  {
-    ...DEFAULT_TEXT_VALUES,
-    primaryLogo: [],
-    secondaryLogo: [],
-    favicon: [],
-  }
-);
-
-const isHexColor = (value = "") =>
-  /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{4}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$/.test(value.trim());
-
-const isRgbColor = (value = "") => /^rgba?\(/i.test(value.trim());
-
-const normalizeColorValue = (value = "") => {
-  const trimmed = value.trim();
-  if (!trimmed) return "";
-  if (isRgbColor(trimmed)) {
-    const matches = trimmed.match(/rgba?\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
-    if (!matches) return trimmed;
-    const [, r, g, b] = matches;
-    const toHex = (component) =>
-      Math.max(0, Math.min(255, Number(component)))
-        .toString(16)
-        .padStart(2, "0")
-        .toUpperCase();
-    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-  }
-  if (isHexColor(trimmed)) {
-    return trimmed.toUpperCase();
-  }
-  if (trimmed.toLowerCase() === "transparent") {
-    return "transparent";
-  }
-  return trimmed;
-};
-
-const isValidColorValue = (value = "") => {
-  const trimmed = value.trim();
-  if (!trimmed) return false;
-  return (
-    trimmed.toLowerCase() === "transparent" ||
-    isHexColor(trimmed) ||
-    isRgbColor(trimmed)
-  );
-};
-
-const transformLegacySettings = (legacy) => {
-  if (!legacy || typeof legacy !== "object") return {};
-  const mapped = {};
-  if (legacy.title) mapped.brandName = legacy.title;
-  if (Array.isArray(legacy.logo)) mapped.primaryLogo = legacy.logo;
-  if (legacy.primaryColor) mapped.primaryColor = normalizeColorValue(legacy.primaryColor);
-  if (legacy.buttonColor) mapped.buttonPrimaryColor = normalizeColorValue(legacy.buttonColor);
-  if (legacy.themeColor) mapped.highlightColor = normalizeColorValue(legacy.themeColor);
-  return mapped;
-};
-
-const getCssVariableDefaults = () => {
-  if (typeof window === "undefined") return {};
-  const root = document.documentElement;
-  if (!root) return {};
-  const computed = window.getComputedStyle(root);
-  return COLOR_FIELDS.reduce((acc, field) => {
-    const cssVarNames = field.cssVariables || [];
-    for (const cssVar of cssVarNames) {
-      const rawValue = computed.getPropertyValue(cssVar);
-      if (rawValue) {
-        const normalized = normalizeColorValue(rawValue);
-        if (normalized) {
-          acc[field.key] = normalized;
-          break;
-        }
-      }
-    }
-    return acc;
-  }, {});
-};
-
-const pickSerializableImages = (list) =>
-  Array.isArray(list) ? list.filter((item) => typeof item === "string") : [];
 
 const ThemeSettings = () => {
   const [form, setForm] = useState(DEFAULT_THEME_STATE);
+  const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [statusMessage, setStatusMessage] = useState(null);
+  const { updateTheme } = useThemeSettings();
 
-  useEffect(() => {
-    const cssDefaults = getCssVariableDefaults();
-    let saved = {};
-    try {
-      const raw = localStorage.getItem("themeSettings");
-      if (raw) {
-        saved = JSON.parse(raw) || {};
+  const fetchThemeSettings = useCallback(
+    async (withLoader = true) => {
+      if (withLoader) {
+        setLoading(true);
       }
-    } catch (error) {
-      console.error("Failed to parse saved theme settings", error);
-    }
-
-    setForm((prev) => {
-      const next = { ...prev, ...cssDefaults, ...saved, ...transformLegacySettings(saved) };
-      if (Array.isArray(saved.primaryLogo)) next.primaryLogo = saved.primaryLogo;
-      if (Array.isArray(saved.secondaryLogo)) next.secondaryLogo = saved.secondaryLogo;
-      if (Array.isArray(saved.favicon)) next.favicon = saved.favicon;
-      return next;
-    });
-  }, []);
-
-  const applyTheme = useCallback((themeConfig) => {
-    if (typeof window === "undefined") return;
-    const root = document.documentElement;
-    if (!root) return;
-
-    COLOR_FIELD_KEYS.forEach((fieldKey) => {
-      const cssVars = CSS_VARIABLE_BINDINGS[fieldKey];
-      const value = themeConfig[fieldKey];
-      if (!cssVars || cssVars.length === 0 || !isValidColorValue(value)) return;
-      cssVars.forEach((cssVar) => {
-        root.style.setProperty(cssVar, value.trim());
-      });
-    });
-  }, []);
+      try {
+        const response = await getDetails(THEME_SETTINGS_ROUTE);
+        const payload =
+          response?.data?.themeSettings ||
+          response?.data?.data ||
+          response?.data ||
+          response ||
+          {};
+        const mapped = mapApiDataToForm(payload);
+        const merged = composeThemeState(mapped);
+        setForm(merged);
+        updateTheme(merged);
+        setStatusMessage((prev) => (prev?.type === "error" ? null : prev));
+      } catch (error) {
+        console.error("Failed to fetch theme settings", error);
+        const defaults = composeThemeState({});
+        setForm(defaults);
+        updateTheme(defaults);
+        setStatusMessage({
+          type: "error",
+          text: "Unable to load theme settings from the server. Default theme applied.",
+        });
+      } finally {
+        if (withLoader) {
+          setLoading(false);
+        }
+      }
+    },
+    [composeThemeState, updateTheme]
+  );
 
   useEffect(() => {
-    applyTheme(form);
-  }, [form, applyTheme]);
+    fetchThemeSettings();
+  }, [fetchThemeSettings]);
+
+  useEffect(() => {
+    applyThemeToRoot(form);
+  }, [form]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -372,33 +83,42 @@ const ThemeSettings = () => {
   };
 
   const handleImageChange = (key, images) => {
-    setForm((prev) => ({ ...prev, [key]: images }));
+    const normalized = normalizeImageList(images);
+    setForm((prev) => ({ ...prev, [key]: normalized }));
   };
 
   const handleReset = () => {
-    setForm(DEFAULT_THEME_STATE);
+    const defaults = composeThemeState({}, { includeCssDefaults: true });
+    setForm(defaults);
     setStatusMessage(null);
+    updateTheme(defaults);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setStatusMessage(null);
     setSubmitting(true);
 
     try {
-      const serializable = {
-        ...form,
-        primaryLogo: pickSerializableImages(form.primaryLogo),
-        secondaryLogo: pickSerializableImages(form.secondaryLogo),
-        favicon: pickSerializableImages(form.favicon),
-      };
+      const payload = prepareThemePayload(form);
+      const response = await post(THEME_SETTINGS_ROUTE, payload);
 
-      localStorage.setItem("themeSettings", JSON.stringify(serializable));
-      applyTheme(form);
-      setStatusMessage({ type: "success", text: "Theme settings saved locally. API integration will replace this flow." });
+      if (response?.status) {
+        await fetchThemeSettings(false);
+        setStatusMessage({
+          type: "success",
+          text: response?.message || "Theme settings updated successfully.",
+        });
+      } else {
+        const message = response?.message || "Unable to update theme settings right now.";
+        setStatusMessage({ type: "error", text: message });
+      }
     } catch (error) {
-      console.error("Theme settings save failed", error);
-      setStatusMessage({ type: "error", text: "Unable to persist theme settings locally." });
+      console.error("Theme settings update failed", error);
+      setStatusMessage({
+        type: "error",
+        text: "Failed to save theme settings. Default theme remains in place.",
+      });
     } finally {
       setSubmitting(false);
     }
@@ -413,6 +133,16 @@ const ThemeSettings = () => {
     },
     [form]
   );
+
+  if (loading) {
+    return (
+      <DashboardLayout pageTitle="Theme Settings">
+        <div className="container-fluid py-5">
+          <LoadingSpinner />
+        </div>
+      </DashboardLayout>
+    );
+  }
 
   const renderColorField = (field) => {
     const value = form[field.key] ?? field.fallback;
@@ -462,7 +192,7 @@ const ThemeSettings = () => {
             <div>
               <h2 className="mainTitle mb-1">Theme Settings</h2>
               <p className="text-muted mb-0">
-                Configure brand identity, color tokens, and UI accents. Logo uploads are held client-side until API integration is ready.
+                Configure brand identity, color tokens, and UI accents. Saved changes update the storefront instantly.
               </p>
             </div>
             <div className="theme-settings__actions">
@@ -471,7 +201,7 @@ const ThemeSettings = () => {
                 variant="outline-secondary"
                 className="px-4"
                 onClick={handleReset}
-                disabled={submitting}
+                disabled={submitting || loading}
               >
                 Reset to Defaults
               </CustomButton>
@@ -481,6 +211,7 @@ const ThemeSettings = () => {
                 className="px-4"
                 loading={submitting}
                 loadingText="Saving..."
+                disabled={loading && !submitting}
               >
                 Save Theme
               </CustomButton>

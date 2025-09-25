@@ -8,6 +8,8 @@ import "./style.css";
 import TextInput from "../../../Common/FormElements/TextInput";
 import CustomButton from "../../../Common/CustomButton";
 import { useShopInformation } from "../../../../Hooks/useShopInformation";
+import { useThemeSettings } from "../../../../Context/ThemeContext";
+import useThemeAsset from "../../../../Hooks/useThemeAsset";
 
 const quickLinks = [
   { label: "Home", path: "/" },
@@ -30,6 +32,8 @@ const SOCIAL_PROVIDERS = [
 
 export const Footer = () => {
   const { data: shopInfo } = useShopInformation();
+  const { theme } = useThemeSettings();
+  const primaryLogoSrc = useThemeAsset(theme?.primaryLogo, images.FooterLogo || images.Logo);
 
   const resolvedSocialLinks = (shopInfo ? SOCIAL_PROVIDERS.map((config) => {
     const href = shopInfo?.[config.key]?.trim();
@@ -66,7 +70,7 @@ export const Footer = () => {
                     className="align-items-center mb-4 mb-md-0 align-items-stretch"
                   >
                     <div className="widget image-widget text-left w-100">
-                      <img src={images.FooterLogo} className="img-fluid" alt="" />
+                      <img src={primaryLogoSrc} className="img-fluid" alt="" />
                     </div>
                     <div className="widget social-links">
                       <h3 className="widget-title fw-bold mb-2 mb-lg-2">Follow Us</h3>

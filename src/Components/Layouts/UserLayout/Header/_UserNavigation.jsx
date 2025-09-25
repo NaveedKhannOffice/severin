@@ -6,6 +6,8 @@ import Navbar from "react-bootstrap/Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight, faBars, } from '@fortawesome/free-solid-svg-icons';
 import { images } from "../../../../Assets";
+import { useThemeSettings } from "../../../../Context/ThemeContext";
+import useThemeAsset from "../../../../Hooks/useThemeAsset";
 import CustomModal from "../../../CustomModal";
 import Toast, { showToast } from "../../../Toast";
 // import { notifications } from "../../config/data";
@@ -20,6 +22,8 @@ import { notificationsData } from "../../../../Config/data";
 
 const UserNavigation = () => {
   const navigate = useNavigate();
+  const { theme } = useThemeSettings();
+  const primaryLogoSrc = useThemeAsset(theme?.primaryLogo, images.Logo);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -133,7 +137,7 @@ const UserNavigation = () => {
       <Navbar bg="light" variant="light">
         <Container fluid>
           <Navbar.Brand as={Link} to="/" className="me-3">
-            <img src={images.HeaderLogo} alt="" />
+            <img src={primaryLogoSrc} alt="" />
           </Navbar.Brand>
           <Offcanvas className="main-nav-wrap  123 flex-grow-1 me-0 me-lg-3" show={show} onHide={handleClose} responsive="lg">
             <Offcanvas.Header closeButton>

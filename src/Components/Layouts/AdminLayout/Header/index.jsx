@@ -18,10 +18,14 @@ import CustomModal from "../../../Common/CustomModal/index";
 import Toast, { showToast } from "../../../Common/Toast/index";
 import "./style.css";
 import { images } from "../../../../Assets";
+import { useThemeSettings } from "../../../../Context/ThemeContext";
+import useThemeAsset from "../../../../Hooks/useThemeAsset";
 
 const Header = (props) => {
   const navigate = useNavigate();
   const { role, user } = useAuth();
+  const { theme } = useThemeSettings();
+  const primaryLogoSrc = useThemeAsset(theme?.primaryLogo, images.HeaderLogo || images.Logo);
   const handleLogout = useLogout();
   const [showModal, setShowModal] = useState(false);
   const [notificationData, setNotificationData] = useState([]);
@@ -42,7 +46,7 @@ const Header = (props) => {
         </Navbar.Toggle>
         <div className="logoWrapper px-2 order-2 order-lg-1">
           <Link to={"/admin/dashboard"} className="siteLogo">
-            <img src={images.HeaderLogo} alt="" />
+            <img src={primaryLogoSrc} alt="" />
           </Link>
         </div>
         <Navbar.Collapse

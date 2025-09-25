@@ -26,6 +26,8 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { images } from "../../../../Assets";
+import { useThemeSettings } from "../../../../Context/ThemeContext";
+import useThemeAsset from "../../../../Hooks/useThemeAsset";
 import { useAuth } from "../../../../Hooks/useAuth";
 import { useLogout } from "../../../../Services/Auth";
 import { fullName, generateLinks, slugify } from "../../../../Utils/helper";
@@ -39,6 +41,8 @@ import { removeItem } from "../../../../Store/actions";
 
 export const Header = () => {
   const navigate = useNavigate();
+  const { theme } = useThemeSettings();
+  const primaryLogoSrc = useThemeAsset(theme?.primaryLogo, images.Logo);
   const [show, setShow] = useState(false);
   const dispatch = useDispatch();
   const handleClose = () => setShow(false);
@@ -167,7 +171,7 @@ export const Header = () => {
         <Navbar expand={"md"} bg="light" variant="light" className={``}>
           <Container fluid className="">
             <Navbar.Brand as={Link} to={"/"} className="me-3">
-              <img src={images.Logo} alt="" />
+              <img src={primaryLogoSrc} alt="" />
             </Navbar.Brand>
             <Navbar.Offcanvas
               id="offcanvasNavbar-expand-lg"

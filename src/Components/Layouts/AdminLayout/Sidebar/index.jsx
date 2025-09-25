@@ -4,14 +4,19 @@ import { useAuth } from "../../../../Hooks/useAuth";
 import { generateLinks } from "../../../../Utils/helper";
 import "./style.css";
 import { images } from "../../../../Assets";
+import { useThemeSettings } from "../../../../Context/ThemeContext";
+import useThemeAsset from "../../../../Hooks/useThemeAsset";
 
 const Sidebar = (props) => {
     const [user, setUser] = useState({});
     const urlPath = window.location.pathname;
     const { role } = useAuth();
-
-    const defaultLogo = images.HeaderLogo || images.Logo;
-    const compactLogo = images.HeaderLogoMobile || defaultLogo;
+    const { theme } = useThemeSettings();
+    const defaultLogo = useThemeAsset(theme?.primaryLogo, images.HeaderLogo || images.Logo);
+    const compactLogo = useThemeAsset(
+        theme?.secondaryLogo,
+        images.HeaderLogoMobile || defaultLogo
+    );
     const [headerLogo, setHeaderLogo] = useState(defaultLogo);
 
     useEffect(() => {

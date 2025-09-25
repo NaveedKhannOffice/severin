@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter } from "react-router-dom";
 import ApiConfig from "./Config/ApiConfig";
+import { ThemeProvider } from "./Context/ThemeContext";
 import { persistor, store } from "./Store/store.jsx";
 import 'antd/dist/reset.css';
 
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <PersistGate loading={null} persistor={persistor}>
             <BrowserRouter basename={process.env.REACT_APP_BASE_NAME}>
                 <ApiConfig />{" "}
-                <App />
+                <ThemeProvider>
+                    <App />
+                </ThemeProvider>
             </BrowserRouter>
         </PersistGate>
     </Provider>
