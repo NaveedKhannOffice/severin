@@ -441,9 +441,11 @@ export const prepareThemePayload = (formState) => {
     const value = formState?.[formKey];
     if (IMAGE_FIELD_KEYS.includes(formKey)) {
       const imagesList = normalizeImageList(value);
-      if (imagesList.length > 0) {
-        payload[apiKey] = imagesList[0];
-      }
+      const uploadedFile =
+        typeof File !== "undefined"
+          ? imagesList.find((item) => item instanceof File)
+          : null;
+      payload[apiKey] = uploadedFile || null;
       return;
     }
 

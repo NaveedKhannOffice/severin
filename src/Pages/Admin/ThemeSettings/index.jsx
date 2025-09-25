@@ -48,7 +48,7 @@ const ThemeSettings = () => {
         setStatusMessage((prev) => (prev?.type === "error" ? null : prev));
       } catch (error) {
         console.error("Failed to fetch theme settings", error);
-        const defaults = composeThemeState({});
+        const defaults = composeThemeState({}, { includeCssDefaults: false });
         setForm(defaults);
         updateTheme(defaults);
         setStatusMessage({
@@ -88,7 +88,8 @@ const ThemeSettings = () => {
   };
 
   const handleReset = () => {
-    const defaults = composeThemeState({}, { includeCssDefaults: true });
+    const defaults = composeThemeState({}, { includeCssDefaults: false });
+    // Always fall back to the baked-in theme values, not the current CSS overrides
     setForm(defaults);
     setStatusMessage(null);
     updateTheme(defaults);
@@ -273,6 +274,7 @@ const ThemeSettings = () => {
               </div>
               <div className="col-md-6 col-lg-4">
                 <UploadImages
+                  id="primaryLogo"
                   label="Primary Logo"
                   images={form.primaryLogo}
                   numberOfFiles={1}
@@ -283,6 +285,7 @@ const ThemeSettings = () => {
               </div>
               <div className="col-md-6 col-lg-4">
                 <UploadImages
+                  id="secondaryLogo"
                   label="Secondary / Inverted Logo"
                   images={form.secondaryLogo}
                   numberOfFiles={1}
@@ -293,6 +296,7 @@ const ThemeSettings = () => {
               </div>
               <div className="col-md-6 col-lg-4">
                 <UploadImages
+                  id="favicon"
                   label="Favicon"
                   images={form.favicon}
                   numberOfFiles={1}
