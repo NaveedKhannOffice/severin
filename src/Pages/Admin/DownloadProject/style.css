@@ -1,0 +1,114 @@
+.download-project {
+  min-height: calc(100vh - 220px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.download-project__card {
+  max-width: 520px;
+  width: 100%;
+  padding: 3rem 2.5rem;
+  border-radius: 28px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  background: linear-gradient(145deg, rgba(79, 70, 229, 0.08), rgba(236, 72, 153, 0.08));
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+}
+
+.download-project__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  background: var(--bs-body-bg, #ffffff);
+  z-index: -1;
+}
+
+.download-project__icon {
+  width: 104px;
+  height: 104px;
+  margin: 0 auto 1.75rem;
+  border-radius: 26px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.18), rgba(236, 72, 153, 0.12));
+  color: var(--bs-primary, #4f46e5);
+  box-shadow: inset 0 0 0 1px rgba(79, 70, 229, 0.25);
+}
+
+.download-project__icon svg {
+  width: 60px;
+  height: 60px;
+}
+
+.download-project__button {
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-radius: 999px;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+  min-width: 200px;
+}
+
+.download-project__progress {
+  margin-top: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.download-project__progress-text {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--bs-secondary, #6c757d);
+}
+
+.download-project__status {
+  margin-top: 1.75rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  border: 1px solid transparent;
+}
+
+.download-project__status--success {
+  background: rgba(34, 197, 94, 0.12);
+  border-color: rgba(34, 197, 94, 0.3);
+  color: #0f5132;
+}
+
+.download-project__status--error {
+  background: rgba(248, 113, 113, 0.12);
+  border-color: rgba(248, 113, 113, 0.3);
+  color: #7f1d1d;
+}
+
+@media (max-width: 575px) {
+  .download-project__card {
+    padding: 2.5rem 1.75rem;
+    border-radius: 22px;
+  }
+
+  .download-project__icon {
+    width: 84px;
+    height: 84px;
+    border-radius: 22px;
+    margin-bottom: 1.5rem;
+  }
+
+  .download-project__icon svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .download-project__button {
+    width: 100%;
+    min-width: 0;
+  }
+}
+

@@ -48,6 +48,7 @@ import ViewProductsDetail from "../Pages/Admin/ProductManagement/ViewProduct";
 import AdminProductDetails from "../Pages/Admin/Product/Product";
 import ThemeSettings from "../Pages/Admin/ThemeSettings";
 import ShopInformation from "../Pages/Admin/ShopInformation";
+import DownloadProject from "../Pages/Admin/DownloadProject";
 
 
 import Profile from "../Pages/Admin/Profile";
@@ -173,6 +174,7 @@ const routes = [
                     { path: "admin/dashboard", element: <Dashboard /> },
                     { path: "admin/theme-settings", element: <ThemeSettings /> },
                     { path: "admin/shop-information", element: <ShopInformation /> },
+                    { path: "admin/download-project", element: <DownloadProject /> },
 
                     {
                         path: "admin/products-management",
@@ -276,3 +278,4 @@ const Routers = () => {
 };
 
 export default Routers;
+

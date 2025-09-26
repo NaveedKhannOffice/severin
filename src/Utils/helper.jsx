@@ -663,6 +663,13 @@ export const generateLinks = (role) => {
                     image: () => <i className="fas fa-palette"></i>,
                 },
                 {
+                    path: "/admin/download-project",
+                    label: "Download Project",
+                    name: "Download",
+                    link: "/admin/download-project",
+                    image: () => <i className="fas fa-download"></i>,
+                },
+                {
                     path: "/admin/shop-information",
                     label: "Shop Information",
                     name: "Shop Information",
@@ -2383,3 +2390,4 @@ export const getColorName = (hex) => {
     const normalized = hex.toLowerCase();
     return colorNames[normalized] || hex;
 };
+
