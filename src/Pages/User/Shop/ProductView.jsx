@@ -20,7 +20,7 @@ import {
     addItem,
     decreaseQty,
     increaseQty,
-    removeItem,
+    removeItem, 
 } from "../../../Store/actions";
 import { FaTrash } from "react-icons/fa6";
 import { useSelector } from "react-redux";
