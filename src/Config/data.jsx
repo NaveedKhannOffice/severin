@@ -534,7 +534,7 @@ export const homeBannerData = {
     tagline: "Premium  -  Bio - Ritual",
     price: "CHF 155.00",
     buttonText: "— Our Story",
-    buttonLink: "/about",
+    buttonLink: "/shop",
     backgroundImage:
       "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=800&fit=crop",
   },
